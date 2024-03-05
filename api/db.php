@@ -37,6 +37,14 @@ class DB{
     function get_last_order($customer_id){
         return $this->connection->query("select * from orders order by id desc limit 1 where id=$customer_id");
     }
+    function get_orders_from_to($date_from , $date_to){
+        return $this->connection->query("SELECT orders.order_date,orders.status,order_product.price 
+        FROM orders 
+        INNER JOIN order_product 
+        on orders.id=order_product.order_id 
+        WHERE order_date 
+        BETWEEN '$date_from' AND '$date_to' ");
+    }
 
 
 }
