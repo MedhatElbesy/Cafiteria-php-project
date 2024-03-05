@@ -1,6 +1,6 @@
 <?php
 
-    include("class.php");
+    include("db.php");
 
     $mydb = new DB();
     $data =$mydb->query("select * from order order by id desc limit 1");
