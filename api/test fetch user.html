@@ -9,27 +9,59 @@
     <h2>users in console log</h2>
     <div id="first"></div>
 
+    <input type="file" id="fileInput">
+    <button onclick="senddata()">send</button>
+    
     <script>
+
+        // // Test api admins
+
         async function fetchusers(){
-
-
-
             try {
-                let data=await fetch("http://localhost/project/adminAPI.php")
+                let data=await fetch("./adminAPI.php")
                 let da= await data.json();
                 console.log(da);
             }
             catch(err) {
                 document.getElementById("first").innerHTML = err.message;
             }
-        
-            
         }
 
-      
         fetchusers();
+        
 
+
+
+
+        // // Test api insert admin
+
+        async function senddata(){
+
+        const fileInput = document.getElementById('fileInput');
+        const file = fileInput.files[0];
+
+        const formData = new FormData();
+        
+        formData.append('id', "33");
+        formData.append('fname', 'Amr');
+        formData.append('lname', 'Abdullah');
+        formData.append('password', 'pass123');
+        formData.append('email', 'amr4@example.com');
+        formData.append('img', file);
+
+
+        fetch('./insertUser.php', {
+        method: 'POST',
+        body: formData
+        })
+            console.log("hi");
+
+        }
+
+
+    
         
     </script>
 </body>
 </html>
+
