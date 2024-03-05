@@ -1,7 +1,5 @@
 <?php
 
-
-
     include("db.php");
 
     $mydb = new DB();
