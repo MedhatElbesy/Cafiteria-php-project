@@ -34,7 +34,9 @@ class DB{
     function update_data($table_name,$columns_values,$condition=1){
         $this->connection->query("UPDATE $table_name SET $columns_values WHERE $condition");
     }
-    
+    function get_last_order($customer_id){
+        return $this->connection->query("select * from orders order by id desc limit 1 where id=$customer_id");
+    }
 
 
 }
