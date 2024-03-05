@@ -34,6 +34,7 @@ class DB{
     function update_data($table_name,$columns_values,$condition=1){
         $this->connection->query("UPDATE $table_name SET $columns_values WHERE $condition");
     }
+    
 
 
 }

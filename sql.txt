@@ -130,3 +130,11 @@ INSERT INTO order_product (order_id, product_id, quantity, price) VALUES
 (1, 1, 2, 40),
 (2, 2, 3, 60),
 (3, 3, 1, 30);
+
+
+
+
+-- new  
+ alter table product add column img;
+ alter table product add column available enum('available', 'non available') NOT NULL;
+
