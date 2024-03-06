@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>users in console log</h2>
+
+    <input type="file" id="fileInput"><br><br>
+    <input type="text" id="id" name="id" placeholder="id"><br><br>
+    <input type="text" id="room" name="room" placeholder="room"><br><br>
+    <input type="text" id="fname" name="fname" placeholder="fname"><br><br>
+    <input type="text" id="lname" name="lname" placeholder="lname"><br><br>
+    <input type="text" id="email" name="email" placeholder="email"><br><br>
+    <input type="password" id="password" name="password" placeholder="password"><br><br>
+    <div style="font-size: large;  font-weight:bold;color:red;" id="response"></div>
+
+
+
+    <button onclick="senddata()">send</button>
+    
+    <script>
+
+
+
+        async function senddata(){
+
+        const fileInput = document.getElementById('fileInput');
+        const file = fileInput.files[0];
+
+        const formData = new FormData();
+        
+        formData.append('id', document.getElementById("id").value);
+        formData.append('fname', document.getElementById("fname").value);
+        formData.append('lname', document.getElementById("lname").value);
+        formData.append('email', document.getElementById("email").value);
+        formData.append('password', document.getElementById("password").value);
+        formData.append('room', document.getElementById("room").value);
+        formData.append('img', file);
+
+
+        var xhr = new XMLHttpRequest();
+xhr.open("POST", "editCustomer.php");
+xhr.onreadystatechange = function()
+ { 
+    if (xhr.readyState === 4 && xhr.status === 200)
+     { console.log(xhr.responseText);
+    document.getElementById("response").innerHTML = `The response of the Request :  ${xhr.responseText}`;
+    } }
+// xhr.setRequestHeader("Content-type", "application/json")  
+xhr.send(formData); 
+ 
+ 
+
+        }
+
+
+    
+        
+    </script>
+</body>
+</html>
+
