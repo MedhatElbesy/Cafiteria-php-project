@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 let allProducts = [
   { "id": 1, "img": "../images/landing-img.jpg", "name": "Coffee", "price": 5, "category_id": 1},
   { "id": 2, "img": "../images/landing-img.jpg", "name": "Tea", "price": 10, "category_id": 2},
@@ -174,9 +173,6 @@ let addAllProducts = function() {
 } ();
 
 
-
-
-
 /* <div class="product text-center m-0">
   <img src="../images/landing-img.jpg" alt="Product">
   <div class="data">
@@ -201,28 +197,4 @@ let addAllProducts = function() {
   <td><button class="cancel reset center text-danger"><i class="fa-regular fa-circle-xmark"></i></button></td>
 </tr>
 */
-=======
-// Example starter JavaScript for disabling form submissions if there are invalid fields
-(() => {
-  "use strict";
 
-  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  const forms = document.querySelectorAll(".needs-validation");
-
-  // Loop over them and prevent submission
-  Array.from(forms).forEach((form) => {
-    form.addEventListener(
-      "submit",
-      (event) => {
-        if (!form.checkValidity()) {
-          event.preventDefault();
-          event.stopPropagation();
-        }
-
-        form.classList.add("was-validated");
-      },
-      false
-    );
-  });
-})();
->>>>>>> ca864c7081d505400e4de7af5e5151fac12d4fe1

@@ -21,7 +21,6 @@
       color: #BBAB8C;
     }
   }
-<<<<<<< HEAD
   main {
     form {
       input {
@@ -58,61 +57,10 @@
         height: 500px;
       }
     }
-=======
-  img {
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 3rem;
   }
 }
-.myorder_card {
-  position: relative;
-  width: 10rem;
-  height: 10rem;
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  border: none;
-  .status {
-    position: absolute;
-    border: none;
-    top: 0.25rem;
-    left: 0.25rem;
-  }
-  i {
-    width: 1rem;
-    height: 1rem;
-  }
-  .cancel_order {
-    position: absolute;
-    right: 0.25rem;
-    top: 0.25rem;
-    padding: 0.1rem 0.5rem;
-  }
-  .edit_order {
-    position: absolute;
-    right: 0.25rem;
-    top: 2.5rem;
-    padding: 0.1rem 0.5rem;
-  }
-  .available_order {
-    position: absolute;
-    right: 0.25rem;
-    top: 4.75rem;
-    padding: 0.1rem 0.5rem;
-  }
-  img {
-    margin-top: 0.75rem;
-    width: 3rem;
-  }
-  .card-body {
-    position: absolute;
-    bottom: 0;
->>>>>>> ca864c7081d505400e4de7af5e5151fac12d4fe1
-  }
-}
+
+
 
 .user-home {
   background-color: #F5F5F5;
