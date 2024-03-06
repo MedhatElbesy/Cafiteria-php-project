@@ -63,7 +63,7 @@
                                 else{
                                     $response = [
                                         'status' => 'failed',
-                                        'message' => 'No match in data base'
+                                        'message' => 'No match in database'
                                     ];
                                 }
                               
