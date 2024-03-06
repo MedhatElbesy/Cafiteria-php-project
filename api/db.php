@@ -43,8 +43,7 @@ class DB{
         INNER JOIN order_product 
         on orders.id=order_product.order_id 
         WHERE order_date 
-        BETWEEN '$date_from' AND '$date_to'
-          ");
+        BETWEEN '$date_from' AND '$date_to'");
     }
     function getOrderWithAmountInSpecificDate($date_from , $date_to,$customer_id){
         return $this->connection->query("SELECT orders.order_date, order_product.price
@@ -69,6 +68,16 @@ class DB{
             $query = $query . " where customers_id=$customer_id";
         }
             return $this->connection->query($query);
+    }
+    function ordersStatusForAdmin(){
+        return $this->connection->query("SELECT orders.order_date , customers.fname , customers.lname , rooms.id ,rooms.extNumber 
+        from orders 
+        INNER JOIN customers 
+        ON orders.customers_id = customers.id
+        JOIN rooms 
+        on customers.id = rooms.id 
+        WHERE orders.status = 'processing'");
+
     }
 
 
