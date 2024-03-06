@@ -81,6 +81,16 @@ class DB{
     }
 
 
+
+
+    function beginTransaction(){
+       $this->connection->beginTransaction();
+    }
+    function commit(){
+        $this->connection->commit();
+    }
+
+
 }
 
 header('Content-Type: application/json; charset=utf-8');
