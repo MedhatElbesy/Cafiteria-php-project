@@ -34,56 +34,25 @@ class DB{
     function update_data($table_name,$columns_values,$condition=1){
         $this->connection->query("UPDATE $table_name SET $columns_values WHERE $condition");
     }
-    function get_last_order($customer_id){
-        return $this->connection->query("select * from orders order by id desc limit 1 where id=$customer_id");
-    }
-    function getOrdersFromTo($date_from , $date_to){
-        return $this->connection->query("SELECT orders.order_date,orders.status,order_product.price 
-        FROM orders 
-        INNER JOIN order_product 
-        on orders.id=order_product.order_id 
-        WHERE order_date 
-        BETWEEN '$date_from' AND '$date_to'");
-    }
-    function getOrderWithAmountInSpecificDate($date_from , $date_to,$customer_id){
-        return $this->connection->query("SELECT orders.order_date, order_product.price
-        from orders 
-        INNER JOIN order_product 
-        on orders.id = order_product.order_id 
-        JOIN customers 
-        on customers.id = orders.customers_id
-        WHERE customers.id='$customer_id' 
-        AND order_date 
-        BETWEEN '$date_from' AND '$date_to'");
-    }
     function getCustuomerNameWithTotalPrice($customer_id=null){
-        $query = "SELECT customers.fname,customers.lname,order_product.price 
-        from customers 
-        INNER JOIN orders 
-        ON customers.id=orders.customers_id 
-        JOIN order_product 
-        on orders.id=order_product.order_id";
+        $query = "SELECT customers.fname , customers.lname , customers.id , SUM(orders.total_price) AS Total_Amount
+        FROM customers
+        INNER JOIN orders
+        ON customers.id = orders.customers_id
+        GROUP BY customers.id
+        ";
 
         if($customer_id){
-            $query = $query . " where customers_id=$customer_id";
+            $query = $query . "HAVING customers.id = '$customer_id'";
         }
             return $this->connection->query($query);
-    }
-    function ordersStatusForAdmin(){
-        return $this->connection->query("SELECT orders.order_date , customers.fname , customers.lname , rooms.id ,rooms.extNumber 
-        from orders 
-        INNER JOIN customers 
-        ON orders.customers_id = customers.id
-        JOIN rooms 
-        on customers.id = rooms.id 
-        WHERE orders.status = 'processing'");
     }
 
 
 
 
     function beginTransaction(){
-       $this->connection->beginTransaction();
+        $this->connection->beginTransaction();
     }
     function commit(){
         $this->connection->commit();
