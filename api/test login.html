@@ -13,39 +13,46 @@
      <label>postion</label><br>
      <input type="radio" name="postion" value="admin"> <label>admin</label><br>
      <input type="radio" name="postion" value="user"> <label>user</label><br>
-     <input type="button" id="password" onclick="testfun()" value="submit">
+     <input type="button" id="password" @click="testfun()" value="submit">
      <div style="font-size: large;  font-weight:bold;color:red;" id="response"></div>
    
+     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
-    <script>
+     <script>
+        // step 2 : create instance : vue instance
+      const app= Vue.createApp({
+                    data:()=>({
+                        
+                    }),
+                    methods:{
+                    testfun(){
+                    let inputText=document.querySelectorAll('input');
+                    let inputradio=document.querySelector('input[name="postion"]:checked');
+                    myObject={
+                    email:  inputText[0].value, 
+                    password:  inputText[1].value, 
+                    postion:  inputradio.value, 
+                    };
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "Login.php");
+                    xhr.onreadystatechange = function()
+                    { 
+                    if (xhr.readyState === 4 && xhr.status === 200)
+                    { console.log(xhr.responseText);
+                    document.getElementById("response").innerHTML = `The response of the Request :  ${xhr.responseText}`;
+                    } }
+                    xhr.setRequestHeader("Content-type", "application/json")  
+                    xhr.send(JSON.stringify(myObject)); 
 
-const testfun=()=>{
-    let inputText=document.querySelectorAll('input');
-    let inputradio=document.querySelector('input[name="postion"]:checked');
-    myObject={
-    email:  inputText[0].value, 
-    password:  inputText[1].value, 
-    postion:  inputradio.value, 
-};
- 
-// request= new XMLHttpRequest()
-var xhr = new XMLHttpRequest();
-xhr.open("POST", "Login.php");
-xhr.onreadystatechange = function()
- { 
-    if (xhr.readyState === 4 && xhr.status === 200)
-     { console.log(xhr.responseText);
-    document.getElementById("response").innerHTML = `The response of the Request :  ${xhr.responseText}`;
-    } }
-xhr.setRequestHeader("Content-type", "application/json")  
-xhr.send(JSON.stringify(myObject)); 
- 
-}
+                    }    
+                    
+                },
 
 
-
-
-        
+        });//end of create app
+        //3- mounting process :
+         app.mount("body");
     </script>
+   
 </body>
 </html>
