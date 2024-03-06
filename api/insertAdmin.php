@@ -9,9 +9,6 @@ $mydb = new DB();
 // if(isset($_SESSION["admin"])){
   
 
-$data= file_get_contents("php://input");
-$data= json_decode(file_get_contents("php://input"),true);
-
 
 
 $fname = $_POST['fname'];
@@ -24,9 +21,25 @@ $src="./images/$id.jpg";
 
 move_uploaded_file($_FILES["img"]["tmp_name"],"./images/$id.jpg");
 
+try{
 $mydb->insert_data("admin","id, fname, lname, email, password ,img" , "$id,'$fname','$lname','$email','$password','$src'");
 
 
+$response = [
+    'status' => 'success',
+    'message' => 'Insert done successfully.'
+];
+
+
+}catch(Exception $e){
+    $response = [ 'status' => 'failed',
+    'message' => $e->getMessage() ];
+    
+}
+
+
+header('Content-Type: application/json');
+echo json_encode($response);
 
 
 

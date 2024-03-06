@@ -50,9 +50,12 @@
         formData.append('img', file);
 
 
-        fetch('./insertUser.php', {
+        fetch('./insertAdmin.php', {
         method: 'POST',
         body: formData
+        }).then(response => response.json())
+        .then(data => {
+        console.log('Response from server:', data);
         })
             console.log("hi");
 
