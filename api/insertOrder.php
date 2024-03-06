@@ -15,7 +15,7 @@ $id = $data['id'];
 $customers_id = $data['customers_id'];
 $status = $data['status'];
 $productions = $data['productions'];
-$order_date = $data['order_date'];
+
 
 
 
@@ -49,8 +49,7 @@ $response = [
 
 
 header('Content-Type: application/json');
-// echo count($data["productions"]);
-// echo json_encode($data["productions"]);
+
 
 echo json_encode($response);
 
