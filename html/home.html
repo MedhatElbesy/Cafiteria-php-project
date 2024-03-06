@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cafeteria - Home</title>
+  <link rel="icon" type="image/png" href="../images/logo.png"/>
+  <!-- Styles -->
+  <link rel="stylesheet" href="../styles/style.css">
+  <link rel="stylesheet" href="../styles/normalize.css">
+  <!-- Frameworks -->
+  <link rel="stylesheet" href="../frameworks/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="../frameworks/font awesome/css/all.min.css">
+  <script src="../frameworks/bootstrap/bootstrap.min.js"></script>
+</head>
+<body>
+  <div class="container-fluid user-home">
+    <aside class="side-nav col-1 p-0 d-flex align-items-center flex-column">
+      <figure>
+        <img src="../images/logo.png" alt="Logo" width="50" height="50" class="d-inline-block align-text-top">
+      </figure>
+      <ul class="text-center">
+        <li class="active"><i class="fa-solid fa-house"></i></li>
+        <li><i class="fa-solid fa-receipt"></i></li>
+      </ul>
+    </aside>
+    <div class="row">
+      <main class="offset-1 p-0 col-8">
+        <nav class="navbar bg-body-tertiary align-items-center justify-content-end">
+          <div class="user-data">
+            <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
+              <img src="../images/logo.png" alt="Logo" width="50" height="50" class="d-inline-block align-text-top">
+              <span>Islam Askar</span>
+            </a>
+          </div>
+        </nav>
+        <section class="menu">
+          <article class="categories-sec row p-5">
+            <h3 class="mb-4">Categories</h3>
+              <div id="categories" class="categories d-flex align-items-center justify-content-evenly flex-wrap"></div>
+          </article>
+          <article class="products-sec row p-5">
+            <h3 class="mb-4">All Products</h3>
+            <div id="products" class="products d-flex align-items-center justify-content-evenly flex-wrap"></div>
+          </article>
+        </section>
+      </main>
+      <aside class="bill col-3 p-2">
+        <table id="bill" class="orders w-100">
+          <thead class="text-center">
+            <tr>
+              <th colspan="4">Bill</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+          <tfoot class="text-center">
+            <tr>
+              <td colspan="4">
+                <textarea class="reset p-2 mb-4" name="notes" id="notes" rows="5" placeholder="Extra Notes"></textarea>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="4">
+                <select class="room reset p-1 fw-bold mb-4" name="room" id="room">
+                    <option class="fw-bold text-center" selected>Room</option>
+                    <option class="reset" value="1001">Room 1001</option>
+                    <option class="reset" value="1002">Room 1002</option>
+                    <option class="reset" value="1003">Room 1003</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="4">
+                <div class="bill-price d-flex justify-content-between pb-4">
+                    <span>Total</span>
+                    <span>0</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="4">
+                <input type="submit" name="order" class="confirm reset p-2 fw-bold mt-4">
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </aside>
+    </div>
+  </div>
+  <script src="../script/script.js"></script>
+</body>
+</html>
