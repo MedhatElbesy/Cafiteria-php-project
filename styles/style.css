@@ -60,8 +60,6 @@
   }
 }
 
-
-
 .user-home {
   background-color: #F5F5F5;
   .side-nav {
@@ -160,9 +158,26 @@
       }
     }
   }
-  .bill {
+  .order-data {
+    background-color: #F5F5F5;
     border-left: 1px solid #d8d8d8;
-    .orders {
+    button {
+      width: 48%;
+      background-color: #F5F5F5;
+      font-weight: bold;
+      color: #4b4b4b;
+    }
+    button:nth-of-type(2) {
+      margin-left: 4px;
+    }
+    button.active {
+      background-color: #FFF;
+      border-radius:5px 5px 0 0;
+      color: #FE6C49;
+    }
+    .bill-orders {
+      border-radius: 5px;
+      background-color: #FFF;
       tbody {
         tr {
           background-color: #FFF;
@@ -208,13 +223,11 @@
           box-shadow: 0px 0px 3px 1px #ffdcd4;
           width: 100%;
         }
-        .room {
+        .room,
+        .bill-price {
           color: #4b4b4b;
           background-color: #FE6C49;
           border-radius: 15px;
-        }
-        .bill-price {
-          border-bottom: 1px dashed #FE6C49;
         }
         .confirm {
           background-color: #FE6C49;

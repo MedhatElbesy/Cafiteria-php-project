@@ -1,8 +1,10 @@
 let allProducts = [
   { "id": 1, "img": "../images/landing-img.jpg", "name": "Coffee", "price": 5, "category_id": 1},
-  { "id": 2, "img": "../images/landing-img.jpg", "name": "Tea", "price": 10, "category_id": 2},
+  { "id": 2, "img": "../images/landing-img.jpg", "name": "Tea", "price": 10, "category_id": 1},
+  { "id": 2, "img": "../images/landing-img.jpg", "name": "RedBull", "price": 10, "category_id": 2},
   { "id": 3, "img": "../images/landing-img.jpg", "name": "Cola", "price": 15, "category_id": 3},
   { "id": 4, "img": "../images/landing-img.jpg", "name": "Orange", "price": 20, "category_id": 4},
+  { "id": 5, "img": "../images/landing-img.jpg", "name": "Mango", "price": 20, "category_id": 4},
 ];
 
 let allCategories = [
@@ -14,7 +16,13 @@ let allCategories = [
 
 let categoryContainer = document.getElementById("categories");
 let productsContainer = document.getElementById("products");
+let orderData = document.querySelector(".order-data");
 let bill = document.getElementById("bill");
+let lastOrder = document.getElementById("lastOrder");
+let showLastOrder = document.querySelector(".show-last-order");
+let showBill = document.querySelector(".show-bill");
+let allOrders = bill.getElementsByTagName("tbody")[0].children;
+
 
 let setCategory = function() {
   for (let i =0; i < allCategories.length ; i++) {
@@ -35,21 +43,20 @@ let setCategory = function() {
     category.appendChild(p2);
     categoryContainer.appendChild(category);
 
-    category.addEventListener("click", ()=>showCategoryProducts(allCategories[i].id));
+    category.addEventListener("click", ()=>showCategoryProducts(allCategories[i]));
   }
 } ();
 
 let setOrder = function (productId) {
-  let allOrders = bill.children[1].children;
   for(let i = 0; i < allOrders.length; i++) {
-    let order = bill.children[1].children[i];
+    let order = bill.getElementsByTagName("tbody")[0].children[i];
     if(order.dataset.orderId == productId) {
       addOrder(order, allProducts[productId]);
       return;
     }
   }
   
-  let newOrder = bill.children[1].insertRow();
+  let newOrder = bill.getElementsByTagName("tbody")[0].insertRow();
   newOrder.classList.add("order", "center", "justify-content-between", "p-2", "mb-2");
   newOrder.dataset.quantity = 1;
   newOrder.dataset.orderId = productId;
@@ -100,23 +107,21 @@ let setProduct = function(i) {
   product.appendChild(data);
   productsContainer.appendChild(product);
 
-  product.addEventListener("click", ()=>setOrder(i));
+  product.addEventListener("click", function(){
+    showBill.classList.add("active");
+    showLastOrder.classList.remove("active");
+    bill.classList.remove("d-none");
+    lastOrder.classList.add("d-none");
+    setOrder(i);
+  });
 } ;
 
-
 // Order
-// let orderExistance = function() {
-//   console.log(bill.children[1].children.length);
-//   if(bill.children[1].children.length > 0) {
-//     document.getElementsByTagName("main")[0].classList.add("col-8");
-//     bill.classList.remove("d-none");
-//   }
-// }
-
 bill.addEventListener("click", function(e) {
   let order = e.target.closest("tr");
   if(e.target.parentNode.classList.contains("cancel")) {
     order.remove();
+    // checkNoOrders();
   }
   if(e.target.classList.contains("add")) {
     addOrder(order, allProducts[order.dataset.orderId]);
@@ -138,6 +143,7 @@ let removeOrder = function(order, product) {
   order.dataset.quantity = --quantity;
   if(quantity == 0) {
     order.remove();
+    // checkNoOrders();
     return;
   }
   order.querySelector(".quantity").innerText = quantity;
@@ -150,7 +156,6 @@ let orderPrice = function (order, product) {
 }
 
 let totalBill = function() {
-  let allOrders = bill.children[1].children;
   let billPrice = 0;
   for (let i = 0; i < allOrders.length; i++) {
     billPrice += Number(allOrders[i].children[2].innerText);
@@ -158,43 +163,51 @@ let totalBill = function() {
   bill.querySelector(".bill-price").getElementsByTagName("span")[1].innerHTML = billPrice;
 };
 
+let showOrder = function(e) {
+  if (e.target.classList.contains("show-last-order")) {
+    e.target.classList.add("active");
+    showBill.classList.remove("active");
+    lastOrder.classList.remove("d-none");
+    bill.classList.add("d-none");
+  } else if (e.target.classList.contains("show-bill")) {
+    if(allOrders.length == 0) {
+      return;
+    }
+    e.target.classList.add("active");
+    showLastOrder.classList.remove("active");
+    bill.classList.remove("d-none");
+    lastOrder.classList.add("d-none");
+  }
+}
+orderData.addEventListener("click", e => showOrder(e));
+
+
+// let checkNoOrders = function() {
+//   if(allOrders.length == 0) {
+//     showLastOrder.classList.add("active");
+//     showBill.classList.remove("active");
+//     lastOrder.classList.remove("d-none");
+//     bill.classList.add("d-none");
+//   }
+// }
+
 // Category
-let showCategoryProducts = function(categoryId) {
+let showCategoryProducts = function(category) {
+  let productsElement = document.getElementById("products");
+  while (productsElement.firstChild) {
+    productsElement.removeChild(productsElement.firstChild);
+  }
+
+  productsElement.previousElementSibling.innerText = category.name;
   for (let i = 0; i < allProducts.length; i++) {
-    if(allProducts[i].category_id == categoryId) {
+    if(allProducts[i].category_id == category.id) {
       setProduct(i);
     }
   }
 }
-let addAllProducts = function() {
+
+let ShowAllProducts = function() {
   for (let i = 0; i < allProducts.length; i++) {
     setProduct(i);
   }
 } ();
-
-
-/* <div class="product text-center m-0">
-  <img src="../images/landing-img.jpg" alt="Product">
-  <div class="data">
-    <p class="product-name m-0 p-2">Tea</p>
-    <p class="price m-0 p-2 fw-bold">200 LE / item</p>
-  </div>
-</div> 
-
-<tr class="order center justify-content-between p-2 mb-4">
-  <td>
-    <img src="../images/landing-img.jpg" height="30" width="30" alt="coffee">
-  </td>
-  <td>
-    <p class="m-0 fw-bold">Tea</p>
-    <div class="counter d-flex">
-      <span><sup class="text-black">x</sup>2</span>
-      <button class="fw-bold reset center mx-1">+</button>
-      <button class="fw-bold reset center">-</button>
-    </div>
-  </td>
-  <td class="total">200 LE</td>
-  <td><button class="cancel reset center text-danger"><i class="fa-regular fa-circle-xmark"></i></button></td>
-</tr>
-*/
-

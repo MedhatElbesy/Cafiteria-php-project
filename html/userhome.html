@@ -45,11 +45,13 @@
           </article>
         </section>
       </main>
-      <aside class="bill col-3 p-2">
-        <table id="bill" class="orders w-100">
+      <aside class="order-data col-3 p-2">
+        <button class="show show-last-order reset d-inline-block active fw-bold p-2">Last Order</button>
+        <button class="show show-bill reset d-inline-block fw-bold p-2">Bill</button>
+        <table id="bill" class="bill-orders w-100 d-none">
           <thead class="text-center">
             <tr>
-              <th colspan="4">Bill</th>
+              <th class="py-4" colspan="4">Bill</th>
             </tr>
           </thead>
           <tbody>
@@ -72,7 +74,7 @@
             </tr>
             <tr>
               <td colspan="4">
-                <div class="bill-price d-flex justify-content-between pb-4">
+                <div class="bill-price d-flex justify-content-between fw-bold m-2 p-2">
                     <span>Total</span>
                     <span>0</span>
                 </div>
@@ -80,7 +82,46 @@
             </tr>
             <tr>
               <td colspan="4">
-                <input type="submit" name="order" class="confirm reset p-2 fw-bold mt-4">
+                <input type="submit" name="order" class="confirm reset p-2 fw-bold my-4">
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+        <table id="lastOrder" class="bill-orders w-100">
+          <thead class="text-center">
+            <tr>
+              <th class="py-4" colspan="4">Last Order</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="order center justify-content-between p-2 mb-2" data-quantity="1" data-order-id="0">
+              <td><img src="../images/landing-img.jpg" alt="Coffee"></td>
+              <td>
+                <p class="m-0 fw-bold">Coffee</p>
+                <div class="counter d-flex">
+                  <span class="quantity">1</span>
+                </div>
+              </td>
+              <td>5</td>
+            </tr>
+            <tr class="order center justify-content-between p-2 mb-2" data-quantity="1" data-order-id="0">
+              <td><img src="../images/landing-img.jpg" alt="Coffee"></td>
+              <td>
+                <p class="m-0 fw-bold">Coffee</p>
+                <div class="counter d-flex">
+                  <span class="quantity">1</span>
+                </div>
+              </td>
+              <td>5</td>
+            </tr>
+          </tbody>
+          <tfoot class="text-center p-2">
+            <tr>
+              <td colspan="4">
+                <div class="bill-price d-flex justify-content-between fw-bold m-2 p-2">
+                    <span>Total</span>
+                    <span>0</span>
+                </div>
               </td>
             </tr>
           </tfoot>
