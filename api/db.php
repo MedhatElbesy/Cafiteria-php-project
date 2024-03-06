@@ -77,7 +77,6 @@ class DB{
         JOIN rooms 
         on customers.id = rooms.id 
         WHERE orders.status = 'processing'");
-
     }
 
 
