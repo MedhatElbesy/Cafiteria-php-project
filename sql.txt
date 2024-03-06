@@ -25,7 +25,7 @@ CREATE TABLE product
   category_id int(11) NOT NULL,
    img varchar(100) DEFAULT NULL, 
     name varchar(100) NOT NULL, 
-     price int(11) DEFAULT NULL, 
+     price DECIMAL DEFAULT NULL, 
       available enum('available', 'non available') NOT NULL, 
        PRIMARY KEY (id), 
         KEY fk_category (category_id),  
@@ -64,6 +64,7 @@ CREATE TABLE orders
  (id int(11) NOT NULL AUTO_INCREMENT, 
   order_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     status enum('processing','done','in delivery') DEFAULT NULL,
+      total_price DECIMAL  NOT NULL ,
         customers_id int(11) DEFAULT NULL,
          PRIMARY KEY (id), 
          CONSTRAINT fk_orders_customers FOREIGN KEY (customers_id) REFERENCES customers (id));
@@ -79,7 +80,7 @@ CREATE TABLE order_product
  (  order_id int(11) NOT NULL,
    product_id int(11) NOT NULL, 
     quantity int(11) NOT NULL, 
-     price int(11) NOT NULL, 
+     price_unit DECIMAL NOT NULL, 
       PRIMARY KEY (order_id,product_id),
         KEY product_id (product_id), 
          CONSTRAINT c_order_ibfk_1 FOREIGN KEY (order_id) REFERENCES orders (id) ON DELETE CASCADE,
@@ -101,10 +102,10 @@ INSERT INTO category (name) VALUES
 
 -- insert into product table
 
-INSERT INTO product (img, name, price, category_id) VALUES
-('laptop.jpg', 'Laptop', 1000, 1),
-('shirt.jpg', 'T-Shirt', 20, 2),
-('fridge.jpg', 'Refrigerator', 800, 3);
+INSERT INTO product (img, name, price,available, category_id) VALUES
+('laptop.jpg', 'Laptop', 1000,'available', 1),
+('shirt.jpg', 'T-Shirt', 20,'available', 2),
+('fridge.jpg', 'Refrigerator', 800,'available', 3);
 
 -- insert into admin table
 
@@ -120,14 +121,15 @@ INSERT INTO customers (fname, lname, password, email, img, room) VALUES
 
 -- insert into orders table
 
-INSERT INTO orders (order_date, status, customers_id) VALUES
-('2024-03-04 12:00:00', 'processing', 1),
-('2024-03-05 14:30:00', 'done', 2),
-('2024-03-06 10:45:00', 'in delivery', 3);
+INSERT INTO orders (order_date, status, total_price,customers_id) VALUES
+('2024-03-04 12:00:00', 'processing',3000, 1),
+('2024-03-05 14:30:00', 'done',5000, 2),
+('2024-03-06 12:00:00', 'processing',7000, 1),
+('2024-03-07 10:45:00', 'in delivery',8000, 3);
 
 -- insert into order_product table
 
-INSERT INTO order_product (order_id, product_id, quantity, price) VALUES
+INSERT INTO order_product (order_id, product_id, quantity, price_unit) VALUES
 (1, 1, 2, 40),
 (2, 2, 3, 60),
 (3, 3, 1, 30);
