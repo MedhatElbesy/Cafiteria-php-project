@@ -14,7 +14,6 @@ CREATE TABLE category
 (  id int(11) NOT NULL AUTO_INCREMENT,
   name varchar(100) NOT NULL, 
   img varchar(255) DEFAULT NULL,
-  available enum('available', 'non available') NOT NULL,
    PRIMARY KEY (id));
 
 
@@ -23,10 +22,11 @@ CREATE TABLE category
 
 CREATE TABLE product
  (  id int(11) NOT NULL AUTO_INCREMENT,
+  category_id int(11) NOT NULL,
    img varchar(100) DEFAULT NULL, 
     name varchar(100) NOT NULL, 
      price int(11) DEFAULT NULL, 
-      category_id int(11) NOT NULL, 
+      available enum('available', 'non available') NOT NULL, 
        PRIMARY KEY (id), 
         KEY fk_category (category_id),  
         CONSTRAINT fk_category FOREIGN KEY (category_id) REFERENCES category (id));
