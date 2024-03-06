@@ -1,3 +1,65 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  background-color: #f5f5f5;
+}
+.myorder_data {
+  height: 6rem;
+}
+.items_wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+/* width */
+.items_wrapper::-webkit-scrollbar {
+  height: 8px;
+}
+/* Track */
+.items_wrapper::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+/* Handle */
+.items_wrapper::-webkit-scrollbar-thumb {
+  background: #888888b4;
+}
+/* Handle on hover */
+.items_wrapper::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+.myorder_card-item {
+  position: relative;
+  background-color: white;
+  border-radius: 2px;
+  height: 6rem;
+  width: 8rem;
+  .item_title {
+    position: absolute;
+    top: 0.25rem;
+    right: 0.25rem;
+  }
+  .item-footer {
+    position: absolute;
+    bottom: 0.25rem;
+    padding: 0 0.5rem;
+    p {
+      margin: 0;
+    }
+  }
+  img {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 3rem;
+  }
+}
 .myorder_card {
   position: relative;
   width: 10rem;
@@ -5,7 +67,9 @@
   display: flex;
   justify-content: start;
   align-items: center;
-  border: none;
+  background-color: #fff;
+  border-radius: 0.5rem;
+  border: 2px solid #9e9fa14d;
   .status {
     position: absolute;
     border: none;
@@ -42,4 +106,30 @@
     position: absolute;
     bottom: 0;
   }
-} 
+}
+.myorder_card:hover {
+  border-color: #fe6c49;
+  cursor: pointer;
+}
+
+.user {
+  width: 12rem;
+  height: 15rem;
+  color: #9e9fa1;
+  background-color: #fff;
+  border-radius: 15px;
+  border: 2px solid #9e9fa14d;
+  cursor: pointer;
+  text-align: center;
+  padding: 0;
+  overflow: hidden;
+  img {
+    height: 8rem;
+    object-fit: contain;
+
+    margin: 0 auto;
+  }
+}
+.user:hover {
+  border-color: #fe6c49;
+}

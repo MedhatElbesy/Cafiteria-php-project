@@ -7,10 +7,10 @@
   <title>Cafeteria | products</title>
   <link rel="stylesheet" href="../frameworks/bootstrap/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <link rel="stylesheet" href="../styles/style.css">
+  <link rel="stylesheet" href="../styles/aStyle.css">
 </head>
 
-<body class="bg-light">
+<body>
   <div class="container mt-5">
     <div class="d-flex gap-2 align-items-center">
       <p class="m-0 fs-4">All Products</p>
@@ -22,23 +22,25 @@
     <div class="row justify-content-center justify-content-lg-start">
       <div class="myorder_card card mt-3 me-2 py-3 shadow-sm">
         <a href="#" title="cancel" class="cancel_order btn btn-danger"><i class="fa-solid fa-xmark"></i></a>
-        <a href="#" title="edit" class="edit_order btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
+        <a href="#" title="edit" class="edit_order btn btn-warning" data-bs-toggle="modal"
+          data-bs-target="#updateModal"><i class="fa-solid fa-pen-to-square"></i></a>
         <a href="#" title="availability" class="available_order btn btn-danger"><i class="fa-solid fa-ban"></i></a>
         <div class="status badge bg-secondary">20 EGP</div>
         <img src="../images/coffee-cup.gif" class="card-img-top w-75 h-75 me-5" alt="...">
         <div class="card-body w-100 p-0">
-          <div class="badge bg-primary w-100">Tea</div>
+          <div class="badge text-dark mb-2 w-100">Tea</div>
         </div>
       </div>
 
       <div class="myorder_card card mt-3 me-2 py-3 shadow-sm">
         <a href="#" title="cancel" class="cancel_order btn btn-danger"><i class="fa-solid fa-xmark"></i></a>
-        <a href="#" title="edit" class="edit_order btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
-        <a href="#" title="availability" class="available_order btn btn-primary"><i class="fa-solid fa-check"></i></a>
+        <a href="#" title="edit" class="edit_order btn btn-warning" data-bs-toggle="modal"
+          data-bs-target="#updateModal"><i class="fa-solid fa-pen-to-square"></i></a> <a href="#" title="availability"
+          class="available_order btn btn-primary"><i class="fa-solid fa-check"></i></a>
         <div class="status badge bg-secondary">20 EGP</div>
         <img src="../images/coffee-cup.gif" class="card-img-top w-75 h-75 me-5" alt="...">
         <div class="card-body w-100 p-0">
-          <div class="badge bg-primary w-100">Tea</div>
+          <div class="badge text-dark mb-2 w-100">Tea</div>
         </div>
       </div>
 
@@ -87,7 +89,8 @@
                 </a>
               </div>
               <div class="mb-3">
-                <input type="file" class="form-control" aria-label="product picture" required>
+                <label for="product_img" class="form-label">Product Image</label>
+                <input type="file" class="form-control" aria-label="product picture" id="product_img" required>
                 <div class="invalid-feedback">Please select a vaild image!</div>
               </div>
               <div class="col-12 text-center">
@@ -135,7 +138,58 @@
         </div>
       </div>
     </div>
-    <!-- end of add modals -->
+    <!-- end of add category modals -->
+    <!-- start of update product modals -->
+    <div class="modal fade" id="updateModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+      aria-labelledby="updateModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="updateModalLabel">Update product</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form class="row g-3 needs-validation" novalidate>
+              <div class="col-md-6">
+                <label for="productName" class="form-label">name</label>
+                <input type="text" class="form-control" id="productName" placeholder="product name" value="" required>
+                <div class="invalid-feedback">
+                  Please enter product name!.
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label for="productPrice" class="form-label">price</label>
+                <input type="number" min="0" class="form-control" id="productPrice" placeholder="product price" value=""
+                  required>
+                <div class="invalid-feedback">
+                  Please enter product price!.
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label for="productCategory" class="form-label">Category</label>
+                <select class="form-select" id="productCategory" aria-describedby="productCategoryFeedback" required>
+                  <option selected disabled value="">Choose...</option>
+                  <option>...</option>
+                </select>
+                <div id="productCategoryFeedback" class="invalid-feedback">
+                  Please select a valid category!.
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="product_img" class="form-label">Product Image</label>
+                <input type="file" class="form-control" aria-label="product picture" id="productImg" required>
+                <div class="invalid-feedback">Please select a vaild image!</div>
+              </div>
+              <div class="col-12 text-center">
+                <button class="btn btn-primary" type="submit">Update</button>
+                <button type="reset" class="btn btn-danger offset-1" data-bs-dismiss="modal">Reset</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end of add  modals -->
     <script src="../frameworks/bootstrap/bootstrap.bundle.min.js"></script>
     <script src="../script/aScript.js"></script>
     <script>
