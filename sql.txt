@@ -13,6 +13,8 @@ create TABLE rooms
 CREATE TABLE category 
 (  id int(11) NOT NULL AUTO_INCREMENT,
   name varchar(100) NOT NULL, 
+  img varchar(255) DEFAULT NULL,
+  available enum('available', 'non available') NOT NULL,
    PRIMARY KEY (id));
 
 
@@ -59,10 +61,9 @@ CREATE TABLE customers
 -- orders table
 
 CREATE TABLE orders
- (  id int(11) NOT NULL AUTO_INCREMENT, 
+ (id int(11) NOT NULL AUTO_INCREMENT, 
   order_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     status enum('processing','done','in delivery') DEFAULT NULL,
-      price int(11) DEFAULT NULL,
         customers_id int(11) DEFAULT NULL,
          PRIMARY KEY (id), 
          CONSTRAINT fk_orders_customers FOREIGN KEY (customers_id) REFERENCES customers (id));
@@ -119,10 +120,10 @@ INSERT INTO customers (fname, lname, password, email, img, room) VALUES
 
 -- insert into orders table
 
-INSERT INTO orders (order_date, status, price, customers_id) VALUES
-('2024-03-04 12:00:00', 'processing', 50, 1),
-('2024-03-05 14:30:00', 'done', 75, 2),
-('2024-03-06 10:45:00', 'in delivery', 60, 3);
+INSERT INTO orders (order_date, status, customers_id) VALUES
+('2024-03-04 12:00:00', 'processing', 1),
+('2024-03-05 14:30:00', 'done', 2),
+('2024-03-06 10:45:00', 'in delivery', 3);
 
 -- insert into order_product table
 
@@ -130,3 +131,4 @@ INSERT INTO order_product (order_id, product_id, quantity, price) VALUES
 (1, 1, 2, 40),
 (2, 2, 3, 60),
 (3, 3, 1, 30);
+

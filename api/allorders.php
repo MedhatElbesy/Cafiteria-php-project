@@ -10,9 +10,9 @@ $mydb = new DB();
 
 $data =$mydb->get_data("orders");
 
-$fullrows = $data->fetchAll(PDO::FETCH_ASSOC);
+$all_orders = $data->fetchAll(PDO::FETCH_ASSOC);
 
-echo json_encode($fullrows);
+echo json_encode($all_orders);
 
 
 

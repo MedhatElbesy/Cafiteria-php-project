@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <label>email</label>
+     <input type="text" id="email" > <br>
+     <label>password</label>
+     <input type="text" id="password"><br>
+     <label>postion</label><br>
+     <input type="radio" name="postion" value="admin"> <label>admin</label><br>
+     <input type="radio" name="postion" value="user"> <label>user</label><br>
+     <input type="button" id="password" onclick="testfun()" value="submit">
+     <div style="font-size: large;  font-weight:bold;color:red;" id="response"></div>
+   
+
+    <script>
+
+const testfun=()=>{
+    let inputText=document.querySelectorAll('input');
+    let inputradio=document.querySelector('input[name="postion"]:checked');
+    myObject={
+    email:  inputText[0].value, 
+    password:  inputText[1].value, 
+    postion:  inputradio.value, 
+};
+ 
+// request= new XMLHttpRequest()
+var xhr = new XMLHttpRequest();
+xhr.open("POST", "Login.php");
+xhr.onreadystatechange = function()
+ { 
+    if (xhr.readyState === 4 && xhr.status === 200)
+     { console.log(xhr.responseText);
+    document.getElementById("response").innerHTML = `The response of the Request :  ${xhr.responseText}`;
+    } }
+xhr.setRequestHeader("Content-type", "application/json")  
+xhr.send(JSON.stringify(myObject)); 
+ 
+}
+
+
+
+
+        
+    </script>
+</body>
+</html>

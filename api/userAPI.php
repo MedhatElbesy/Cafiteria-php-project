@@ -1,24 +1,24 @@
 <?php
-session_start();
-if(isset($_SESSION["admin"])){
+    session_start();
+        if(isset($_SESSION["admin"])){
 
 
-    
-include("db.php");
+            
+        include("db.php");
 
-$mydb = new DB();
+        $mydb = new DB();
 
-$data =$mydb->get_data("emp");
+        $data =$mydb->get_data("customers");
 
-$fullrows = $data->fetchAll(PDO::FETCH_ASSOC);
+        $fullrows = $data->fetchAll(PDO::FETCH_ASSOC);
 
-echo json_encode($fullrows);
-
-
+        echo json_encode($fullrows);
 
 
 
-}
+
+
+    }
 
 
 ?>

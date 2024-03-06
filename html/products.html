@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cafeteria | products</title>
+  <link rel="stylesheet" href="../frameworks/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="../styles/style.css">
+</head>
+
+<body class="bg-light">
+  <div class="container mt-5">
+    <div class="d-flex gap-2 align-items-center">
+      <p class="m-0 fs-4">All Products</p>
+      <div data-bs-toggle="modal" data-bs-target="#addModal">
+        <a href="#" title="add new product" class="btn btn-outline-primary"><i class="fa-solid fa-plus"></i></a>
+      </div>
+    </div>
+    <hr>
+    <div class="row justify-content-center justify-content-lg-start">
+      <div class="myorder_card card mt-3 me-2 py-3 shadow-sm">
+        <a href="#" title="cancel" class="cancel_order btn btn-danger"><i class="fa-solid fa-xmark"></i></a>
+        <a href="#" title="edit" class="edit_order btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
+        <a href="#" title="availability" class="available_order btn btn-danger"><i class="fa-solid fa-ban"></i></a>
+        <div class="status badge bg-secondary">20 EGP</div>
+        <img src="../images/coffee-cup.gif" class="card-img-top w-75 h-75 me-5" alt="...">
+        <div class="card-body w-100 p-0">
+          <div class="badge bg-primary w-100">Tea</div>
+        </div>
+      </div>
+
+      <div class="myorder_card card mt-3 me-2 py-3 shadow-sm">
+        <a href="#" title="cancel" class="cancel_order btn btn-danger"><i class="fa-solid fa-xmark"></i></a>
+        <a href="#" title="edit" class="edit_order btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
+        <a href="#" title="availability" class="available_order btn btn-primary"><i class="fa-solid fa-check"></i></a>
+        <div class="status badge bg-secondary">20 EGP</div>
+        <img src="../images/coffee-cup.gif" class="card-img-top w-75 h-75 me-5" alt="...">
+        <div class="card-body w-100 p-0">
+          <div class="badge bg-primary w-100">Tea</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- modals-->
+    <!-- start of add product modals -->
+    <div class="modal fade" id="addModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+      aria-labelledby="addModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="addModalLabel">Add new product</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form class="row g-3 needs-validation" novalidate>
+              <div class="col-md-6">
+                <label for="productName" class="form-label">name</label>
+                <input type="text" class="form-control" id="productName" placeholder="product name" value="" required>
+                <div class="invalid-feedback">
+                  Please enter product name!.
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label for="productPrice" class="form-label">price</label>
+                <input type="number" min="0" class="form-control" id="productPrice" placeholder="product price" value=""
+                  required>
+                <div class="invalid-feedback">
+                  Please enter product price!.
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label for="productCategory" class="form-label">Category</label>
+                <select class="form-select" id="productCategory" aria-describedby="productCategoryFeedback" required>
+                  <option selected disabled value="">Choose...</option>
+                  <option>...</option>
+                </select>
+                <div id="productCategoryFeedback" class="invalid-feedback">
+                  Please select a valid category!.
+                </div>
+              </div>
+              <div class="col-md-6 align-self-end" data-bs-toggle="modal" data-bs-target="#categoryModal">
+                <a href="#">
+                  <div class="btn btn-outline-primary">add new category</div>
+                </a>
+              </div>
+              <div class="mb-3">
+                <input type="file" class="form-control" aria-label="product picture" required>
+                <div class="invalid-feedback">Please select a vaild image!</div>
+              </div>
+              <div class="col-12 text-center">
+                <button class="btn btn-primary" type="submit">Add</button>
+                <button type="reset" class="btn btn-danger offset-1" data-bs-dismiss="modal">Reset</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end of add  modals -->
+    <!-- start of add category modals -->
+    <div class="modal fade" id="categoryModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+      aria-labelledby="categoryModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="categoryModalLabel">Add new category</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form class="row g-3 needs-validation" novalidate>
+              <div class="col-md-6">
+                <label for="category" class="form-label">name</label>
+                <input type="text" class="form-control" id="category" placeholder="category name" value="" required>
+                <div class="invalid-feedback">
+                  Please enter category name!.
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <input type="file" class="form-control" aria-label="category picture" required>
+                <div class="invalid-feedback">Please select a vaild image!</div>
+              </div>
+
+              <div class="col-12 text-center">
+                <button class="btn btn-primary" type="submit" data-bs-target="#addModal"
+                  data-bs-toggle="modal">Add</button>
+                <button type="reset" class="btn btn-danger offset-1" data-bs-dismiss="modal" data-bs-target="#addModal"
+                  data-bs-toggle="modal">cancel</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end of add modals -->
+    <script src="../frameworks/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="../script/script.js"></script>
+    <script>
+
+    </script>
+</body>
+
+</html>
