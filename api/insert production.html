@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>users in console log</h2>
+    <div id="first"></div>
+
+    <input type="file" id="fileInput"><br><br>
+    <input type="number" id="id" name="id" placeholder="id"><br><br>
+    <input type="text" id="name" name="name" placeholder="name"><br><br>
+    <input type="number" id="category_id" name="category_id" placeholder="category_id"><br><br>
+    <input type="number" id="price" name="price" placeholder="price"><br><br>
+    <input type="text" id="available" name="available" placeholder="available" value="available"><br><br>
+
+
+
+    <button onclick="senddata()">send</button>
+    
+    <script>
+
+        // // Test api admins
+
+        async function fetchusers(){
+            try {
+                let data=await fetch("./adminAPI.php")
+                let da= await data.json();
+                console.log(da);
+            }
+            catch(err) {
+                document.getElementById("first").innerHTML = err.message;
+            }
+        }
+
+        fetchusers();
+        
+
+
+
+
+        // // Test api insert admin
+
+        async function senddata(){
+
+        const fileInput = document.getElementById('fileInput');
+        const file = fileInput.files[0];
+
+        const formData = new FormData();
+        
+        formData.append('id', document.getElementById("id").value);
+        formData.append('name', document.getElementById("name").value);
+        formData.append('category_id', document.getElementById("category_id").value);
+        formData.append('price', document.getElementById("price").value);
+        formData.append('available', document.getElementById("available").value);
+        formData.append('img', file);
+
+
+        fetch('./insertProduct.php', {
+        method: 'POST',
+        body: formData
+        }).then(response => response.json())
+        .then(data => {
+        console.log('Response from server:', data);
+        })
+            console.log("hi");
+
+        }
+
+
+    
+        
+    </script>
+</body>
+</html>
+

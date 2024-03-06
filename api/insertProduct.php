@@ -5,23 +5,22 @@ if(isset($_SESSION["postion"]) && $_SESSION["postion"]=="admin" && $_SERVER['REQ
 
 include("db.php");
 
-
 $mydb = new DB();
 
-
-$fname = $_POST['fname'];
 $id = $_POST['id'];
-$lname = $_POST['lname'];
-$email = $_POST['email'];
-$password = $_POST['password'];
-$src="./images/$id.jpg";
+$category_id = $_POST['category_id'];
+$name = $_POST['name'];
+$price = $_POST['price'];
+$available = $_POST['available'];
+$src="./images/productions/$id.jpg";
+
 
 
 try{
 
-move_uploaded_file($_FILES["img"]["tmp_name"],"./images/$id.jpg");
+move_uploaded_file($_FILES["img"]["tmp_name"],"./images/productions/$id.jpg");
 
-$mydb->insert_data("admin","id, fname, lname, email, password ,img" , "$id,'$fname','$lname','$email','$password','$src'");
+$mydb->insert_data("product","id, category_id, img, name, price ,available" , "$id,$category_id,'$src','$name',$price,'$available'");
 
 
 $response = [
@@ -41,7 +40,7 @@ $response = [
 
 
 
-header('Content-Type: application/json');
+// header('Content-Type: application/json');
 echo json_encode($response);
 
 

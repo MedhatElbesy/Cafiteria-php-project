@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   
+
+
+    <button onclick="senddata()">send</button>
+    
+    <script>
+
+
+
+        // // Test api insert admin
+
+        async function senddata(){
+
+        let myjson={"id":5,"name":"say","customers_id":2,"status":"done"
+            ,"productions":[
+            {"product_id":1,"quantity":1,"price":100},
+            {"product_id":2,"quantity":1,"price":50}  ]
+        }
+       
+        let textmyjson = JSON.stringify(myjson)
+       
+
+        fetch('./insertOrder.php', {
+        method: 'POST',
+        body: textmyjson
+        }).then(response => response.json())
+        .then(data => {
+        console.log('Response from server:', data);
+        })
+            console.log("hi");
+
+        }
+
+
+    
+        
+    </script>
+</body>
+</html>
+

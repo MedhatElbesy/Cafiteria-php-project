@@ -14,14 +14,15 @@ $id = $_POST['id'];
 $lname = $_POST['lname'];
 $email = $_POST['email'];
 $password = $_POST['password'];
-$src="./images/$id.jpg";
+$room = $_POST['room'];
+$src="./images/customers/$id.jpg";
 
 
 try{
 
-move_uploaded_file($_FILES["img"]["tmp_name"],"./images/$id.jpg");
+move_uploaded_file($_FILES["img"]["tmp_name"],"./images/customers/$id.jpg");
 
-$mydb->insert_data("admin","id, fname, lname, email, password ,img" , "$id,'$fname','$lname','$email','$password','$src'");
+$mydb->insert_data("customers","id, fname, lname, email, password ,img, room" , "$id,'$fname','$lname','$email','$password','$src','$room'");
 
 
 $response = [
