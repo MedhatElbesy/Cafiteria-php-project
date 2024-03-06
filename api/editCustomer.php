@@ -54,11 +54,19 @@
                     if (move_uploaded_file($_FILES["img"]["tmp_name"],"../images/$id.jpg"))
                     {
                         try{
-                            $dataConectionObject->update_data("customers","fname = '$fname', lname = '$lname', email = '$email', password = '$password', img = '$src', room = '$room'","id='$id'");
-                            $response = [
-                                'status' => 'success',
-                                'message' => 'Insert done successfully.'
-                            ];    
+                            $result= $dataConectionObject->update_data("customers","fname = '$fname', lname = '$lname', email = '$email', password = '$password', img = '$src', room = '$room'","id='$id'");
+                            if($result==true){
+                                $response = [
+                                    'status' => 'success',
+                                    'message' => 'update done successfully.'
+                                ];}
+                                else{
+                                    $response = [
+                                        'status' => 'failed',
+                                        'message' => 'No match in data base'
+                                    ];
+                                }
+                              
                         }catch(Exception $e){
                                 $response = [ 'status' => 'failed',
                                 'message' => $e->getMessage() ];
@@ -77,12 +85,18 @@
             else
             {
                 try{
-                    $dataConectionObject->update_data("customers","fname = '$fname', lname = '$lname', email = '$email', password = '$password', img = '$src', room = '$room'","id='$id'");
-
-                    $response = [
-                        'status' => 'success',
-                        'message' => 'Insert done successfully.'
-                    ];
+                    $result= $dataConectionObject->update_data("customers","fname = '$fname', lname = '$lname', email = '$email', password = '$password', img = '$src', room = '$room'","id='$id'");
+                    if($result==true){
+                        $response = [
+                            'status' => 'success',
+                            'message' => 'update done successfully.'
+                        ];}
+                        else{
+                            $response = [
+                                'status' => 'failed',
+                                'message' => 'No match in database'
+                            ];
+                        }
                 }catch(Exception $e){
                         $response = [ 'status' => 'failed',
                         'message' => $e->getMessage() ];
