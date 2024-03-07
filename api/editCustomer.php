@@ -55,7 +55,8 @@
                     {
                         try{
                             $result= $dataConectionObject->update_data("customers","fname = '$fname', lname = '$lname', email = '$email', password = '$password', img = '$src', room = '$room'","id='$id'");
-                            if($result==true){
+                        
+                            if($result!=0){
                                 $response = [
                                     'status' => 'success',
                                     'message' => 'update done successfully.'

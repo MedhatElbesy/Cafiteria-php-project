@@ -26,7 +26,7 @@
 
         async function fetchusers(){
             try {
-                let data=await fetch("./adminAPI.php")
+                let data=await fetch("adminAPI.php")
                 let da= await data.json();
                 console.log(da);
             }
@@ -58,11 +58,12 @@
         formData.append('img', file);
 
 
-        fetch('./insertUser.php', {
+        let RQS= await fetch('insertAdmin.php', {
         method: 'POST',
         body: formData
         })
-            console.log("hi");
+        let RES= await RQS.json();
+            console.log(RES);
 
         }
 

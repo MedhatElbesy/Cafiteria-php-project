@@ -2,11 +2,16 @@
 
 class DB{
 
-    private $host = "sql11.freesqldatabase.com";
-    private $dbname="sql11689414";
-    private $user="sql11689414";
+    // private $host = "sql11.freesqldatabase.com";
+    // private $dbname="sql11689414";
+    // private $user="sql11689414";
+    // private $connection="";
+    // private $pass="cika8dEvS5";
+    private $host = "localhost";
+    private $dbname="cafeteria";
+    private $user="root";
     private $connection="";
-    private $pass="cika8dEvS5";
+    private $pass="";
 
     function __construct(){
 
@@ -25,14 +30,17 @@ class DB{
         return $this->connection->query("select * from $table_name where $condition");
     }
     function delete_data($table_name,$condition=1){
-        $this->connection->query("delete from $table_name where $condition");
+        $result=$this->connection->query("delete from $table_name where $condition");
+        return $result->rowCount();
     }
 
     function insert_data($table_name,$columns_names,$values){
-        $this->connection->query("INSERT INTO $table_name ($columns_names) VALUES ($values)");
+        $result =$this->connection->query("INSERT INTO $table_name ($columns_names) VALUES ($values)");
+        return $result->rowCount();
     }
     function update_data($table_name,$columns_values,$condition=1){
-        $this->connection->query("UPDATE $table_name SET $columns_values WHERE $condition");
+        $result= $this->connection->query("UPDATE $table_name SET $columns_values WHERE $condition");
+        return $result->rowCount();
     }
     
     function beginTransaction(){
