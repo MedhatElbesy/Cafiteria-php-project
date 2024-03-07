@@ -34,23 +34,7 @@ class DB{
     function update_data($table_name,$columns_values,$condition=1){
         $this->connection->query("UPDATE $table_name SET $columns_values WHERE $condition");
     }
-    function getCustuomerNameWithTotalPrice($customer_id=null){
-        $query = "SELECT customers.fname , customers.lname , customers.id , SUM(orders.total_price) AS Total_Amount
-        FROM customers
-        INNER JOIN orders
-        ON customers.id = orders.customers_id
-        GROUP BY customers.id
-        ";
-
-        if($customer_id){
-            $query = $query . "HAVING customers.id = '$customer_id'";
-        }
-            return $this->connection->query($query);
-    }
-
-
-
-
+    
     function beginTransaction(){
         $this->connection->beginTransaction();
     }
