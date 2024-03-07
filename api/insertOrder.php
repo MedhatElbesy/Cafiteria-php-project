@@ -27,7 +27,7 @@ try{
 $mydb->insert_data("orders","id, customers_id, status" , "$id,'$customers_id','$status'");
 
 foreach ($data["productions"] as $production) {   
-    $mydb->insert_data("order_product","order_id, product_id, quantity, price" , " $id,'{$production['product_id']}' ,'{$production['quantity']}','{$production['price']}'");
+    $mydb->insert_data("order_product","order_id, product_id, quantity, price_unit" , " $id,'{$production['product_id']}' ,'{$production['quantity']}','{$production['price']}'");
   }
   
 

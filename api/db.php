@@ -2,15 +2,15 @@
 
 class DB{
 
-    private $host = "localhost";
-    private $dbname="cafeteria";
-    private $user="root";
+    private $host = "sql11.freesqldatabase.com";
+    private $dbname="sql11689414";
+    private $user="sql11689414";
     private $connection="";
-    private $pass="";
+    private $pass="cika8dEvS5";
 
     function __construct(){
 
-        $this->connection=new pdo("mysql:=$this->host;dbname=$this->dbname",$this->user,"$this->pass");
+        $this->connection = new PDO("mysql:host={$this->host};port=3306;dbname={$this->dbname}", $this->user, $this->pass);
     }
 
     function get_connection(){
