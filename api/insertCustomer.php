@@ -14,7 +14,7 @@ if(isset($_SESSION["postion"]) && $_SESSION["postion"]=="admin" && $_SERVER['REQ
     $password =$validationObject->password($validationObject->safeInput($_POST['password']));
     $room =$validationObject->room($validationObject->safeInput($_POST['room']));
     $src =$validationObject->imeg($_FILES["img"]['name']);
-   // checking of validation result before update
+   // checking of validation result before insert
     if(count($validationObject->erros)>0)
     {
         $response = [

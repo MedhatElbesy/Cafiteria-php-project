@@ -14,10 +14,9 @@ $fullrows = $data->fetchAll(PDO::FETCH_ASSOC);
 
 echo json_encode($fullrows);
 
-
-
-
-
+}
+else{
+    echo"unauthorized request";  
 }
 
 

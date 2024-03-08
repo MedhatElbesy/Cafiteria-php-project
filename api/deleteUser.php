@@ -23,10 +23,12 @@
         $id= $_POST["id"];
        
         try{ 
+            $dataConectionObject->beginTransaction();
              $dataConectionObject->delete_data("order_product","order_id in( select id from orders where customers_id ='$id')");
              $dataConectionObject->delete_data("orders","customers_id ='$id'");
             $result=$dataConectionObject->delete_data("customers","id ='$id'");
-            if($result!=0 )
+            $dataConectionObject->commit();
+            if($result!=0)
             {
             $response = [
                 'status' => 'success',
