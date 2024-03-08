@@ -1,0 +1,6 @@
+@keyframes image-fill {
+  100% {
+    width: 150%;
+    height: 150%;
+  }
+}

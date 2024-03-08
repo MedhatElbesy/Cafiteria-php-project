@@ -25,7 +25,7 @@
       </ul>
     </aside>
     <div class="row">
-      <main class="offset-1 p-0 col-8">
+      <main class="offset-1 p-0 col-md-11 col-lg-11">
         <nav class="navbar bg-body-tertiary align-items-center justify-content-end">
           <div class="user-data">
             <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
@@ -35,98 +35,35 @@
           </div>
         </nav>
         <section class="menu">
-          <article class="categories-sec row p-5">
+          <article class="categories-sec row p-3">
             <h3 class="mb-4">Categories</h3>
-              <div id="categories" class="categories d-flex align-items-center justify-content-evenly flex-wrap"></div>
+              <div id="categories" class="categories row"></div>
           </article>
-          <article class="products-sec row p-5">
+          <article class="products-sec row flex-wrap p-3">
             <h3 class="mb-4">All Products</h3>
-            <div id="products" class="products d-flex align-items-center justify-content-evenly flex-wrap"></div>
+            <div id="products" class="products row align-items-center justify-content-evenly"></div>
           </article>
         </section>
       </main>
-      <aside class="order-data col-3 p-2">
-        <button class="show show-last-order reset d-inline-block active fw-bold p-2">Last Order</button>
-        <button class="show show-bill reset d-inline-block fw-bold p-2">Bill</button>
-        <table id="bill" class="bill-orders w-100 d-none">
-          <thead class="text-center">
-            <tr>
-              <th class="py-4" colspan="4">Bill</th>
-            </tr>
-          </thead>
-          <tbody>
-          </tbody>
-          <tfoot class="text-center">
-            <tr>
-              <td colspan="4">
-                <textarea class="reset p-2 mb-4" name="notes" id="notes" rows="5" placeholder="Extra Notes"></textarea>
-              </td>
-            </tr>
-            <tr>
-              <td colspan="4">
-                <select class="room reset p-1 fw-bold mb-4" name="room" id="room">
-                    <option class="fw-bold text-center" selected>Room</option>
-                    <option class="reset" value="1001">Room 1001</option>
-                    <option class="reset" value="1002">Room 1002</option>
-                    <option class="reset" value="1003">Room 1003</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td colspan="4">
-                <div class="bill-price d-flex justify-content-between fw-bold m-2 p-2">
-                    <span>Total</span>
-                    <span>0</span>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td colspan="4">
-                <input type="submit" name="order" class="confirm reset p-2 fw-bold my-4">
-              </td>
-            </tr>
-          </tfoot>
-        </table>
-        <table id="lastOrder" class="bill-orders w-100">
-          <thead class="text-center">
-            <tr>
-              <th class="py-4" colspan="4">Last Order</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="order center justify-content-between p-2 mb-2" data-quantity="1" data-order-id="0">
-              <td><img src="../images/landing-img.jpg" alt="Coffee"></td>
-              <td>
-                <p class="m-0 fw-bold">Coffee</p>
-                <div class="counter d-flex">
-                  <span class="quantity">1</span>
-                </div>
-              </td>
-              <td>5</td>
-            </tr>
-            <tr class="order center justify-content-between p-2 mb-2" data-quantity="1" data-order-id="0">
-              <td><img src="../images/landing-img.jpg" alt="Coffee"></td>
-              <td>
-                <p class="m-0 fw-bold">Coffee</p>
-                <div class="counter d-flex">
-                  <span class="quantity">1</span>
-                </div>
-              </td>
-              <td>5</td>
-            </tr>
-          </tbody>
-          <tfoot class="text-center p-2">
-            <tr>
-              <td colspan="4">
-                <div class="bill-price d-flex justify-content-between fw-bold m-2 p-2">
-                    <span>Total</span>
-                    <span>0</span>
-                </div>
-              </td>
-            </tr>
-          </tfoot>
-        </table>
+      <aside id="cart" class="cart col-3 p-2 text d-none cart-responsive">
+        <h3 class="my-3 text-center">Cart</h3>
+        <div class="orders mb-4"></div>
+        <div class="details text-center m-1">
+          <textarea class="reset p-2 mb-2" name="notes" id="notes" rows="5" placeholder="Extra Notes"></textarea>
+          <select class="room reset p-1 fw-bold mb-4" name="room" id="room">
+            <option class="fw-bold text-center" selected>Room</option>
+            <option class="reset" value="1001">Room 1001</option>
+            <option class="reset" value="1002">Room 1002</option>
+            <option class="reset" value="1003">Room 1003</option>
+          </select>
+          <div class="cart-price d-flex justify-content-between fw-bold m-2 p-2">
+            <span>Total</span>
+            <span>0</span>
+          </div>
+          <button class="confirm reset p-2 fw-bold my-4">Send Order</button>
+        </div>
       </aside>
+      <button class="show-cart w-25 d-lg-none">Cart</button>
     </div>
   </div>
   <script src="../script/script.js"></script>
