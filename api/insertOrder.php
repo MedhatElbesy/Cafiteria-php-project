@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-// if(isset($_SESSION["postion"]) && $_SESSION["postion"]=="admin" && $_SERVER['REQUEST_METHOD'] == 'POST'){
+if(isset($_SESSION["postion"]) && $_SERVER['REQUEST_METHOD'] == 'POST'){
 
 include("db.php");
 
@@ -51,6 +51,6 @@ header('Content-Type: application/json');
 echo json_encode($response );
 
 
-// }
+}
 
 ?>

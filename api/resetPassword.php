@@ -2,6 +2,8 @@
  
 session_start();
 
+include("db.php");
+
 //Import PHPMailer classes into the global namespace
 //These must be at the top of your script, not inside a function
 use PHPMailer\PHPMailer\PHPMailer;
@@ -19,8 +21,30 @@ $randomString = substr(str_shuffle($characters), 0, $length);
 
 $forgetCode = $randomString;
 
-$_SESSION['code'] = $forgetCode;
-$_SESSION['email'] = $_POST["email"];
+
+
+
+try{
+  
+    $mydb = new DB();
+    $data = $mydb->query("SELECT * FROM customers where email = '{$_POST["email"]}'")->fetchAll(PDO::FETCH_ASSOC);
+   
+    $response = [
+      'status' => 'success',
+      'message' => 'Change Password Done.'];
+
+}catch(Exception $e){
+  $response = [
+    'status' => 'failed'];
+}
+
+
+if($data){
+  $_SESSION['code'] = $forgetCode;
+  $_SESSION['email'] = $_POST["email"];
+  
+
+
 
 //Create an instance; passing `true` enables exceptions
 if (isset($_POST["send"])) {
@@ -58,5 +82,14 @@ if (isset($_POST["send"])) {
 
     
 }
+
+}else{
+  $response = [
+    'status' => 'failed',
+    'message' => 'Email not found'];
+}
+
+header('Content-Type: application/json');
+echo json_encode($response);
 
 ?>
