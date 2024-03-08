@@ -16,6 +16,7 @@ body {
 .items_wrapper {
   width: 100%;
   overflow-x: auto;
+  white-space: nowrap;
 }
 /* width */
 .items_wrapper::-webkit-scrollbar {
@@ -101,6 +102,7 @@ body {
   img {
     margin-top: 0.75rem;
     width: 3rem;
+    object-fit: contain;
   }
   .card-body {
     position: absolute;
@@ -132,4 +134,12 @@ body {
 }
 .user:hover {
   border-color: #fe6c49;
+}
+.ms-50 {
+  margin-left: 50%;
+}
+.usersChecks {
+  padding: 1rem;
+  border: 2px solid #9e9fa14d;
+  border-radius: 0.5rem;
 }

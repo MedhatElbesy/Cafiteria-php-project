@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cafeteria | Checks</title>
+  <link rel="stylesheet" href="../frameworks/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="../styles/aStyle.css">
+</head>
+
+<body>
+  <div class="container mt-5">
+    <h3 class="my-4">Checks</h3>
+    <div class="row gap-1 my-4">
+      <div class="col-12 col-md col-lg-4">
+        <div class="input-group ">
+          <label for="date_from" class="input-group-text">Date from</label for="date_from">
+          <input type="date" id="date_from" class="form-control" title="date from" aria-label="date from"
+            aria-describedby="date_from">
+        </div>
+      </div>
+      <div class="col-12 col-md col-lg-4">
+        <div class="input-group ">
+          <label for="date_to" class="input-group-text">Date to</label for="date_to">
+          <input type="date" id="date_to" class="form-control" title="date to" aria-label="date to"
+            aria-describedby="date_to">
+        </div>
+      </div>
+      <div class="col-6 col-lg ">
+        <select class="form-select form-select" title="users" aria-label="users">
+          <option selected>Filter by user</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="usersChecks">
+      <!-- Start of users  -->
+      <div class="d-flex px-4 fw-bold">
+        <p>Name</p>
+        <p class="ms-50">Total amount</p>
+      </div>
+      <!-- start of users accordion -->
+      <div class="accordion" id="userAccordion">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button text-black bg-light" type="button" data-bs-toggle="collapse"
+              data-bs-target="#userCollapse" aria-expanded="true" aria-controls="userCollapse">
+              <p class="m-0">Hamada</p>
+              <p class="my-0 ms-50">120 EGP</p>
+            </button>
+          </h2>
+          <div id="userCollapse" class="accordion-collapse collapse show" data-bs-parent="#userAccordion">
+            <div class="accordion-body">
+              <!-- start of user orders accordion -->
+              <div class="accordion" id="userOrdersAccordion">
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button text-black bg-light" type="button" data-bs-toggle="collapse"
+                      data-bs-target="#userOrdersCollapse" aria-expanded="true" aria-controls="userOrdersCollapse">
+                      <p class="m-0">Order date</p>
+                      <p class="my-0 ms-50">Amount</p>
+                    </button>
+                  </h2>
+                  <div id="userOrdersCollapse" class="accordion-collapse collapse show"
+                    data-bs-parent="#userOrdersAccordion">
+                    <div class="accordion-body">
+                      <!-- start of user orders details accordion -->
+                      <div class="accordion" id="userOrdersDetailsAccordion">
+                        <div class="accordion-item">
+                          <h2 class="accordion-header">
+                            <button class="accordion-button text-black bg-light" type="button" data-bs-toggle="collapse"
+                              data-bs-target="#userOrdersDetailsCollapse" aria-expanded="true"
+                              aria-controls="userOrdersDetailsCollapse">
+                              <p class="m-0">06/10/2024 17:30:14</p>
+                              <p class="my-0 ms-50">20 EGP</p>
+                            </button>
+                          </h2>
+                          <div id="userOrdersDetailsCollapse" class="accordion-collapse collapse show "
+                            data-bs-parent="#userOrdersDetailsAccordion">
+
+                            <div
+                              class="accordion-body  row justify-content-center m-0  gap-2 flex-nowrap items_wrapper">
+                              <div class="myorder_card-item shadow-sm row g-0 offset-2">
+                                <div>
+                                  <img src="../images/coffee-cup.gif" class="card-img-top" alt="...">
+                                  <p class="badge bg-primary item_title">Tea</p>
+                                </div>
+                                <div class="item-footer text-center d-flex justify-content-between">
+                                  <p class="badge bg-success">1</p>
+                                  <p class="badge bg-secondary m-0">EGP 999</p>
+                                </div>
+                              </div>
+                              <div class="myorder_card-item shadow-sm row g-0">
+                                <div>
+                                  <img src="../images/coffee-cup.gif" class="card-img-top" alt="...">
+                                  <p class="badge bg-primary item_title">Tea</p>
+                                </div>
+                                <div class="item-footer text-center d-flex justify-content-between">
+                                  <p class="badge bg-success">1</p>
+                                  <p class="badge bg-secondary m-0">EGP 999</p>
+                                </div>
+                              </div>
+                              <div class="myorder_card-item shadow-sm row g-0">
+                                <div>
+                                  <img src="../images/coffee-cup.gif" class="card-img-top" alt="...">
+                                  <p class="badge bg-primary item_title">Tea</p>
+                                </div>
+                                <div class="item-footer text-center d-flex justify-content-between">
+                                  <p class="badge bg-success">1</p>
+                                  <p class="badge bg-secondary m-0">EGP 999</p>
+                                </div>
+                              </div>
+                              <div class="myorder_card-item shadow-sm row g-0">
+                                <div>
+                                  <img src="../images/coffee-cup.gif" class="card-img-top" alt="...">
+                                  <p class="badge bg-primary item_title">Tea</p>
+                                </div>
+                                <div class="item-footer text-center d-flex justify-content-between">
+                                  <p class="badge bg-success">1</p>
+                                  <p class="badge bg-secondary m-0">EGP 999</p>
+                                </div>
+                              </div>
+                              <div class="myorder_card-item shadow-sm row g-0">
+                                <div>
+                                  <img src="../images/coffee-cup.gif" class="card-img-top" alt="...">
+                                  <p class="badge bg-primary item_title">Tea</p>
+                                </div>
+                                <div class="item-footer text-center d-flex justify-content-between">
+                                  <p class="badge bg-success">1</p>
+                                  <p class="badge bg-secondary m-0">EGP 999</p>
+                                </div>
+                              </div>
+                              <div class="myorder_card-item shadow-sm row g-0">
+                                <div>
+                                  <img src="../images/coffee-cup.gif" class="card-img-top" alt="...">
+                                  <p class="badge bg-primary item_title">Tea</p>
+                                </div>
+                                <div class="item-footer text-center d-flex justify-content-between">
+                                  <p class="badge bg-success">1</p>
+                                  <p class="badge bg-secondary m-0">EGP 999</p>
+                                </div>
+                              </div>
+                              <div class="myorder_card-item shadow-sm row g-0">
+                                <div>
+                                  <img src="../images/coffee-cup.gif" class="card-img-top" alt="...">
+                                  <p class="badge bg-primary item_title">Tea</p>
+                                </div>
+                                <div class="item-footer text-center d-flex justify-content-between">
+                                  <p class="badge bg-success">1</p>
+                                  <p class="badge bg-secondary m-0">EGP 999</p>
+                                </div>
+                              </div>
+                              <div class="myorder_card-item shadow-sm row g-0">
+                                <div>
+                                  <img src="../images/coffee-cup.gif" class="card-img-top" alt="...">
+                                  <p class="badge bg-primary item_title">Tea</p>
+                                </div>
+                                <div class="item-footer text-center d-flex justify-content-between">
+                                  <p class="badge bg-success">1</p>
+                                  <p class="badge bg-secondary m-0">EGP 999</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- End of user orders details accordion -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- End of user orders accordion -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End of users accordion -->
+      <!-- End of users  -->
+    </div>
+
+    <script src="../frameworks/bootstrap/bootstrap.bundle.min.js"></script>
+    <script>
+
+    </script>
+</body>
+
+</html>
