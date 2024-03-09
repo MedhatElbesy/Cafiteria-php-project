@@ -149,9 +149,35 @@
       </div>
     </div>
     <!-- end of add  modals -->
+
+    <!-- start of Delete user modals -->
+    <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="deleteModalLabel">Delete User</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form class="row g-3 needs-validation" novalidate>
+            <div class="col-md-6">
+              <label for="fname" class="form-label">Are You Sure To Delete This User ?  </label>
+            </div>
+            <div class="col-12 text-center">
+              <button class="btn btn-primary" type="submit">Yes</button>
+              <button type="reset" class="btn btn-danger offset-1" data-bs-dismiss="modal">No</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+    <!-- end of add  modals -->
     <script src="../frameworks/bootstrap/bootstrap.bundle.min.js"></script>
     <script src="../script/aScript.js"></script>
     <script src="../script/showUsers.js" ></script>
+
 </body>
 
 </html>
