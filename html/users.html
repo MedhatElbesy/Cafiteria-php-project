@@ -10,99 +10,17 @@
   <link rel="stylesheet" href="../styles/aStyle.css">
 </head>
 
-<body>
-  <div class="container mt-5">
-    <div class="d-flex gap-2 align-items-center">
+<body id="body-info">
+  <main class="container mt-5 ">
+
+    <header class="d-flex gap-2 align-items-center ">
       <p class="m-0 fs-4">All Users</p>
       <div data-bs-toggle="modal" data-bs-target="#addModal">
         <a href="#" title="add new user" class="btn btn-outline-primary"><i class="fa-solid fa-plus"></i></a>
       </div>
-    </div>
+    </header>
     <hr>
-    <div class="row gap-3 justify-content-center">
-
-      <div class="card user">
-        <div class="user-img">
-          <img src="../images/admin-avatar.png" class="card-img-top" alt="...">
-        </div>
-        <div class="card-body">
-          <h6 class="card-title m-0">Hamdy</h6>
-          <p class="m-0"><span class="badge text-success ">Room:2010</span> - <span
-              class="badge text-success">EXT.:1</span>
-          </p>
-          <div class="d-flex gap-2 justify-content-center">
-            <a href="#" title="cancel" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal"><i
-                class="fa-solid fa-pen"></i> </a>
-            <a href="#" title="cancel" class="btn btn-danger"><i class="fa-solid fa-xmark"></i></a>
-          </div>
-        </div>
-      </div>
-      <div class="card user">
-        <div class="user-img">
-          <img src="../images/admin-avatar.png" class="card-img-top" alt="...">
-        </div>
-        <div class="card-body">
-          <h6 class="card-title m-0">Hamdy</h6>
-          <p class="m-0"><span class="badge text-success ">Room:2010</span> - <span
-              class="badge text-success">EXT.:1</span>
-          </p>
-          <div class="d-flex gap-2 justify-content-center">
-            <a href="#" title="cancel" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal"><i
-                class="fa-solid fa-pen"></i> </a>
-            <a href="#" title="cancel" class="btn btn-danger"><i class="fa-solid fa-xmark"></i></a>
-          </div>
-        </div>
-      </div>
-      <div class="card user">
-        <div class="user-img">
-          <img src="../images/admin-avatar.png" class="card-img-top" alt="...">
-        </div>
-        <div class="card-body">
-          <h6 class="card-title m-0">Hamdy</h6>
-          <p class="m-0"><span class="badge text-success ">Room:2010</span> - <span
-              class="badge text-success">EXT.:1</span>
-          </p>
-          <div class="d-flex gap-2 justify-content-center">
-            <a href="#" title="cancel" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal"><i
-                class="fa-solid fa-pen"></i> </a>
-            <a href="#" title="cancel" class="btn btn-danger"><i class="fa-solid fa-xmark"></i></a>
-          </div>
-        </div>
-      </div>
-      <div class="card user">
-        <div class="user-img">
-          <img src="../images/admin-avatar.png" class="card-img-top" alt="...">
-        </div>
-        <div class="card-body">
-          <h6 class="card-title m-0">Hamdy</h6>
-          <p class="m-0"><span class="badge text-success ">Room:2010</span> - <span
-              class="badge text-success">EXT.:1</span>
-          </p>
-          <div class="d-flex gap-2 justify-content-center">
-            <a href="#" title="cancel" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal"><i
-                class="fa-solid fa-pen"></i> </a>
-            <a href="#" title="cancel" class="btn btn-danger"><i class="fa-solid fa-xmark"></i></a>
-          </div>
-        </div>
-      </div>
-      <div class="card user">
-        <div class="user-img">
-          <img src="../images/admin-avatar.png" class="card-img-top" alt="...">
-        </div>
-        <div class="card-body">
-          <h6 class="card-title m-0">Hamdy</h6>
-          <p class="m-0"><span class="badge text-success ">Room:2010</span> - <span
-              class="badge text-success">EXT.:1</span>
-          </p>
-          <div class="d-flex gap-2 justify-content-center">
-            <a href="#" title="cancel" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal"><i
-                class="fa-solid fa-pen"></i> </a>
-            <a href="#" title="cancel" class="btn btn-danger"><i class="fa-solid fa-xmark"></i></a>
-          </div>
-        </div>
-      </div>
-    </div>
-
+    <section class="row gap-3 justify-content-center d-flex " id="cardsContainer">
     <!-- modals-->
     <!-- start of add user modals -->
     <div class="modal fade" id="addModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -114,10 +32,10 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form class="row g-3 needs-validation" novalidate>
+            <form class="row g-3 needs-validation editForm" novalidate>
               <div class="col-md-6">
                 <label for="fname" class="form-label">First name</label>
-                <input type="text" class="form-control" id="fname" placeholder="First name" value="" required>
+                <input type="text" class="form-control" id="fname" placeholder="First name" value="6576556754ثقصث" required>
                 <div class="invalid-feedback">
                   Please enter user First name!.
                 </div>
@@ -181,21 +99,21 @@
             <form class="row g-3 needs-validation" novalidate>
               <div class="col-md-6">
                 <label for="fname" class="form-label">First name</label>
-                <input type="text" class="form-control" id="fname" placeholder="First name" value="" required>
+                <input type="text" class="form-control" id="updatefname" placeholder="First name" value="" required>
                 <div class="invalid-feedback">
                   Please enter user First name!.
                 </div>
               </div>
               <div class="col-md-6">
                 <label for="lname" class="form-label">Last name</label>
-                <input type="text" class="form-control" id="lname" placeholder="Last name" value="" required>
+                <input type="text" class="form-control" id="updatelname" placeholder="Last name" value="" required>
                 <div class="invalid-feedback">
                   Please enter user Last name!.
                 </div>
               </div>
               <div class="col-md-12">
                 <label for="useremail" class="form-label">Email</label>
-                <input type="email" class="form-control" id="useremail" placeholder="example@example.com" value=""
+                <input type="email" class="form-control" id="updateuseremail" placeholder="example@example.com" value=""
                   required>
                 <div class="invalid-feedback">
                   Please enter user email!.
@@ -203,14 +121,14 @@
               </div>
               <div class="col-md-6">
                 <label for="room" class="form-label">Room</label>
-                <input type="number" min="0" class="form-control" id="room" placeholder="room number" value="" required>
+                <input type="number" min="0" class="form-control" id="updateroom" placeholder="room number" value="" required>
                 <div class="invalid-feedback">
                   Please enter user room no.!.
                 </div>
               </div>
               <div class="col-md-6">
-                <label for="ext" class="form-label">Ext.</label>
-                <input type="number" min="0" class="form-control" id="ext" placeholder="floor number" value="" required>
+                <label for="ext" class="form-label">Password</label>
+                <input type="password" min="0" class="form-control" id="updatepass" placeholder="floor number" value="" required>
                 <div class="invalid-feedback">
                   Please enter user floor no!.
                 </div>
@@ -218,7 +136,7 @@
 
               <div class="mb-3">
                 <label for="userimg" class="form-label">User Image</label>
-                <input type="file" class="form-control" aria-label="user picture" id="userimg" required>
+                <input type="file" class="form-control" aria-label="user picture" id="updateuserimg" required>
                 <div class="invalid-feedback">Please select a vaild image!</div>
               </div>
               <div class="col-12 text-center">
@@ -233,9 +151,7 @@
     <!-- end of add  modals -->
     <script src="../frameworks/bootstrap/bootstrap.bundle.min.js"></script>
     <script src="../script/aScript.js"></script>
-    <script>
-
-    </script>
+    <script src="../script/showUsers.js" ></script>
 </body>
 
 </html>
