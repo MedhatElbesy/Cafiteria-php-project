@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cafeteria - Home</title>
+  <title>Cafeteria | Home</title>
   <link rel="icon" type="image/png" href="../images/logo.png"/>
   <!-- Styles -->
   <link rel="stylesheet" href="../styles/style.css">
@@ -30,8 +30,8 @@
           <div class="links d-flex align-items-center justify-content-between">
             <img src="../images/logo.png" alt="Logo" width="50" height="50" class="d-inline-block align-text-top">
             <ul class="text-center d-flex align-items-center justify-content-between m-0">
-              <li class="px-2 py-1 mx-1 active"><i class="fa-solid fa-house"></i> Home</li>
-              <li class="px-2 py-1 mx-1"><i class="fa-solid fa-receipt"></i> Orders</li>
+              <li class="px-2 py-1 mx-1 active"><a href="#"><i class="fa-solid fa-house"></i> Home</a></li>
+              <li class="px-2 py-1 mx-1"><a href="myorders.html"><i class="fa-solid fa-receipt"></i> Orders</a>
             </ul>
           </div>
           <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
@@ -55,28 +55,27 @@
         <div class="orders mb-4"></div>
         <div class="details text-center m-1">
           <textarea class="reset p-2 mb-2" name="notes" id="notes" rows="3" placeholder="Extra Notes"></textarea>
-          <select class="room d-block reset p-1 fw-bold mb-4 w-50 m-auto" name="room" id="room">
+          <select class="room d-block reset p-1 fw-bold mb-4 w-75 m-auto" name="room" id="room">
             <option class="fw-bold text-center" selected>Room</option>
             <option class="reset" value="1001">Room 1001</option>
             <option class="reset" value="1002">Room 1002</option>
             <option class="reset" value="1003">Room 1003</option>
           </select>
-          <select class="room d-block reset p-1 fw-bold mb-4 w-50 m-auto" name="user" id="user">
+          <select class="user d-block reset p-1 fw-bold mb-4 w-75 m-auto" name="user" id="user" required>
             <option class="fw-bold text-center" selected>select User</option>
             <option class="reset" value="1001">User 1</option>
             <option class="reset" value="1002">User 2</option>
             <option class="reset" value="1003">User 3</option>
           </select>
-          <div class="cart-price d-flex justify-content-between fw-bold m-2 p-2">
-            <span>Total</span>
-            <span>0</span>
+          <div class="d-flex justify-content-between align-items-center fw-bold">
+            <p class="cart-price reset py-1">Total <span>0</span></p>
+            <button class="confirm reset py-1 px-3 fw-bold">Send Order</button>
           </div>
-          <button class="confirm reset p-2 fw-bold my-4">Send Order</button>
         </div>
       </aside>
-      <button class="show-cart w-25 d-lg-none">Cart</button>
+      <button class="show-cart reset fw-bold d-lg-none empty px-5">Cart <span>0</span></button>
     </div>
   </div>
-  <script src="../script/script.js"></script>
+  <script src="../script/homeScript.js"></script>
 </body>
 </html>
