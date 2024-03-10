@@ -58,67 +58,9 @@
           <div class="order-details row align-items-center justify-content-evenly m-auto w-75 mt-2 p-5 d-none">
           </div>
         </section>
-        <!-- <hr> -->
-        <p class="total-price mt-3 fw-bold text-end p-5" data-total="0">Total <span>104</span></p>
       </main>
     </div>
-
     <script src="../frameworks/bootstrap/bootstrap.bundle.min.js"></script>
     <script src="../script/ordersScript.js"></script>
-    <script>
-      let myorder_card = document.querySelectorAll('.myorder_card');
-      let items_wrapper = document.querySelector('.items_wrapper');
-      myorder_card.forEach((e) => {
-        e.addEventListener('click', function () {
-          items_wrapper.innerHTML = '';
-          let ordersItem = 
-            `<div class="myorder_card-item shadow-sm row g-0">
-            <div>
-              <img src="../images/coffee-cup.gif" class="card-img-top" alt="...">
-              <p class="badge bg-primary item_title">Tea</p>
-            </div>
-            <div class="item-footer text-center d-flex justify-content-between">
-              <p class="badge bg-success">1</p>
-              <p class="badge bg-secondary m-0">EGP 999</p>
-            </div>
-            </div>`
-          ;
-          for (let index = 0; index < 5; index++) {
-            items_wrapper.insertAdjacentHTML('beforeend', ordersItem);
-          }
-        })
-      });
-    </script>
   </body>
 </html>
-
-
-
-  <!-- <div class="myorder_card card mt-3 me-2 py-3 shadow-sm">
-            <a href="#" title="cancel" class="cancel_order btn btn-danger"><i class="fa-solid fa-xmark"></i></a>
-            <div class="status badge bg-warning">Out for delivery</div>
-            <img src="../images/rocket.gif" class="card-img-top" alt="...">
-            <div class="card-body">
-              <div class="badge bg-secondary">20 EGP</div>
-              <div class="badge bg-info">04/03/2024 - 10:30 AM</div>
-            </div>
-          </div> 
-          <div class="myorder_card card mt-3 me-2 py-3 shadow-sm">
-            <a href="#" title="cancel" class="cancel_order btn btn-danger"><i class="fa-solid fa-xmark"></i></a>
-            <div class="status badge bg-success">Done</div>
-            <img src="../images/verified.gif" class="card-img-top" alt="...">
-            <div class="card-body">
-              <div class="badge bg-secondary">20 EGP</div>
-              <div class="badge bg-info">04/03/2024 - 10:30 AM</div>
-            </div>
-          </div>
-          <div class="myorder_card card mt-3 me-2 py-3 shadow-sm">
-            <a href="#" title="cancel" class="cancel_order btn btn-danger"><i class="fa-solid fa-xmark"></i></a>
-            <div class="status badge bg-success">Done</div>
-            <img src="../images/verified.gif" class="card-img-top" alt="...">
-            <div class="card-body">
-              <div class="badge bg-secondary">20 EGP</div>
-              <div class="badge bg-info">04/03/2024 - 10:30 AM</div>
-            </div>
-          </div> -->
-      

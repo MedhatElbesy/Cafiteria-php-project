@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cafeteria | Orders</title>
+  <link rel="stylesheet" href="../frameworks/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="../styles/aStyle.css">
+  <script src="../script/vueversion3.js"></script>
+
+</head>
+
+<body>
+  <div class="container-fluid container-lg mt-5">
+    <h1 class="my-4">Orders</h1>
+    <hr>
+    <div id="ordersWrapper">
+      <div class="p-3 order_detailes my-2" v-for="order in orders">
+        <div class="table-responsive">
+          <table class="table align-middle">
+            <thead>
+              <tr>
+                <th>Order Date</th>
+                <th>Name</th>
+                <th>Room</th>
+                <th>Ext</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{ formatDate(order.order_date) }}</td>
+                <td>{{order.fname +" "+ order.lname}}</td>
+                <td>{{order.room}}</td>
+                <td>{{order.extNumber}}</td>
+                <td>
+                  <select class="form-select" aria-label="Default select example" v-model="order.status"
+                    @change="updateOrderStatus(order)">
+                    <option value="processing">Processing</option>
+                    <option value="done">Done</option>
+                    <option value="in delivery">In Delivery</option>
+                  </select>
+                </td>
+
+
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="row flex-nowrap items_wrapper justify-content-center justify-content-lg-start">
+          <div class="orders_card card m-2 shadow-sm" v-for="(product, index) in order.products" :key="index">
+            <div class="badge  bg-secondary">{{ product.price }} EGP</div>
+            <img :src="getImageSource(product.img)" class="card-img-top card-img-orderd " :alt="product.name">
+            <div class="card-body p-0">
+              <div class="badge text-light mb-2 pname bg-primary">{{ product.name }}</div>
+              <div class="badge   text-dark mb-2 w-100 pqty">Qty {{ product.quantity }}</div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <script>
+      Vue.createApp({
+        data() {
+          return {
+            orders: [],
+            selectedStatus: '1',
+          };
+        },
+        methods: {
+          async getOrders() {
+            try {
+              const response = await fetch('../api/ordersStatusForAdmin.php');
+              const data = await response.json();
+              this.orders = data.map(order => {
+                order.products = JSON.parse("[" + order.products + "]");
+                return order;
+              });
+              console.log(this.orders);
+            } catch (error) {
+              console.error("Error fetching orders:", error);
+            }
+          },
+
+           updateOrderStatus(order)
+          {
+             
+               
+                let data = 
+                {
+                  orderId: order.order_id,
+                  status: order.status
+                }
+                let textmyjson = JSON.stringify(data)
+
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "../api/updateOrderStatus.php");
+                xhr.onreadystatechange = function()
+                { 
+                    if (xhr.readyState === 4 && xhr.status === 200)
+                    { console.log(xhr.responseText);
+                       
+                    } 
+                  }
+                  xhr.setRequestHeader("Content-type", "application/json")  
+                xhr.send(textmyjson);
+             
+          }
+        
+          ,
+          formatDate(dateString) {
+            const date = new Date(dateString);
+            const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' };
+            return new Intl.DateTimeFormat('en-US', options).format(date);
+          },
+          getImageSource(imgSrc) {
+            const defaultImageSrc = '../images/cup.png';
+            const img = new Image();
+            img.src = '../images/' + imgSrc;
+            if (img.complete) {
+              return '../images/' + imgSrc;
+            } else {
+              return defaultImageSrc;
+            }
+          },
+        },
+        mounted() {
+          this.getOrders();
+        }
+      }).mount("#ordersWrapper");
+    </script>
+    <script src="../frameworks/bootstrap/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

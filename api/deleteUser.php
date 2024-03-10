@@ -37,14 +37,14 @@
             }
             else{
                 $response = [
-                    'status' => 'failed',
+                    'status' => 'failed2',
                     'message' => 'No match in database',
                      
                 ];
             }
         }
         catch(Exception $e){
-            $response = [ 'status' => 'failed',
+            $response = [ 'status' => 'failed1',
             'message' => $e->getMessage() ];
         }
 

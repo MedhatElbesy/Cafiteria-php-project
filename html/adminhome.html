@@ -7,7 +7,6 @@
   <link rel="icon" type="image/png" href="../images/logo.png"/>
   <!-- Styles -->
   <link rel="stylesheet" href="../styles/style.css">
-  <link rel="stylesheet" href="../styles/normalize.css">
   <!-- Frameworks -->
   <link rel="stylesheet" href="../frameworks/bootstrap/bootstrap.min.css">
   <link rel="stylesheet" href="../frameworks/font awesome/css/all.min.css">
@@ -15,23 +14,14 @@
 </head>
 <body>
   <div class="container-fluid user-home">
-    <!-- <aside class="side-nav col-1 p-0 d-flex align-items-center flex-column">
-      <figure>
-        <img src="../images/logo.png" alt="Logo" width="50" height="50" class="d-inline-block align-text-top">
-      </figure>
-      <ul class="text-center">
-        <li class="active"><i class="fa-solid fa-house"></i></li>
-        <li><i class="fa-solid fa-receipt"></i></li>
-      </ul>
-    </aside> -->
     <div class="row">
       <main class="p-0 col-md-12 col-lg-12">
         <nav class="d-flex align-items-center justify-content-between">
           <div class="links d-flex align-items-center justify-content-between">
             <img src="../images/logo.png" alt="Logo" width="50" height="50" class="d-inline-block align-text-top">
             <ul class="text-center d-flex align-items-center justify-content-between m-0">
-              <li class="px-2 py-1 mx-1 active"><a href="#"><i class="fa-solid fa-house"></i> Home</a></li>
-              <li class="px-2 py-1 mx-1"><a href="myorders.html"><i class="fa-solid fa-receipt"></i> Orders</a>
+              <li class="mx-1 active"><a href="#" class="px-2 py-1"><i class="fa-solid fa-house"></i> Home</a></li>
+              <li class="mx-1"><a href="adminorders.html" class="px-2 py-1"><i class="fa-solid fa-receipt"></i> Orders</a>
             </ul>
           </div>
           <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
@@ -41,11 +31,11 @@
         </nav>
         <section class="menu">
           <article class="categories-sec row p-3">
-            <h3 class="mb-4">Categories</h3>
+            <h3 class="my-4">Categories</h3>
             <div id="categories" class="categories row"></div>
           </article>
           <article class="products-sec row flex-wrap p-3">
-            <h3 class="mb-4">All Products</h3>
+            <h3 class="my-4">All Products</h3>
             <div id="products" class="products row align-items-center justify-content-evenly m-auto w-75"></div>
           </article>
         </section>
