@@ -87,35 +87,31 @@
             }
           },
 
-          async updateOrderStatus(order) {
-            if (confirm('Are you sure you want to update the status?')) {
-              try {
-                // console.log(order.status);
-
-                let data = {
+           updateOrderStatus(order)
+          {
+             
+               
+                let data = 
+                {
                   orderId: order.order_id,
                   status: order.status
                 }
                 let textmyjson = JSON.stringify(data)
 
-                const response = await fetch(`../api/updateOrderStatus.php`, {
-                  method: 'POST',
-                  body: textmyjson
-                }).then(data => {
-                  console.log('Response from server:', data);
-                })
-                console.log(response);
-                // if (response.ok) {
-                //   console.log('Status updated successfully');
-                //   this.getOrders();
-                // } else {
-                //   console.error('Failed to update status');
-                // }
-              } catch (error) {
-                console.error('Error updating status:', error);
-              }
-            }
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "../api/updateOrderStatus.php");
+                xhr.onreadystatechange = function()
+                { 
+                    if (xhr.readyState === 4 && xhr.status === 200)
+                    { console.log(xhr.responseText);
+                       
+                    } 
+                  }
+                  xhr.setRequestHeader("Content-type", "application/json")  
+                xhr.send(textmyjson);
+             
           }
+        
           ,
           formatDate(dateString) {
             const date = new Date(dateString);

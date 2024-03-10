@@ -8,18 +8,14 @@ include("db.php");
 // }
 
 $putData = file_get_contents('php://input');
-$data = json_decode($putData, true);
-header('Content-Type: application/json');
-$res=['status'=>'success'];
 
+$data = json_decode($putData, true);
+ header('Content-Type: application/json');
+if(isset($data['orderId']) && isset($data['status'])) {
     $orderId = $data['orderId'];
     $newStatus = $data['status'];
-echo $putData;
-// if(isset($putData['orderId']) && isset($putData['status'])) {
-//     $orderId = $putData['orderId'];
-//     $newStatus = $putData['status'];
-//     echo  $orderId;
-//     echo  $newStatus;
+echo "orderId: ".$orderId."    ";
+echo "newStatus: ".$newStatus."    ";}
     // $allowedStatuses = array('processing', 'done', 'in delivery');
     // if (!in_array($newStatus, $allowedStatuses)) {
     //     http_response_code(400);
@@ -27,21 +23,21 @@ echo $putData;
     //     exit;
     // }
 
-    $db = new DB();
-            $query = 'UPDATE orders SET status = :status WHERE id = :orderId';
-            $statement = $db->prepare($query);
-            $statement->execute(array(
-                ':id' => $orderId,
-                ':status' => $status
-            ));
+    // $db = new DB();
+    //         $query = 'UPDATE orders SET status = :status WHERE id = :orderId';
+    //         $statement = $db->prepare($query);
+    //         $statement->execute(array(
+    //             ':id' => $orderId,
+    //             ':status' => $status
+    //         ));
 
-    if($statement->execute()) {
-        http_response_code(200);
-        echo json_encode(array('message' => 'Status updated successfully'));
-    } else {
-        http_response_code(500);
-        echo json_encode(array('message' => 'Failed to update status'));
-    }
+    // if($statement->execute()) {
+    //     http_response_code(200);
+    //     echo json_encode(array('message' => 'Status updated successfully'));
+    // } else {
+    //     http_response_code(500);
+    //     echo json_encode(array('message' => 'Failed to update status'));
+    // }
 // } else {
 //     http_response_code(400);
 //     echo json_encode(array('message' => 'Invalid request'));
