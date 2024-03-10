@@ -10,14 +10,16 @@ body {
   font-style: normal;
   background-color: #f5f5f5;
 }
+
 .myorder_data {
-  height: 6rem;
+  /* height: 6rem; */
 }
 .items_wrapper {
   width: 100%;
   overflow-x: auto;
   white-space: nowrap;
 }
+
 /* width */
 .items_wrapper::-webkit-scrollbar {
   height: 8px;
@@ -34,6 +36,7 @@ body {
 .items_wrapper::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
 .myorder_card-item {
   position: relative;
   background-color: white;
@@ -61,6 +64,8 @@ body {
     width: 3rem;
   }
 }
+
+
 .myorder_card {
   position: relative;
   width: 10rem;

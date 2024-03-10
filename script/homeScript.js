@@ -64,7 +64,6 @@ let setOrder = function (productId) {
       return;
     }
   }
-  
   let newOrder = document.createElement("div");
   newOrder.classList.add("order", "center", "justify-content-between", "p-2", "m-1");
   newOrder.dataset.quantity = 0;
@@ -110,7 +109,7 @@ let setProduct = function(i) {
   image.setAttribute("alt", allProducts[i].name);
   
   p1.innerText = allProducts[i].name;
-  p2.innerText = allProducts[i].price + " LE / Item";
+  p2.innerText = allProducts[i].price + " LE";
 
   product.appendChild(image);
   data.appendChild(p1);
@@ -167,12 +166,12 @@ let totalcart = function() {
   for (let i = 0; i < allOrders.length; i++) {
     cartPrice += Number(allOrders[i].children[2].innerText);
   }
-  cart.querySelector(".cart-price").getElementsByTagName("span")[1].innerHTML = cartPrice;
+  cart.querySelector(".cart-price").children[0].innerText = cartPrice;
 };
 
 showcart.addEventListener("click", function(e) {
   if(allOrders.length > 0) {
-    cart.classList.toggle("d-none");  
+    cart.classList.toggle("d-none");
   }
 });
 
@@ -180,16 +179,22 @@ let checkOrderExistance = function () {
   let container = document.getElementsByTagName("main")[0]
   if(allOrders.length == 0) {
     cart.classList.add("d-lg-none");
+    cart.classList.add("d-none");
     cart.classList.remove("d-lg-block");
     container.classList.add("col-lg-12");
     container.classList.remove("col-lg-9");
+    showcart.classList.add("empty");
+    showcart.children[0].innerText = allOrders.length;
   } else {
     cart.classList.add("d-lg-block");
     cart.classList.remove("d-lg-none");
     container.classList.add("col-lg-9");
     container.classList.remove("col-lg-12");
+    showcart.classList.remove("empty");
+    showcart.children[0].innerText = allOrders.length;
   }
 }
+
 // Category
 let showCategoryProducts = function(category) {
   let productsElement = document.getElementById("products");
@@ -216,8 +221,8 @@ let ShowAllProducts = function() {
 
 let ShowCategories = function() {
   allCategories.push({ "id": 0, "img": "../images/landing-img.jpg", "name": "All Products"})
-  for (let i = 0; i < allCategories.length ; i++) {
+  setCategory( allCategories.length - 1);
+  for (let i = 0; i < allCategories.length - 1; i++) {
     setCategory(i);
   }
-
 } ();
