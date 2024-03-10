@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cafeteria | My Orders</title>
+  <link rel="icon" type="image/png" href="../images/logo.png"/>
+  <link rel="stylesheet" href="../frameworks/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <!-- <link rel="stylesheet" href="../styles/aStyle.css"> -->
+  <link rel="stylesheet" href="../styles/style.css">
+</head>
+
+  <body>
+    <div class="container-fluid user-orders">
+      <main class="p-0 col-md-12 col-lg-12">
+        <nav class="d-flex align-items-center justify-content-between">
+          <div class="links d-flex align-items-center justify-content-between">
+            <img src="../images/logo.png" alt="Logo" width="50" height="50" class="d-inline-block align-text-top">
+            <ul class="text-center d-flex align-items-center justify-content-between m-0">
+              <li class="mx-1"><a href="userhome.html" class="px-2 py-1"><i class="fa-solid fa-house"></i> Home</a></li>
+              <li class="mx-1 active"><a href="#" class="px-2 py-1"><i class="fa-solid fa-receipt"></i> Orders</a>
+            </ul>
+          </div>
+          <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
+            <img src="../images/logo.png" alt="Logo" width="50" height="50" class="d-inline-block align-text-top">
+            <span>Islam Askar</span>
+          </a>
+        </nav>
+        <header class="date row p-3">
+          <h3 class="my-4">My Orders</h3>
+          <div class="myorder-date col-md-12 col-lg-9 d-flex m-auto">
+            <div class="input-group w-50 p-2" id="dateFrom">
+              <label for="date-from" class="input-group-text">Date From</label>
+              <input type="date" id="date-from" class="form-control" title="date from" aria-label="date from"
+                aria-describedby="date-from">
+            </div>
+            <div class="input-group w-50 p-2" id="dateTO">
+              <label for="date-to" class="input-group-text">Date To</label>
+              <input type="date" id="date-to" class="form-control" title="date to" aria-label="date to"
+                aria-describedby="date-to">
+            </div>
+          </div>
+        </header>
+        <section class="row justify-content-center justify-content-lg-start p-3">
+          <table class="w-75 m-auto" id="orders">
+            <thead>
+              <tr>
+                <th>Order Date</th>
+                <th>Status</th>
+                <th>Amount</th>
+                <th class="text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+          <div class="order-details row align-items-center justify-content-evenly m-auto w-75 mt-2 p-5 d-none">
+          </div>
+        </section>
+        <!-- <hr> -->
+        <p class="total-price mt-3 fw-bold text-end p-5" data-total="0">Total <span>104</span></p>
+      </main>
+    </div>
+
+    <script src="../frameworks/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="../script/ordersScript.js"></script>
+  </body>
+</html>

@@ -10,15 +10,14 @@ let allOrders = [
 
 let orderDetails = [
   {"id": 1, "img": "../images/landing-img.jpg", "price": "100", "quantity": "2", "name": "Hot Drinks"},
-  {"id": 1, "img": "../images/landing-img.jpg", "price": "100", "quantity": "2", "name": "Cold Drinks"},
-  {"id": 1, "img": "../images/landing-img.jpg", "price": "100", "quantity": "2", "name": "Soda"},
-  {"id": 2, "img": "../images/landing-img.jpg", "price": "100", "quantity": "2", "name": "Juice"},
-  {"id": 2, "img": "../images/landing-img.jpg", "price": "100", "quantity": "2", "name": "Juice"},
-  {"id": 3, "img": "../images/landing-img.jpg", "price": "100", "quantity": "2", "name": "Juice"},
+  {"id": 1, "img": "../images/landing-img.jpg", "price": "100", "quantity": "3", "name": "Cold Drinks"},
+  {"id": 1, "img": "../images/landing-img.jpg", "price": "100", "quantity": "5", "name": "Soda"},
+  {"id": 2, "img": "../images/landing-img.jpg", "price": "100", "quantity": "6", "name": "Juice"},
+  {"id": 2, "img": "../images/landing-img.jpg", "price": "100", "quantity": "4", "name": "Juice"},
+  {"id": 3, "img": "../images/landing-img.jpg", "price": "100", "quantity": "1", "name": "Juice"},
 ];
 
 let ordersTable = document.getElementById("orders");
-let totalPrice = document.querySelector('[data-total]');
 let productsContainer = document.querySelector(".order-details");
 
 let dateFrom = document.getElementById("date-from");
@@ -37,8 +36,7 @@ dateTo.addEventListener("input", function() {
 
 let showOrders = function(dateFrom, dateTo) {
   ordersTable.children[1].innerHTML = "";
-  let total =  Number(totalPrice.dataset.total);
-  allOrders.forEach(order => {
+  allOrders.forEach((order, i) => {
     if(orderDateFormat(order.order_date) >= dateFrom && orderDateFormat(order.order_date) <= dateTo) {
       let currentOrder = document.createElement("tr");
       currentOrder.innerHTML +=
@@ -52,13 +50,12 @@ let showOrders = function(dateFrom, dateTo) {
       <td>
         <span class="fw-bold">${order.total_price}</span>
       </td>
+      
+      <!-- Check Status -->
       ${order.status == "processing" ?
       '<td class="text-center"><a href="#" title="cancel" class="cancel-order btn btn-danger">Cancel</a></td>'
       :'<td class="text-center">-</td>'}`
       ordersTable.children[1].appendChild(currentOrder);
-
-      total += Number(order.total_price);
-      totalPrice.children[0].innerText = total;
 
       // Check Status
       let status = currentOrder.querySelector(".status");
@@ -72,13 +69,13 @@ let showOrders = function(dateFrom, dateTo) {
       
       // Add Event Click To Show Order Details
       if(currentOrder.querySelector(".show-order")) {
-        currentOrder.querySelector(".show-order").addEventListener("click", (e)=> {showOrderButton(e, order.id)});
+        currentOrder.querySelector(".show-order").addEventListener("click", (e)=> {showOrderButton(e, order.id, i)});
       }
     }
   });
 };
 
-let showOrderButton = function(e, orderId) {
+let showOrderButton = function(e, orderId, i) {
   if(e.target.innerText == "+") {
     ordersTable.querySelectorAll(".show-order").forEach((button)=>{
       button.innerText = "+";
@@ -87,10 +84,12 @@ let showOrderButton = function(e, orderId) {
     e.target.innerText = "-";
     productsContainer.innerHTML = "";
     orderDetails.forEach((order, i) => {
-      if(order.id == orderId){
+      if(order.id == orderId) {
         showOrderDetails(i);
       }
     });
+    // Add Total Price
+    productsContainer.innerHTML += `<p class="total-price text-center fw-bold">Total ${allOrders[i].total_price}</p>`
   } else {
     productsContainer.classList.add("d-none");
     e.target.innerText = "+";
@@ -103,27 +102,31 @@ let showOrderDetails = function(i) {
   let data = document.createElement("div");
   let name = document.createElement("p");
   let price = document.createElement("p");
-  let quantity = document.createElement("span");
-
+  let quantity = document.createElement("p");
+  
   product.classList.add("product", "mb-3", "text-center");
   product.setAttribute("id", "product");
   data.classList.add("data");
   name.classList.add("product-name", "m-0", "p-2");
   price.classList.add("price", "m-0", "p-2", "fw-bold");
-  quantity.classList.add("quantity");
+  quantity.classList.add("quantity", "m-0", "p-2", "fw-bold");
 
   image.setAttribute("src", orderDetails[i].img);
   image.setAttribute("alt", orderDetails[i].name);
 
   name.innerText = orderDetails[i].name;
   price.innerText = orderDetails[i].price + " LE";
+  quantity.innerText = orderDetails[i].quantity;
+  
 
   product.appendChild(image);
   data.appendChild(name);
   data.appendChild(price);
+  data.appendChild(quantity);
   product.appendChild(data);
   productsContainer.appendChild(product);
 };
+
 
 ordersTable.addEventListener("click", function(e){
   let order = e.target.closest("tr");
