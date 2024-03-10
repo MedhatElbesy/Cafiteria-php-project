@@ -132,8 +132,13 @@ body {
     margin: 0 auto;
   }
 }
-.user:hover {
+.user:hover,
+.order_detailes:hover {
   border-color: #fe6c49;
+}
+.order_detailes {
+  border: 2px solid #9e9fa14d;
+  border-radius: 15px;
 }
 .ms-50 {
   margin-left: 50%;
@@ -142,4 +147,39 @@ body {
   padding: 1rem;
   border: 2px solid #9e9fa14d;
   border-radius: 0.5rem;
+}
+
+.orders_card {
+  position: relative;
+  width: 10rem;
+  height: 10rem;
+
+  .badge {
+    position: absolute;
+    right: 0.1rem;
+    top: 0.1rem;
+  }
+
+  .card-img-orderd {
+    position: absolute;
+    height: 4rem;
+    object-fit: contain;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0 auto;
+  }
+
+  .pname {
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .pqty {
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
