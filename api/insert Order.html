@@ -19,10 +19,9 @@
 
         async function senddata(){
 
-        let myjson={"id":5,"name":"say","customers_id":2,"status":"done"
-            ,"productions":[
-            {"product_id":1,"quantity":1,"price":100},
-            {"product_id":2,"quantity":1,"price":50}  ]
+        let myjson={"customers_id":2,
+                    "status":"done",
+                    "productions":[ {"product_id":1,"quantity":1,"price":100}, {"product_id":2,"quantity":2,"price":50}]
         }
        
         let textmyjson = JSON.stringify(myjson)
