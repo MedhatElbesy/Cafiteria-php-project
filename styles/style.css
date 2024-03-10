@@ -348,12 +348,12 @@ nav {
         color: #EEE;
       }
       th:first-of-type {
-        border-top-left-radius: 15px;
-        border-bottom-left-radius: 15px;
+        border-top-left-radius: 25px;
+        border-bottom-left-radius: 25px;
       }
       th:last-of-type {
-        border-top-right-radius: 15px;
-        border-bottom-right-radius: 15px;
+        border-top-right-radius: 25px;
+        border-bottom-right-radius: 25px;
       }
     }
     tbody {
@@ -363,12 +363,12 @@ nav {
           padding: 5px;
         }
         td:first-of-type {
-          border-top-left-radius: 15px;
-          border-bottom-left-radius: 15px;
+          border-top-left-radius: 25px;
+          border-bottom-left-radius: 25px;
         }
         td:nth-of-type(4) {
-          border-top-right-radius: 15px;
-          border-bottom-right-radius: 15px;
+          border-top-right-radius: 25px;
+          border-bottom-right-radius: 25px;
         }
       }
       tr:hover {

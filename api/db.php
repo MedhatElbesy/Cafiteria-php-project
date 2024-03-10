@@ -1,6 +1,6 @@
 <?php
 
-class DB{
+class DB {
 
     private $host = "sql11.freesqldatabase.com";
     private $dbname="sql11689414";
