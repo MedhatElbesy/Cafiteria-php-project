@@ -1,6 +1,6 @@
 <?php
 
-class DB{
+class DB {
 
     private $host = "sql11.freesqldatabase.com";
     private $dbname="sql11689414";
@@ -8,7 +8,7 @@ class DB{
     private $connection="";
     private $pass="cika8dEvS5";
     
-    
+   
  
     function __construct(){
 

@@ -12,82 +12,84 @@
 
 <body id="body-info">
   <main class="container mt-5 ">
-
     <header class="d-flex gap-2 align-items-center ">
       <p class="m-0 fs-4">All Users</p>
-      <div data-bs-toggle="modal" data-bs-target="#addModal">
+      <div data-bs-toggle="modal" data-bs-target="#insertModal">
         <a href="#" title="add new user" class="btn btn-outline-primary"><i class="fa-solid fa-plus"></i></a>
       </div>
+      <p id="res" style="display: none;" class="m-0 col-8 text-center p-2 text-white bg-danger"></p>
     </header>
     <hr>
     <section class="row gap-3 justify-content-center d-flex " id="cardsContainer">
     <!-- modals-->
-    <!-- start of add user modals -->
-    <div class="modal fade" id="addModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-      aria-labelledby="addModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="addModalLabel">Add new user</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form class="row g-3 needs-validation editForm" novalidate>
-              <div class="col-md-6">
-                <label for="fname" class="form-label">First name</label>
-                <input type="text" class="form-control" id="fname" placeholder="First name" value="6576556754ثقصث" required>
-                <div class="invalid-feedback">
-                  Please enter user First name!.
-                </div>
-              </div>
-              <div class="col-md-6">
-                <label for="lname" class="form-label">Last name</label>
-                <input type="text" class="form-control" id="lname" placeholder="Last name" value="" required>
-                <div class="invalid-feedback">
-                  Please enter user Last name!.
-                </div>
-              </div>
-              <div class="col-md-12">
-                <label for="useremail" class="form-label">Email</label>
-                <input type="email" class="form-control" id="useremail" placeholder="example@example.com" value=""
-                  required>
-                <div class="invalid-feedback">
-                  Please enter user email!.
-                </div>
-              </div>
-              <div class="col-md-6">
-                <label for="room" class="form-label">Room</label>
-                <input type="number" min="0" class="form-control" id="room" placeholder="room number" value="" required>
-                <div class="invalid-feedback">
-                  Please enter user room no.!.
-                </div>
-              </div>
-              <div class="col-md-6">
-                <label for="ext" class="form-label">Ext.</label>
-                <input type="number" min="0" class="form-control" id="ext" placeholder="floor number" value="" required>
-                <div class="invalid-feedback">
-                  Please enter user floor no!.
-                </div>
-              </div>
+     <!-- start of add user modals -->
+     <div class="modal fade" id="insertModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="addModalLabel" aria-hidden="true">
+     <div class="modal-dialog">
+       <div class="modal-content">
+         <div class="modal-header">
+           <h1 class="modal-title fs-5" id="addModalLabel">Add new user</h1>
+           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <div class="modal-body">
+          <form class="row g-3 needs-validation" @submit.prevent="handleFormSubmission($event, 'insert');" novalidate>
+            <div class="col-md-6">
+               <label for="fname" class="form-label">First name</label>
+               <input type="text" class="form-control" id="fname" pattern="^[a-zA-Z ,.'\-]+$" placeholder="First name" v-model="fname" required>
+               <div class="invalid-feedback">
+                 Please enter a valid First name (letters, spaces, commas, periods, single quotes, and hyphens)!.
+               </div>
+             </div>
+             <div class="col-md-6">
+               <label for="lname" class="form-label">Last name</label>
+               <input type="text" class="form-control" id="lname" pattern="^[a-zA-Z ,.'\-]+$" placeholder="Last name" v-model="lname" required>
+               <div class="invalid-feedback">
+                 Please enter a valid Last name (letters, spaces, commas, periods, single quotes, and hyphens)!.
+               </div>
+             </div>
+             <div class="col-md-12">
+               <label for="useremail" class="form-label">Email</label>
+               <input type="email" class="form-control" id="useremail" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" placeholder="example@example.com" v-model="email"
+                 required>
+               <div class="invalid-feedback">
+                 Please enter a valid email!.
+               </div>
+             </div>
+             <div class="col-md-12">
+               <label for="password" class="form-label">password</label>
+               <input type="password" class="form-control" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" id="password" placeholder="enter password" v-model="password"
+                 required>
+               <div class="invalid-feedback">
+                 Please enter a valid password Minimum eight characters, at least one letter and one number!.
+               </div>
+             </div>
+             <div class="col-md-6">
+               <label for="room" class="form-label">Room</label>
+               <input type="number" min="1" class="form-control" id="room" pattern="^[1-9]\d*$" placeholder="room number" v-model="room" required>
+               <div class="invalid-feedback">
+                 Please enter user room no.!.
+               </div>
+             </div>
+           
 
-              <div class="mb-3">
-                <label for="userimg" class="form-label">User Image</label>
-                <input type="file" class="form-control" aria-label="user picture" id="userimg" required>
-                <div class="invalid-feedback">Please select a vaild image!</div>
-              </div>
-              <div class="col-12 text-center">
-                <button class="btn btn-primary" type="submit">Add</button>
-                <button type="reset" class="btn btn-danger offset-1" data-bs-dismiss="modal">Reset</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- end of add  modals -->
+             <div class="mb-3">
+               <label for="userimg" class="form-label">User Image</label>
+               <input type="file" @change="handleFileChange" class="form-control" aria-label="user picture" id="userimg" required>
+               <div class="invalid-feedback">Please select a vaild image!</div>
+             </div>
+             <div class="col-12 text-center">
+               <button class="btn btn-primary" id="addbtn" type="submit">Add</button>
+               <button type="reset" class="btn btn-danger offset-1" data-bs-dismiss="modal">Reset</button>
+             </div>
+           </form>
+         </div>
+       </div>
+     </div>
+   </div>
+   <!-- end of add  modals -->
 
     <!-- start of update user modals -->
-    <div class="modal fade" id="updateModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade" id="editModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
       aria-labelledby="updateModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -96,51 +98,55 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form class="row g-3 needs-validation" novalidate>
+            <form class="row g-3 needs-validation" @submit.prevent="handleFormSubmission($event,'edit')"  novalidate>
               <div class="col-md-6">
-                <label for="fname" class="form-label">First name</label>
-                <input type="text" class="form-control" id="updatefname" placeholder="First name" value="" required>
+                <label for="userID" class="form-label">userID</label>
+                <input type="text" class="form-control"  id="userID" readonly  >
+              </div>
+              <div class="col-md-6">
+                <label for="updatefname" class="form-label">First name</label>
+                <input type="text" class="form-control"  id="updatefname" pattern="^[a-zA-Z ,.'\-]+$" placeholder="First name" v-model="fname" required>
                 <div class="invalid-feedback">
-                  Please enter user First name!.
+                  Please enter a valid First name (letters, spaces, commas, periods, single quotes, and hyphens)!.
                 </div>
               </div>
               <div class="col-md-6">
-                <label for="lname" class="form-label">Last name</label>
-                <input type="text" class="form-control" id="updatelname" placeholder="Last name" value="" required>
+                <label for="updatelname" class="form-label">Last name</label>
+                <input type="text" class="form-control"  id="updatelname" pattern="^[a-zA-Z ,.'\-]+$" placeholder="Last name" v-model="lname" required>
                 <div class="invalid-feedback">
-                  Please enter user Last name!.
+                  Please enter a valid Last name (letters, spaces, commas, periods, single quotes, and hyphens)!.
                 </div>
               </div>
               <div class="col-md-12">
-                <label for="useremail" class="form-label">Email</label>
-                <input type="email" class="form-control" id="updateuseremail" placeholder="example@example.com" value=""
+                <label for="updateuseremail" class="form-label">Email</label>
+                <input type="email" class="form-control" id="updateuseremail" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" placeholder="example@example.com" v-model="email"
                   required>
                 <div class="invalid-feedback">
-                  Please enter user email!.
+                  Please enter a valid email!.
+                </div>
+              </div>
+              <div class="col-md-12">
+                <label for="updatepass" class="form-label">password</label>
+                <input type="password" class="form-control" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" id="updatepass" placeholder="enter password" v-model="password"
+                  required>
+                <div class="invalid-feedback">
+                  Please enter a valid password Minimum eight characters, at least one letter and one number!.
                 </div>
               </div>
               <div class="col-md-6">
-                <label for="room" class="form-label">Room</label>
-                <input type="number" min="0" class="form-control" id="updateroom" placeholder="room number" value="" required>
+                <label for="updateroom" class="form-label">Room</label>
+                <input type="number" min="1" class="form-control" id="updateroom" pattern="^[1-9]\d*$" placeholder="room number" v-model="room" required>
                 <div class="invalid-feedback">
                   Please enter user room no.!.
                 </div>
               </div>
-              <div class="col-md-6">
-                <label for="ext" class="form-label">Password</label>
-                <input type="password" min="0" class="form-control" id="updatepass" placeholder="floor number" value="" required>
-                <div class="invalid-feedback">
-                  Please enter user floor no!.
-                </div>
-              </div>
-
               <div class="mb-3">
-                <label for="userimg" class="form-label">User Image</label>
-                <input type="file" class="form-control" aria-label="user picture" id="updateuserimg" required>
+                <label for="updateuserimg" class="form-label">User Image</label>
+                <input type="file" @change="handleFileChange" class="form-control" aria-label="user picture" id="updateuserimg" required>
                 <div class="invalid-feedback">Please select a vaild image!</div>
               </div>
               <div class="col-12 text-center">
-                <button class="btn btn-primary" type="submit">Update</button>
+                <button class="btn btn-primary" id="addbtn" type="submit">Update</button>
                 <button type="reset" class="btn btn-danger offset-1" data-bs-dismiss="modal">Reset</button>
               </div>
             </form>
@@ -149,9 +155,38 @@
       </div>
     </div>
     <!-- end of add  modals -->
+
+    <!-- start of Delete user modals -->
+    <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="deleteModalLabel">Delete User</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+ 
+            <div class="col-md-6">
+              <label   class="form-label">Are You Sure To Delete This User?  </label>
+            </div>
+            <div class="col-12 text-center">
+              <button class="btn btn-primary" value="4" id="deleteButtn" @click="deleteUser" type="submit">Yes</button>
+              <button type="reset" class="btn btn-danger offset-1" data-bs-dismiss="modal">No</button>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+    <!-- end of add  modals -->
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="../frameworks/bootstrap/bootstrap.bundle.min.js"></script>
-    <script src="../script/aScript.js"></script>
     <script src="../script/showUsers.js" ></script>
+    <script src="../script/insert_update_deleteUserUsingvue.js"></script>
+   
+
 </body>
 
 </html>

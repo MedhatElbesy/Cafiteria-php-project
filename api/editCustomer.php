@@ -27,9 +27,6 @@
 
 
         $id= $_POST["id"];
-
-
-
            // applying validation methods on form data
         $fname =$validationObject->fnames($validationObject->safeInput($_POST['fname']));
         $lname =$validationObject->lnames($validationObject->safeInput($_POST['lname']));
@@ -41,7 +38,7 @@
         if(count($validationObject->erros)>0)
         {
             $response = [
-                'status' => 'failed',
+                'status' => 'failed3',
                 'message' => 'update failed validation case.',
                 'errors'=> $validationObject->erros,
             ];
@@ -63,20 +60,20 @@
                                 ];}
                                 else{
                                     $response = [
-                                        'status' => 'failed',
+                                        'status' => 'failed2',
                                         'message' => 'No match in database'
                                     ];
                                 }
                               
                         }catch(Exception $e){
-                                $response = [ 'status' => 'failed',
+                                $response = [ 'status' => 'failed1',
                                 'message' => $e->getMessage() ];
                             }
                     }
                     else
                     {
                         $response = [
-                            'status' => 'failed',
+                            'status' => 'failed2',
                             'message' => 'update failed uploading imeg case.',
                             
                         ];
@@ -94,12 +91,12 @@
                         ];}
                         else{
                             $response = [
-                                'status' => 'failed',
+                                'status' => 'failed2',
                                 'message' => 'No match in database'
                             ];
                         }
                 }catch(Exception $e){
-                        $response = [ 'status' => 'failed',
+                        $response = [ 'status' => 'failed1',
                         'message' => $e->getMessage() ];
                     }
             }
