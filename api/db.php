@@ -8,7 +8,7 @@ class DB{
     private $connection="";
     private $pass="cika8dEvS5";
     
-    
+   
  
     function __construct(){
 

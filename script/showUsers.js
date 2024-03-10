@@ -25,9 +25,8 @@ const usercard = function(json){
                     class="badge text-success">EXT.:${user.extNumber}</span>
                 </p>
                 <div class="d-flex gap-2 justify-content-center">
-                    <a href="#" title="cancel" class="btn btn-primary edit-btn" data-id="${user.id}" data-bs-toggle="modal" data-bs-target="#updateModal"><i
-                        class="fa-solid fa-pen"></i>  </a>
-                    <a href="#" title="cancel" class="btn btn-danger delete-btn" data-id="${user.id}"><i class="fa-solid fa-xmark" data-bs-toggle="modal" data-bs-target="#deleteModal"></i></a>
+                    <a href="#" title="cancel" class="btn btn-primary edit-btn" data-id="${user.id}" data-bs-toggle="modal" data-bs-target="#editModal"><i class="fa-solid fa-pen"></i></a>
+                    <a href="#" title="cancel" class="btn btn-danger delete-btn" data-id="${user.id}"data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fa-solid fa-xmark"></i></a>
                 </div>
             </div>
         `;
@@ -55,11 +54,14 @@ let updateClickBtn = function(){
 
 function dataForUpdate(userData){
     userData.forEach(key => {
+        
+        document.getElementById('userID').value = key.id
         document.getElementById('updatefname').value = key.fname
         document.getElementById('updatelname').value = key.lname
         document.getElementById('updateuseremail').value = key.email
         document.getElementById('updateroom').value = parseInt(key.room) 
         document.getElementById('updatepass').value =parseInt( key.password)
+       
         // document.getElementById('userimg').value = userData.img
     })
 }
@@ -67,7 +69,7 @@ function dataForUpdate(userData){
       document.querySelectorAll('.delete-btn').forEach(btn => {
         btn.addEventListener('click', function(event) {
             const userId = event.currentTarget.getAttribute('data-id');
-            console.log(userId);
+            document.getElementById('deleteButtn').value =userId
         });
       });
     }

@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 if(isset($_SESSION["postion"]) && $_SESSION["postion"]=="admin" && $_SERVER['REQUEST_METHOD'] == 'POST'){
 
@@ -18,35 +17,98 @@ if(isset($_SESSION["postion"]) && $_SESSION["postion"]=="admin" && $_SERVER['REQ
     if(count($validationObject->erros)>0)
     {
         $response = [
-            'status' => 'failed',
-            'message' => 'update failed validation case.',
-            'errors'=> $validationObject->erros,
+        'status' => 'failed3',
+        'message' => 'update failed validation case.',
+        'errors'=> $validationObject->erros,
         ];
     }
     else
     {
 
- 
-try{
+        if (! file_exists('http://localhost/Cafiteria/images/'.$_FILES["img"]['name']))
+        {
+            if (move_uploaded_file($_FILES["img"]["tmp_name"],"../images/{$_FILES["img"]["name"]}"))
+            {
+                try
+                {
+                    $mydb->beginTransaction();
+                    $result= $mydb->insert_data("customers"," fname, lname, email, password ,img, room" , "'$fname','$lname','$email','$password','$src','$room'");
+                    if($result!=0)
+                    {
+                        $mydb->commit(); 
+                        $response = [
+                        'status' => 'success',
+                        'message' => 'Insert done successfully.'
+                        ];
+                    }
+                    else
+                    {
+                        
+                        $response = [
+                        'status' => 'failed2',
+                        'message' => 'failed to insert in database'
+                        ];
+                    }
+                }
+                catch(Exception $e)
+                {
+                     
+                    $response = [ 'status' => 'failed1',
+                    'message' => $e->getMessage() ];
 
-move_uploaded_file($_FILES["img"]["tmp_name"],"./images/customers/$id.jpg");
+                }
+            }   
+            else
+            {
+                $response = [
+                'status' => 'failed2',
+                'message' => 'insert failed uploading imeg case.',
 
- $mydb->insert_data("customers","id, fname, lname, email, password ,img, room" , "$id,'$fname','$lname','$email','$password','$src','$room'");
-$response = [
-    'status' => 'success',
-    'message' => 'Insert done successfully.'
-];
-}catch(Exception $e){
-    $response = [ 'status' => 'failed',
-    'message' => $e->getMessage() ];
-    
+                ];
+                 
+            }
+
+        }
+        else
+        {
+            try
+            {
+                $mydb->beginTransaction();
+                $result= $mydb->insert_data("customers"," fname, lname, email, password ,img, room" , "'$fname','$lname','$email','$password','$src','$room'");
+                if($result!=0)
+                {
+                    $mydb->commit(); 
+                    $response = [
+                    'status' => 'success',
+                    'message' => 'Insert done successfully.'
+                    ];
+                }
+                else
+                {
+                     
+                    $response = [
+                    'status' => 'failed2',
+                    'message' => 'failed to insert in database'
+                    ];
+                }
+            }
+            catch(Exception $e)
+            {
+                 
+                $response = [ 'status' => 'failed1',
+                'message' => $e->getMessage() ];
+
+            }
+        }
+
+
+        
+    }
+    header('Content-Type: application/json');
+        echo json_encode($response);
+    }
+else
+{
+    echo"unauthorized request";   
 }
-
-header('Content-Type: application/json');
-echo json_encode($response);
-
-
-}
-}
-
-?>
+    ?>

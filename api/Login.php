@@ -5,8 +5,12 @@ function loginApi()
    // catch data from XMLHttpRequest
     $logindata= json_decode(file_get_contents("php://input"),true);
     include("db.php");
-    $email=safeInput($logindata['email']);
-    $password=safeInput($logindata['password']);
+    include("validation.php");
+   
+    $validationObject = new Validation();
+
+    $email= $validationObject->safeInput($logindata['email']);
+    $password=$validationObject->safeInput($logindata['password']);
  // create database conection object  
     $dataConectionObject = new DB();
      // postion(admin :user) check  
@@ -59,13 +63,6 @@ function loginApi()
 
 }
 // create function to clean input from spaces and avoid bad inputs like special characters and html tags
-function safeInput($input){
-    $input=trim($input);
-    $input=addslashes($input);
-    $input=HTMLspecialchars($input);
-    return $input;
-
-};
  
   
 $result=loginApi();
