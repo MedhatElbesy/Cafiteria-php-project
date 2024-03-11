@@ -1,9 +1,7 @@
 <?php
-session_start();
-if(isset($_SESSION["admin"])){
+// session_start();
+// if(isset($_SESSION["admin"])){
 
-
-    
 include("db.php");
 
 $mydb = new DB();
@@ -14,10 +12,10 @@ $fullrows = $data->fetchAll(PDO::FETCH_ASSOC);
 
 echo json_encode($fullrows);
 
-}
-else{
-    echo"unauthorized request";  
-}
+// }
+// else{
+//     echo"unauthorized request";  
+// }
 
 
 ?>

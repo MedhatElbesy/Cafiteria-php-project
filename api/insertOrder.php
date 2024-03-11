@@ -8,7 +8,7 @@ include("db.php");
 $data= json_decode(file_get_contents("php://input"),true);
 
 $mydb = new DB();
- 
+
 $customers_id = $data['customers_id'];
 $status = "processing";
 $products = $data['products'];

@@ -13,10 +13,11 @@
 </head>
 
 <body>
-  <div class="container-fluid container-lg mt-5">
+  <div class="container-fluid container-lg my-5">
     <h1 class="my-4">Orders</h1>
     <hr>
     <div id="ordersWrapper">
+
       <div class="p-3 order_detailes my-2" v-for="order in orders">
         <div class="table-responsive">
           <table class="table align-middle">
@@ -34,7 +35,7 @@
                 <td>{{ formatDate(order.order_date) }}</td>
                 <td>{{order.fname +" "+ order.lname}}</td>
                 <td>{{order.room}}</td>
-                <td>{{order.extNumber}}</td>
+                <td>{{order.ext}}</td>
                 <td>
                   <select class="form-select" aria-label="Default select example" v-model="order.status"
                     @change="updateOrderStatus(order)">
@@ -43,11 +44,10 @@
                     <option value="in delivery">In Delivery</option>
                   </select>
                 </td>
-
-
               </tr>
             </tbody>
           </table>
+
         </div>
         <div class="row flex-nowrap items_wrapper justify-content-center justify-content-lg-start">
           <div class="orders_card card m-2 shadow-sm" v-for="(product, index) in order.products" :key="index">
@@ -56,20 +56,36 @@
             <div class="card-body p-0">
               <div class="badge text-light mb-2 pname bg-primary">{{ product.name }}</div>
               <div class="badge   text-dark mb-2 w-100 pqty">Qty {{ product.quantity }}</div>
-
             </div>
           </div>
         </div>
+        <div class="lead text-end my-0">Total: EGP {{order.total_price}}</div>
 
       </div>
     </div>
+    <!-- start of toast -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" id="liveToastBtn">
+      <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+          <strong class="me-auto">Status Updated</strong>
+          <small class="text-body-secondary">just now</small>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+          Order status has been updated successfully.
+        </div>
+      </div>
+    </div>
+    <!-- end of toast -->
 
     <script>
-      Vue.createApp({
+      const app = Vue.createApp({
         data() {
           return {
             orders: [],
             selectedStatus: '1',
+            updated: false,
+            toastInstance: null
           };
         },
         methods: {
@@ -87,32 +103,37 @@
             }
           },
 
-           updateOrderStatus(order)
-          {
-             
-               
-                let data = 
-                {
-                  orderId: order.order_id,
-                  status: order.status
-                }
-                let textmyjson = JSON.stringify(data)
+          async updateOrderStatus(order) {
+            if (confirm('Are you sure you want to update the status?')) {
+              try {
+                const response = await fetch('../api/updateOrderStatus.php', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    orderId: order.order_id,
+                    status: order.status
+                  }),
+                });
+                if (response.ok) {
+                  console.log(await response.text());
+                  this.updated = true;
+                  const toastElement = document.getElementById('liveToast');
+                  const toastInstance = new bootstrap.Toast(toastElement);
+                  toastInstance.show();
 
-                var xhr = new XMLHttpRequest();
-                xhr.open("POST", "../api/updateOrderStatus.php");
-                xhr.onreadystatechange = function()
-                { 
-                    if (xhr.readyState === 4 && xhr.status === 200)
-                    { console.log(xhr.responseText);
-                       
-                    } 
-                  }
-                  xhr.setRequestHeader("Content-type", "application/json")  
-                xhr.send(textmyjson);
-             
-          }
-        
-          ,
+                  setTimeout(() => {
+                    this.updated = false;
+                  }, 3000);
+                } else {
+                  throw new Error('Failed to update order status');
+                }
+              } catch (error) {
+                console.error(error);
+              }
+            }
+          },
           formatDate(dateString) {
             const date = new Date(dateString);
             const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' };
@@ -134,7 +155,8 @@
         }
       }).mount("#ordersWrapper");
     </script>
-    <script src="../frameworks/bootstrap/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

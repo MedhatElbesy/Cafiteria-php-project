@@ -13,9 +13,11 @@
   <script src="../frameworks/bootstrap/bootstrap.min.js"></script>
 </head>
 <body>
-  <div class="container-fluid user-home">
+  <div class="container-fluid admin-home">
     <div class="row">
+      <!-- Main Order Page -->
       <main class="p-0 col-md-12 col-lg-12">
+        <!-- Navigation Bar -->
         <nav class="d-flex align-items-center justify-content-between">
           <div class="links d-flex align-items-center justify-content-between">
             <img src="../images/logo.png" alt="Logo" width="50" height="50" class="d-inline-block align-text-top">
@@ -29,40 +31,52 @@
             <span>Islam Askar</span>
           </a>
         </nav>
+        <!-- All Menu Section -->
         <section class="menu">
+
+          <!-- Categories Section -->
           <article class="categories-sec row p-3">
             <h3 class="my-4">Categories</h3>
             <div id="categories" class="categories row"></div>
           </article>
+
+          <!-- Products Section -->
           <article class="products-sec row flex-wrap p-3">
             <h3 class="my-4">All Products</h3>
             <div id="products" class="products row align-items-center justify-content-evenly m-auto w-75"></div>
           </article>
         </section>
       </main>
+      <!-- Cart -->
       <aside id="cart" class="cart col-3 p-2 text cart-responsive d-none">
         <h3 class="my-3 text-center">Cart</h3>
+        <!-- Orders -->
         <div class="orders mb-4"></div>
+        <!-- Extra Details And Submission -->
         <div class="details text-center m-1">
           <textarea class="reset p-2 mb-2" name="notes" id="notes" rows="3" placeholder="Extra Notes"></textarea>
+          <!-- Select Order Room -->
           <select class="room d-block reset p-1 fw-bold mb-4 w-75 m-auto" name="room" id="room">
             <option class="fw-bold text-center" selected>Room</option>
             <option class="reset" value="1001">Room 1001</option>
             <option class="reset" value="1002">Room 1002</option>
             <option class="reset" value="1003">Room 1003</option>
           </select>
+          <!-- Select User -->
           <select class="user d-block reset p-1 fw-bold mb-4 w-75 m-auto" name="user" id="user" required>
             <option class="fw-bold text-center" selected>select User</option>
             <option class="reset" value="1001">User 1</option>
             <option class="reset" value="1002">User 2</option>
             <option class="reset" value="1003">User 3</option>
           </select>
+          <!-- Order Total Price -->
           <div class="d-flex justify-content-between align-items-center fw-bold">
             <p class="cart-price reset py-1">Total <span>0</span></p>
             <button class="confirm reset py-1 px-3 fw-bold">Send Order</button>
           </div>
         </div>
       </aside>
+      <!-- Show Cart In Small Screens -->
       <button class="show-cart reset fw-bold d-lg-none empty px-5">Cart <span>0</span></button>
     </div>
   </div>
