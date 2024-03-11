@@ -2,11 +2,11 @@
 
 class DB {
 
-    private $host = "localhost";
-    private $dbname="test1";
-    private $user="root";
+    private $host = "sql11.freesqldatabase.com";
+    private $dbname="sql11689414";
+    private $user="sql11689414";
     private $connection="";
-    private $pass="";
+    private $pass="cika8dEvS5";
     
    
  
