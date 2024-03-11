@@ -21,7 +21,7 @@ $lastId= $mydb->query("SELECT MAX(ID) as max_id FROM orders")->fetch(PDO::FETCH_
 $id = $lastId['max_id'];
 if($result!=0  ){
  foreach ($data["productions"] as $production) {
-     $mydb->insert_data("order_product","order_id, product_id, quantity, price_unit" , "'$id','{$production['product_id']}' ,'{$production['quantity']}','{$production['price']}'");
+    $mydb->insert_data("order_product","order_id, product_id, quantity, price_unit" , "'$id','{$production['product_id']}' ,'{$production['quantity']}','{$production['price']}'");
     }
     $response = [
         'status' => 'success',
