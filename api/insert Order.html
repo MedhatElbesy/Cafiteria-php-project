@@ -20,8 +20,8 @@
         async function senddata(){
 
         let myjson={"customers_id":2,
-                    "status":"done",
-                    "productions":[ {"product_id":1,"quantity":1,"price":100}, {"product_id":2,"quantity":2,"price":50}]
+                    "room":2,
+                    "products":[ {"product_id":1,"quantity":2}, {"product_id":2,"quantity":2}]
         }
        
         let textmyjson = JSON.stringify(myjson)
@@ -30,7 +30,8 @@
         fetch('./insertOrder.php', {
         method: 'POST',
         body: textmyjson
-        }).then(response => response.json())
+        })
+        .then(response => response.json())
         .then(data => {
         console.log('Response from server:', data);
         })
