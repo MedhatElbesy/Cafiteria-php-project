@@ -86,6 +86,66 @@ CREATE TABLE order_product
          CONSTRAINT c_order_ibfk_1 FOREIGN KEY (order_id) REFERENCES orders (id) ON DELETE CASCADE,
            CONSTRAINT c_order_ibfk_2 FOREIGN KEY (product_id) REFERENCES product (id) ON DELETE CASCADE);
 
+
+
+
+DELIMITER //
+CREATE TRIGGER update_total_price_insert
+AFTER INSERT ON order_product
+FOR EACH ROW
+BEGIN
+    DECLARE total DECIMAL(10, 2);
+
+    SELECT SUM(quantity * price_unit)
+    INTO total
+    FROM order_product
+    WHERE order_id = NEW.order_id;
+
+    UPDATE orders
+    SET total_price = total
+    WHERE id = NEW.order_id;
+END;
+//
+
+-- Create trigger for UPDATE
+CREATE TRIGGER update_total_price_update
+AFTER UPDATE ON order_product
+FOR EACH ROW
+BEGIN
+    DECLARE total DECIMAL(10, 2);
+
+    SELECT SUM(quantity * price_unit)
+    INTO total
+    FROM order_product
+    WHERE order_id = NEW.order_id;
+
+    UPDATE orders
+    SET total_price = total
+    WHERE id = NEW.order_id;
+END;
+//
+
+-- Create trigger for DELETE
+CREATE TRIGGER update_total_price_delete
+AFTER DELETE ON order_product
+FOR EACH ROW
+BEGIN
+    DECLARE total DECIMAL(10, 2);
+
+    SELECT SUM(quantity * price_unit)
+    INTO total
+    FROM order_product
+    WHERE order_id = OLD.order_id;
+
+    UPDATE orders
+    SET total_price = total
+    WHERE id = OLD.order_id;
+END;
+//
+DELIMITER ;
+
+
+
 -- insert into rooms table
 INSERT INTO rooms (extNumber) VALUES
 (101),

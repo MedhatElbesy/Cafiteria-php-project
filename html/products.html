@@ -19,7 +19,9 @@
       </div>
     </div>
     <hr>
-    <div class="row justify-content-center justify-content-lg-start">
+    <div id="cardsProducations" class="row justify-content-center justify-content-lg-start">
+
+
       <div class="myorder_card card mt-3 me-2 py-3 shadow-sm">
         <a href="#" title="cancel" class="cancel_order btn btn-danger"><i class="fa-solid fa-xmark"></i></a>
         <a href="#" title="edit" class="edit_order btn btn-warning" data-bs-toggle="modal"
@@ -44,6 +46,8 @@
         </div>
       </div>
 
+
+
     </div>
 
     <!-- modals-->
@@ -57,7 +61,9 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form class="row g-3 needs-validation" novalidate>
+
+
+            <form id="formInsert" class="row g-3 needs-validation" novalidate>
               <div class="col-md-6">
                 <label for="productName" class="form-label">name</label>
                 <input type="text" class="form-control" id="productName" placeholder="product name" value="" required>
@@ -73,6 +79,7 @@
                   Please enter product price!.
                 </div>
               </div>
+
               <div class="col-md-6">
                 <label for="productCategory" class="form-label">Category</label>
                 <select class="form-select" id="productCategory" aria-describedby="productCategoryFeedback" required>
@@ -83,11 +90,14 @@
                   Please select a valid category!.
                 </div>
               </div>
+
               <div class="col-md-6 align-self-end" data-bs-toggle="modal" data-bs-target="#categoryModal">
                 <a href="#">
                   <div class="btn btn-outline-primary">add new category</div>
                 </a>
               </div>
+
+
               <div class="mb-3">
                 <label for="product_img" class="form-label">Product Image</label>
                 <input type="file" class="form-control" aria-label="product picture" id="product_img" required>
@@ -97,7 +107,12 @@
                 <button class="btn btn-primary" type="submit">Add</button>
                 <button type="reset" class="btn btn-danger offset-1" data-bs-dismiss="modal">Reset</button>
               </div>
+
+              <div id="outputt"></div>
+
             </form>
+
+
           </div>
         </div>
       </div>
@@ -193,6 +208,110 @@
     <script src="../frameworks/bootstrap/bootstrap.bundle.min.js"></script>
     <script src="../script/aScript.js"></script>
     <script>
+
+        let productions;
+        async function fetchusers(){
+          
+            try {
+                let data=await fetch("../api/productsAPI.php")
+                productions= await data.json();
+            }
+            catch(err) {
+                document.getElementById("first").innerHTML = err.message;
+            }
+
+            let cards =document.getElementById("cardsProducations");
+
+            for(i=0;productions.length>i;++i){
+              cards.innerHTML+=`
+              <div class="myorder_card card mt-3 me-2 py-3 shadow-sm">
+              <a href="#" title="cancel" class="cancel_order btn btn-danger"><i class="fa-solid fa-xmark"></i></a>
+              <a href="#" title="edit" class="edit_order btn btn-warning" data-bs-toggle="modal"
+                data-bs-target="#updateModal"><i class="fa-solid fa-pen-to-square"></i></a>
+              <a href="#" title="availability" class="available_order btn btn-danger"><i class="fa-solid fa-ban"></i></a>
+              <div class="status badge bg-secondary">${productions[i].price} EGP</div>
+              <img src="../images/coffee-cup.gif" class="card-img-top w-75 h-75 me-5" alt="...">
+              <div class="card-body w-100 p-0">
+                <div class="badge text-dark mb-2 w-100">${productions[i].name}</div>
+              </div>
+            </div>
+              `;
+            }
+
+
+
+
+
+        }
+
+        function submitForm(e){
+              //  e.preventDefault();
+              // // console.log(e.target.productName.value);
+
+              const formInsert = document.getElementById('formInsert');
+
+
+
+              const formData = new FormData(formInsert);
+              // const fileInput = document.getElementById('product_img');
+              // const file = fileInput.files[0];
+
+              
+              // formData.append('id', document.getElementById("id").value);
+              // formData.append('name', document.getElementById("name").value);
+              // formData.append('category_id', document.getElementById("category_id").value);
+              // formData.append('price', document.getElementById("price").value);
+              // formData.append('available', document.getElementById("available").value);
+              // formData.append('img', file);   
+              // z=e.target;
+              // console.log(e.target)
+
+              const values = [...formData.entries()];
+              console.log(values);
+     
+              
+            }
+
+
+            function formDataToURLSearchParams(formData) {
+            const urlSearchParams = new URLSearchParams();
+            for (const entry of formData.entries()) {
+                urlSearchParams.append(entry[0], entry[1]);
+            }
+            return urlSearchParams;
+          }
+
+            document.getElementById("formInsert").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+             form = event.target;
+            const formData = new FormData(form);
+            const urlSearchParams = formDataToURLSearchParams(formData);
+            
+             
+
+            fetch("../api/insertProduct.php", {
+              method: "POST",
+              body: urlSearchParams,
+              // Additional options...
+            })
+            .then(response => response.json())
+            .then(data => {
+              console.log("Response:", data);
+              // Handle response...
+            })
+            .catch(error => {
+              // console.error("Error:", error);
+              // Handle error...
+            });
+          });
+
+
+
+
+        fetchusers();
+
+
 
     </script>
 </body>
