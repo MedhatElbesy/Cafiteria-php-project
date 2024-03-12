@@ -46,6 +46,9 @@ class DB {
     function commit(){
         $this->connection->commit();
     }
+    function lastInsertId(){
+        return $this->connection->lastInsertId();
+    }
 
 
 }
