@@ -4,14 +4,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Title And Title Icon -->
   <title>Cafeteria | My Orders</title>
   <link rel="icon" type="image/png" href="../images/logo.png"/>
-  <!-- Styles -->
+  <!-- Frameworks -->
   <link rel="stylesheet" href="../frameworks/bootstrap/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <!-- Styles -->
   <link rel="stylesheet" href="../styles/style.css">
 </head>
-
   <body>
     <div class="container-fluid user-orders">
       <!-- Main Order Page -->
@@ -23,16 +24,16 @@
             <ul class="text-center d-flex align-items-center justify-content-between m-0">
               <li class="mx-1"><a href="userhome.html" class="px-2 py-1"><i class="fa-solid fa-house"></i> Home</a></li>
               <li class="mx-1 active"><a href="#" class="px-2 py-1"><i class="fa-solid fa-receipt"></i> Orders</a>
-              </ul>
-            </div>
-            <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
-              <img src="../images/logo.png" alt="Logo" width="50" height="50" class="d-inline-block align-text-top">
-              <span>Islam Askar</span>
-            </a>
-          </nav>
-          <!-- Page Header Page -->
-          <header class="date row p-3">
-            <h3 class="my-4">My Orders</h3>
+            </ul>
+          </div>
+          <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
+            <img src="../images/logo.png" alt="Logo" width="50" height="50" class="d-inline-block align-text-top">
+            <span>Islam Askar</span>
+          </a>
+        </nav>
+        <!-- Page Header -->
+        <header class="date row p-3">
+          <h3 class="my-4">My Orders</h3>
           <div class="myorder-date col-md-12 col-lg-9 d-flex m-auto">
             <div class="input-group w-50 p-2" id="dateFrom">
               <label for="date-from" class="input-group-text">Date From</label>
@@ -43,7 +44,7 @@
               <label for="date-to" class="input-group-text">Date To</label>
               <input type="date" id="date-to" class="form-control" title="date to" aria-label="date to"
                 aria-describedby="date-to">
-              </div>
+            </div>
           </div>
         </header>
         <!-- Orders Section -->
@@ -65,8 +66,7 @@
         </section>
       </main>
     </div>
-
+    <!-- Script -->
     <script src="../script/ordersScript.js"></script>
-    <script src="../frameworks/bootstrap/bootstrap.bundle.min.js"></script>
   </body>
 </html>

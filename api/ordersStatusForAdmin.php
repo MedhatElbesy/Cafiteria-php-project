@@ -9,13 +9,14 @@ o.status,
 o.total_price,
 c.fname,
 c.lname,
-r.extNumber AS room,
+c.room,
+r.extNumber AS ext,
 GROUP_CONCAT(
     JSON_OBJECT(
         'name', p.name,
-        'price', p.price,
         'img', p.img,
-        'quantity', op.quantity -- Include quantity here
+        'quantity', op.quantity,
+        'price', op.price_unit
     )
 ) AS products
 FROM

@@ -1,136 +1,362 @@
 
--- use cafeteria;
-
--- rooms table
-
-create TABLE rooms 
-(id int AUTO_INCREMENT PRIMARY key,
- extNumber int);
-
-
--- category table
-
-CREATE TABLE category 
-(  id int(11) NOT NULL AUTO_INCREMENT,
-  name varchar(100) NOT NULL, 
-  img varchar(255) DEFAULT NULL,
-   PRIMARY KEY (id));
+--
+-- Database: `cafeteria`
+--
 
 
 
--- product table
+CREATE TABLE `admin` (
+  `id` int(11) NOT NULL,
+  `fname` varchar(255) DEFAULT NULL,
+  `lname` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `img` varchar(255) DEFAULT NULL
+);
 
-CREATE TABLE product
- (  id int(11) NOT NULL AUTO_INCREMENT,
-  category_id int(11) NOT NULL,
-   img varchar(100) DEFAULT NULL, 
-    name varchar(100) NOT NULL, 
-     price DECIMAL DEFAULT NULL, 
-      available enum('available', 'non available') NOT NULL, 
-       PRIMARY KEY (id), 
-        KEY fk_category (category_id),  
-        CONSTRAINT fk_category FOREIGN KEY (category_id) REFERENCES category (id));
+--
+-- إرجاع أو استيراد بيانات الجدول `admin`
+--
 
+INSERT INTO `admin` (`id`, `fname`, `lname`, `password`, `email`, `img`) VALUES
+(1, 'Admin', 'User', 'adminpass', 'admin@example.com', 'admin_image.jpg');
 
--- admin table
+-- --------------------------------------------------------
 
-CREATE TABLE admin 
-(  id int(11) NOT NULL AUTO_INCREMENT,
-  fname varchar(255) DEFAULT NULL, 
-   lname varchar(255) DEFAULT NULL,  
-   password varchar(255) DEFAULT NULL, 
-    email varchar(255) DEFAULT NULL,
-      img varchar(255) DEFAULT NULL,  
-      PRIMARY KEY (id),  
-      UNIQUE KEY email (email));
+--
+-- بنية الجدول `category`
+--
 
+CREATE TABLE `category` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `img` varchar(255) DEFAULT NULL
+);
 
--- customers table
+--
+-- إرجاع أو استيراد بيانات الجدول `category`
+--
 
-CREATE TABLE customers
- (  id int(11) AUTO_INCREMENT NOT NULL,
-   fname varchar(255) DEFAULT NULL,
-     lname varchar(255) DEFAULT NULL,
-       password varchar(255) DEFAULT NULL, 
-        email varchar(255) DEFAULT NULL,
-          img varchar(255) DEFAULT NULL, room int(11) DEFAULT NULL,
-            PRIMARY KEY (id),FOREIGN KEY(room) REFERENCES rooms(id) , 
-             UNIQUE KEY email (email));
+INSERT INTO `category` (`id`, `name`, `img`) VALUES
+(1, 'Electronics', NULL),
+(2, 'Clothing', NULL),
+(3, 'Home Appliances', NULL);
 
+-- --------------------------------------------------------
 
--- orders table
+--
+-- بنية الجدول `customers`
+--
 
-CREATE TABLE orders
- (id int(11) NOT NULL AUTO_INCREMENT, 
-  order_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    status enum('processing','done','in delivery') DEFAULT NULL,
-      total_price DECIMAL  NOT NULL ,
-        customers_id int(11) DEFAULT NULL,
-         PRIMARY KEY (id), 
-         CONSTRAINT fk_orders_customers FOREIGN KEY (customers_id) REFERENCES customers (id));
+CREATE TABLE `customers` (
+  `id` int(11) NOT NULL,
+  `fname` varchar(255) DEFAULT NULL,
+  `lname` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `img` varchar(255) DEFAULT NULL,
+  `room` int(11) DEFAULT NULL
+);
 
+--
+-- إرجاع أو استيراد بيانات الجدول `customers`
+--
 
+INSERT INTO `customers` (`id`, `fname`, `lname`, `password`, `email`, `img`, `room`) VALUES
+(1, 'John', 'Doe', 'password123', 'john.doe@example.com', 'john_image.jpg', 1),
+(2, 'Jane', 'Smith', 'pass456', 'jane.smith@example.com', 'jane_image.jpg', 2),
+(3, 'Bob', 'Johnson', 'bobpass', '6c19dc5249@emailabox.pro', 'bob_image.jpg', 3);
 
+-- --------------------------------------------------------
 
+--
+-- بنية الجدول `orders`
+--
 
+CREATE TABLE `orders` (
+  `id` int(11) NOT NULL,
+  `order_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `status` enum('processing','done','in delivery') DEFAULT NULL,
+  `total_price` decimal(10,0) NOT NULL,
+  `customers_id` int(11) DEFAULT NULL,
+  `room` int(11) NOT NULL
+);
 
--- order_product table
+--
+-- إرجاع أو استيراد بيانات الجدول `orders`
+--
 
-CREATE TABLE order_product
- (  order_id int(11) NOT NULL,
-   product_id int(11) NOT NULL, 
-    quantity int(11) NOT NULL, 
-     price_unit DECIMAL NOT NULL, 
-      PRIMARY KEY (order_id,product_id),
-        KEY product_id (product_id), 
-         CONSTRAINT c_order_ibfk_1 FOREIGN KEY (order_id) REFERENCES orders (id) ON DELETE CASCADE,
-           CONSTRAINT c_order_ibfk_2 FOREIGN KEY (product_id) REFERENCES product (id) ON DELETE CASCADE);
+INSERT INTO `orders` (`id`, `order_date`, `status`, `total_price`, `customers_id`, `room`) VALUES
+(1, '2024-03-04 10:00:00', 'processing', 3000, 1, 1),
+(2, '2024-03-05 12:30:00', 'done', 5000, 2, 1),
+(3, '2024-03-06 10:00:00', 'processing', 7000, 1, 1),
+(4, '2024-03-07 08:45:00', 'in delivery', 8000, 3, 1),
+(5, '2024-03-10 12:20:22', 'done', 0, 2, 1),
+(6, '2024-03-10 12:22:25', 'done', 150, 2, 1),
+(7, '2024-03-10 12:24:57', 'done', 150, 2, 1),
+(8, '2024-03-10 12:25:00', 'done', 200, 2, 1),
+(9, '2024-03-10 12:48:48', 'done', 100, 2, 1),
+(62, '2024-03-11 13:53:40', 'processing', 2040, 2, 2),
+(63, '2024-03-11 13:56:07', 'processing', 2040, 2, 2);
 
--- insert into rooms table
-INSERT INTO rooms (extNumber) VALUES
-(101),
-(102),
-(103);
+-- --------------------------------------------------------
 
--- insert into category table
+--
+-- بنية الجدول `order_product`
+--
 
-INSERT INTO category (name) VALUES
-('Electronics'),
-('Clothing'),
-('Home Appliances');
+CREATE TABLE `order_product` (
+  `order_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `price_unit` decimal(10,0) NOT NULL
+);
 
+--
+-- إرجاع أو استيراد بيانات الجدول `order_product`
+--
 
--- insert into product table
-
-INSERT INTO product (img, name, price,available, category_id) VALUES
-('laptop.jpg', 'Laptop', 1000,'available', 1),
-('shirt.jpg', 'T-Shirt', 20,'available', 2),
-('fridge.jpg', 'Refrigerator', 800,'available', 3);
-
--- insert into admin table
-
-INSERT INTO admin (fname, lname, password, email, img) VALUES
-('Admin', 'User', 'adminpass', 'admin@example.com', 'admin_image.jpg');
-
--- insert into customers table
-
-INSERT INTO customers (fname, lname, password, email, img, room) VALUES
-('John', 'Doe', 'password123', 'john.doe@example.com', 'john_image.jpg', 1),
-('Jane', 'Smith', 'pass456', 'jane.smith@example.com', 'jane_image.jpg', 2),
-('Bob', 'Johnson', 'bobpass', 'bob.johnson@example.com', 'bob_image.jpg', 3);
-
--- insert into orders table
-
-INSERT INTO orders (order_date, status, total_price,customers_id) VALUES
-('2024-03-04 12:00:00', 'processing',3000, 1),
-('2024-03-05 14:30:00', 'done',5000, 2),
-('2024-03-06 12:00:00', 'processing',7000, 1),
-('2024-03-07 10:45:00', 'in delivery',8000, 3);
-
--- insert into order_product table
-
-INSERT INTO order_product (order_id, product_id, quantity, price_unit) VALUES
+INSERT INTO `order_product` (`order_id`, `product_id`, `quantity`, `price_unit`) VALUES
 (1, 1, 2, 40),
 (2, 2, 3, 60),
-(3, 3, 1, 30);
+(3, 3, 1, 30),
+(5, 1, 1, 100),
+(5, 2, 1, 50),
+(6, 1, 1, 100),
+(6, 2, 1, 50),
+(7, 1, 1, 100),
+(7, 2, 1, 50),
+(8, 1, 1, 100),
+(9, 1, 1, 100),
+(62, 1, 2, 1000),
+(62, 2, 2, 20),
+(63, 1, 2, 1000),
+(63, 2, 2, 20);
+
+--
+-- القوادح `order_product`
+--
+DELIMITER $$
+CREATE TRIGGER `update_total_price_delete` AFTER DELETE ON `order_product` FOR EACH ROW BEGIN
+    DECLARE total DECIMAL(10, 2);
+
+    SELECT SUM(quantity * price_unit)
+    INTO total
+    FROM order_product
+    WHERE order_id = OLD.order_id;
+
+    UPDATE orders
+    SET total_price = total
+    WHERE id = OLD.order_id;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `update_total_price_insert` AFTER INSERT ON `order_product` FOR EACH ROW BEGIN
+    DECLARE total DECIMAL(10, 2);
+
+    SELECT SUM(quantity * price_unit)
+    INTO total
+    FROM order_product
+    WHERE order_id = NEW.order_id;
+
+    UPDATE orders
+    SET total_price = total
+    WHERE id = NEW.order_id;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `update_total_price_update` AFTER UPDATE ON `order_product` FOR EACH ROW BEGIN
+    DECLARE total DECIMAL(10, 2);
+
+    SELECT SUM(quantity * price_unit)
+    INTO total
+    FROM order_product
+    WHERE order_id = NEW.order_id;
+
+    UPDATE orders
+    SET total_price = total
+    WHERE id = NEW.order_id;
+END
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- بنية الجدول `product`
+--
+
+CREATE TABLE `product` (
+  `id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `img` varchar(100) DEFAULT NULL,
+  `name` varchar(100) NOT NULL,
+  `price` decimal(10,0) DEFAULT NULL,
+  `available` enum('available','non available') NOT NULL
+) ;
+
+--
+-- إرجاع أو استيراد بيانات الجدول `product`
+--
+
+INSERT INTO `product` (`id`, `category_id`, `img`, `name`, `price`, `available`) VALUES
+(1, 1, 'laptop.jpg', 'Laptop', 1000, 'available'),
+(2, 2, 'shirt.jpg', 'T-Shirt', 20, 'available'),
+(3, 3, 'fridge.jpg', 'Refrigerator', 800, 'non available'),
+(11, 1, 'phone.jpg', 'Smartphone', 600, 'available'),
+(12, 2, 'jeans.jpg', 'Jeans', 50, 'available'),
+(13, 3, 'microwave.jpg', 'Microwave Oven', 200, 'available'),
+(14, 1, 'tablet.jpg', 'Tablet', 300, 'non available'),
+(15, 2, 'dress.jpg', 'Dress', 80, 'non available'),
+(16, 3, 'blender.jpg', 'Blender', 50, 'available'),
+(17, 1, 'headphones.jpg', 'Headphones', 100, 'available'),
+(18, 2, 'sweater.jpg', 'Sweater', 40, 'available'),
+(19, 3, 'toaster.jpg', 'Toaster', 30, 'available'),
+(20, 1, 'camera.jpg', 'Digital Camera', 400, 'non available');
+
+-- --------------------------------------------------------
+
+--
+-- بنية الجدول `rooms`
+--
+
+CREATE TABLE `rooms` (
+  `id` int(11) NOT NULL,
+  `extNumber` int(11) DEFAULT NULL
+) ;
+
+--
+-- إرجاع أو استيراد بيانات الجدول `rooms`
+--
+
+INSERT INTO `rooms` (`id`, `extNumber`) VALUES
+(1, 101),
+(2, 102),
+(3, 103);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
+-- Indexes for table `category`
+--
+ALTER TABLE `category`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `customers`
+--
+ALTER TABLE `customers`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`),
+  ADD KEY `room` (`room`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_orders_customers` (`customers_id`),
+  ADD KEY `room` (`room`);
+
+--
+-- Indexes for table `order_product`
+--
+ALTER TABLE `order_product`
+  ADD PRIMARY KEY (`order_id`,`product_id`),
+  ADD KEY `product_id` (`product_id`);
+
+--
+-- Indexes for table `product`
+--
+ALTER TABLE `product`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_category` (`category_id`);
+
+--
+-- Indexes for table `rooms`
+--
+ALTER TABLE `rooms`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `admin`
+--
+ALTER TABLE `admin`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `category`
+--
+ALTER TABLE `category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `customers`
+--
+ALTER TABLE `customers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+
+--
+-- AUTO_INCREMENT for table `product`
+--
+ALTER TABLE `product`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT for table `rooms`
+--
+ALTER TABLE `rooms`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- قيود الجداول المُلقاة.
+--
+
+--
+-- قيود الجداول `customers`
+--
+ALTER TABLE `customers`
+  ADD CONSTRAINT `customers_ibfk_1` FOREIGN KEY (`room`) REFERENCES `rooms` (`id`);
+
+--
+-- قيود الجداول `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `fk_orders_customers` FOREIGN KEY (`customers_id`) REFERENCES `customers` (`id`),
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`room`) REFERENCES `rooms` (`id`);
+
+--
+-- قيود الجداول `order_product`
+--
+ALTER TABLE `order_product`
+  ADD CONSTRAINT `c_order_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `c_order_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE;
+
+--
+-- قيود الجداول `product`
+--
+ALTER TABLE `product`
+  ADD CONSTRAINT `fk_category` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`);
+COMMIT;
 
