@@ -3,7 +3,7 @@
     // $customer_id=$_GET['id'];
     $order_id = $_GET['id'];
     $mydb = new DB();
-    $data= $mydb->query(" SELECT orders.total_price ,orders.id , order_product.* ,product.img, product.name 
+    $data= $mydb->query(" SELECT orders.total_price, order_product.* ,product.img, product.name 
         from orders 
         JOIN order_product 
         ON orders.id = order_product.order_id

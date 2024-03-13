@@ -13,6 +13,7 @@ const getProducts = async function() {
     allProducts = await response.json();
   } catch(error) {
     console.error('Error Fetching Products:', error);
+    window.location.href = 'error.html';
     throw error;
   }
 };
@@ -34,6 +35,7 @@ const getCategories = async function() {
     allCategories = await response.json();
   } catch(error) {
     console.error('Error Fetching Categories:', error);
+    window.location.href = 'error.html';
     throw error;
   }
 };
@@ -79,22 +81,23 @@ let setCategory = function(i) {
   category.appendChild(items);
   categoryContainer.appendChild(category);
   
-  category.addEventListener("click", ()=>showCategoryProducts(allCategories[i]));
+  category.addEventListener("click", ()=> showCategoryProducts(allCategories[i]));
 };
 
 // Create Order Element In Cart
-let setOrder = function (productIdx, productId) {
+let setOrder = function (productIdx) {
   for(let i = 0; i < allOrders.length; i++) {
     let order = cart.querySelector(".orders").children[i];
-    if(order.dataset.orderId == productId) {
-      addOrder(order, allProducts[productIdx]);
+    if(order.dataset.orderId == productIdx) {
+      addOrder(order);
       return;
     }
   }
+
   let newOrder = document.createElement("div");
   newOrder.classList.add("order", "center", "justify-content-between", "p-2", "m-1", "mb-2");
   newOrder.dataset.quantity = 0;
-  newOrder.dataset.orderId = productId;
+  newOrder.dataset.orderId = productIdx;
   let quantity = Number(newOrder.dataset.quantity);
   
   for(let i = 0; i < 4; i++) {
@@ -113,10 +116,9 @@ let setOrder = function (productIdx, productId) {
       <button class="add fw-bold reset center mx-1">+</button>
       <button class="remove fw-bold reset center">-</button>
     </div>`;
-  orderPrice(newOrder, allProducts[productIdx]);
   newOrder.children[3].innerHTML = `<button id="cancelOrder" class="cancel reset center text-danger"><i class="fa-regular fa-circle-xmark"></i></button>`;
   cart.querySelector(".orders").appendChild(newOrder);
-  addOrder(newOrder, allProducts[productIdx]);
+  addOrder(newOrder);
 };
 
 // Create Product Element In Page
@@ -144,51 +146,39 @@ let setProduct = function(i) {
   data.appendChild(p2);
   product.appendChild(data);
   productsContainer.appendChild(product);
-  product.addEventListener("click", function(){
-    setOrder(i, allProducts[i].id);
-  });
-} ;
+  
+  // Add Order When Clicking On Product
+  product.addEventListener("click", () => setOrder(i, allProducts[i].id));
+};
 
 // Make Actions On Orders In Cart (Add, Remove, Cancel)
 cart.addEventListener("click", function(e) {
   let order = e.target.closest(".order");
   if(e.target.parentNode.classList.contains("cancel")) {
     order.remove();
+    totalcart();
     checkOrderExistance();
   }
   if(e.target.classList.contains("add")) {
-    addOrder(order, allProducts[order.dataset.orderId]);
+    addOrder(order);
   }
   if(e.target.classList.contains("remove")) {
-    removeOrder(order, allProducts[order.dataset.orderId]);
+    removeOrder(order);
   }
 });
 
 // Add Order In Cart
-let addOrder = function(order, product) {
+let addOrder = function(order) {
   let quantity = Number(order.dataset.quantity);
   order.dataset.quantity = ++quantity;
   order.querySelector(".quantity").innerText = quantity;
-  orderPrice(order, product);
+  orderPrice(order);
   checkOrderExistance();
 }
 
-// Remove Order From Cart
-let removeOrder = function(order, product) {
-  let quantity = Number(order.dataset.quantity);
-  order.dataset.quantity = --quantity;
-  if(quantity == 0) {
-    order.remove();
-    checkOrderExistance();
-    return;
-  }
-  order.querySelector(".quantity").innerText = quantity;
-  orderPrice(order, product);
-}
-
 // Calculate Order Price
-let orderPrice = function (order, product) {
-  order.children[2].innerText = Number(order.dataset.quantity) * Number(product.price);
+let orderPrice = function (order) {
+  order.children[2].innerText = Number(order.dataset.quantity) * Number(allProducts[order.dataset.orderId].price);
   totalcart();
 }
 
@@ -200,6 +190,20 @@ let totalcart = function() {
   }
   cart.querySelector(".cart-price").children[0].innerText = cartPrice;
 };
+
+// Remove Order From Cart
+let removeOrder = function(order) {
+  let quantity = Number(order.dataset.quantity);
+  order.dataset.quantity = --quantity;
+  if(quantity == 0) {
+    order.remove();
+    orderPrice(order);
+    checkOrderExistance();
+    return;
+  }
+  order.querySelector(".quantity").innerText = quantity;
+  orderPrice(order);
+}
 
 // Show Cart If It Has Orders
 showcart.addEventListener("click", function(e) {
@@ -253,20 +257,25 @@ document.querySelector(".confirm").addEventListener("click", function() {
   for(let i = 0; i < allOrders.length; i++) {
     let order = allOrders[i];
     let quantity = Number(order.querySelector(".quantity").innerText);
-    orderDetails.push({ product_id: order.dataset.orderId, quantity: quantity });
+    orderDetails.push({ product_id: allProducts[order.dataset.orderId].id, quantity: quantity });
   }
-  let orderJSON = {customers_id: 1, products: orderDetails};
-  sendOrder(orderJSON);
+  
+  let orderObject = {customers_id: 1, room: 2,  products: orderDetails};
+  sendOrder(orderObject);
 });
 
-let sendOrder = async function (orderJSON) {
+let sendOrder = async function (orderObject) {
   try {
     const response = await fetch('../api/insertOrder.php', {
       method: 'POST',
-      body: JSON.stringify(orderJSON)
-    })
-    .then(response => console.log( response.json()));
+      body: JSON.stringify(orderObject)
+    });
+    const responseData = await response.json();
+    if(responseData.status == "Success") {
+        window.location.href = 'adminorders.html';
+    }
   } catch (error) {
     console.error('Error Sending Order:', error);
+    window.location.href = 'error.html';
   }
-}
+};
