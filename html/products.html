@@ -21,35 +21,6 @@
     <hr>
     <div id="cardsProducations" class="row justify-content-center justify-content-lg-start">
 
-<!-- 
-      <div class="myorder_card card mt-3 me-2 py-3 shadow-sm">
-        <a href="#" title="edit" class="edit_order btn btn-warning" data-bs-toggle="modal"
-          data-bs-target="#updateModal"><i class="fa-solid fa-pen-to-square"></i></a>
-
-        <a href="#" title="availability" class="available_order btn btn-danger"><i class="fa-solid fa-ban"></i></a>
-
-        <div class="status badge bg-secondary">20 EGP</div>
-        <img src="../images/coffee-cup.gif" class="card-img-top w-75 h-75 me-5" alt="...">
-        <div class="card-body w-100 p-0">
-          <div class="badge text-dark mb-2 w-100">Tea</div>
-        </div>
-      </div>
-
-      <div class="myorder_card card mt-3 me-2 py-3 shadow-sm">
-        <a href="#" title="edit" class="edit_order btn btn-warning" data-bs-toggle="modal"
-          data-bs-target="#updateModal"><i class="fa-solid fa-pen-to-square"></i></a> 
-
-          <a href="#" title="availability" class="available_order btn btn-primary"><i class="fa-solid fa-check"></i></a>
-          
-        <div class="status badge bg-secondary">20 EGP</div>
-        <img src="../images/coffee-cup.gif" class="card-img-top w-75 h-75 me-5" alt="...">
-        <div class="card-body w-100 p-0">
-          <div class="badge text-dark mb-2 w-100">Tea</div>
-        </div>
-      </div> -->
-
-
-
     </div>
 
     <!-- modals-->
@@ -68,14 +39,14 @@
             <form id="formInsert" class="row g-3 needs-validation" novalidate>
               <div class="col-md-6">
                 <label for="productNameAdd" class="form-label">name</label>
-                <input type="text" class="form-control" id="productNameAdd" placeholder="product name" value="" required>
+                <input type="text" class="form-control" id="productNameAdd" placeholder="product name" v-model="productName" required>
                 <div class="invalid-feedback">
                   Please enter product name!.
                 </div>
               </div>
               <div class="col-md-6">
                 <label for="productPriceAdd" class="form-label">price</label>
-                <input type="number" min="0" class="form-control" id="productPriceAdd" placeholder="product price" value=""
+                <input type="number" min="0" class="form-control" id="productPriceAdd" placeholder="product price"  v-model="price"
                   required>
                 <div class="invalid-feedback">
                   Please enter product price!.
@@ -84,9 +55,9 @@
 
               <div class="col-md-6">
                 <label for="productCategory" class="form-label">Category</label>
-                <select class="form-select" id="productCategory" aria-describedby="productCategoryFeedback" required>
+                <select class="form-select categorySelector" id="selectorCategoryAdd" aria-describedby="productCategoryFeedback" required>
                   <option selected disabled value="">Choose...</option>
-                  <option>...</option>
+                  <!-- js will injection -->
                 </select>
                 <div id="productCategoryFeedback" class="invalid-feedback">
                   Please select a valid category!.
@@ -101,12 +72,12 @@
 
 
               <div class="mb-3">
-                <label for="product_img" class="form-label">Product Image</label>
-                <input type="file" class="form-control" aria-label="product picture" id="product_img" required>
+                <label for="product_imgAdd" class="form-label">Product Image</label>
+                <input type="file" class="form-control" aria-label="product picture" id="product_imgAdd" required>
                 <div class="invalid-feedback">Please select a vaild image!</div>
               </div>
               <div class="col-12 text-center">
-                <button class="btn btn-primary" type="submit">Add</button>
+                <button class="btn btn-primary" onclick="senddata()" type="submit">Add</button>
                 <button type="reset" class="btn btn-danger offset-1" data-bs-dismiss="modal">Reset</button>
               </div>
 
@@ -175,6 +146,7 @@
                 </div>
               </div>
               <div class="col-md-6">
+                <input type="hidden" min="0" class="form-control" id="productid" placeholder="id" value="">
                 <label for="productPrice" class="form-label">price</label>
                 <input type="number" min="0" class="form-control" id="productPrice" placeholder="product price" value=""
                   required>
@@ -184,9 +156,9 @@
               </div>
               <div class="col-md-6">
                 <label for="productCategory" class="form-label">Category</label>
-                <select class="form-select" id="productCategory" aria-describedby="productCategoryFeedback" required>
+                <select class="form-select categorySelector" id="productCategory" aria-describedby="productCategoryFeedback" required>
                   <option selected disabled value="">Choose...</option>
-                  <option>...</option>
+                    <!-- js will injection -->
                 </select>
                 <div id="productCategoryFeedback" class="invalid-feedback">
                   Please select a valid category!.
@@ -194,11 +166,11 @@
               </div>
               <div class="mb-3">
                 <label for="product_img" class="form-label">Product Image</label>
-                <input type="file" class="form-control" aria-label="product picture" id="productImg" required>
+                <input type="file" class="form-control" aria-label="product picture" id="product_img">
                 <div class="invalid-feedback">Please select a vaild image!</div>
               </div>
               <div class="col-12 text-center">
-                <button class="btn btn-primary" type="submit">Update</button>
+                <button class="btn btn-primary" onclick="updateProduct()" type="submit">Update</button>
                 <button type="reset" class="btn btn-danger offset-1" data-bs-dismiss="modal">Reset</button>
               </div>
             </form>
@@ -212,9 +184,8 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="../frameworks/bootstrap/bootstrap.bundle.min.js"></script>
     <script src="../script/showproductions.js" ></script>
-    <!-- <script src="../script/insert_update_deleteUserUsingvue.js"></script> -->
    
-
+<!-- 
     <script>
 
         let productions;
@@ -317,11 +288,11 @@
 
 
 
-        // fetchusers();
+        // fetchusers(); -->
 
 
 
-    </script>
+    <!-- </script> -->
 </body>
 
 </html>

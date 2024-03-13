@@ -11,7 +11,7 @@
     $data=$mydb->query(" SELECT *
             FROM orders 
             WHERE customers_id = '$customer_id' AND 
-            order_date >= '$date_from' AND order_date < DATE_ADD('$date_to', INTERVAL 1 DAY);
+            order_date >= '$date_from' AND order_date < DATE_ADD('$date_to', INTERVAL 1 DAY) order by order_date desc ;
     ");
     $allOrdersInSpecificDate = $data->fetchAll(PDO::FETCH_ASSOC);
     echo json_encode($allOrdersInSpecificDate );

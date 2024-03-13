@@ -2,7 +2,7 @@ const getUsers = async function(){
     try {
         const response = await fetch('../api/productsAPI.php');
         const json = await response.json();
-        usercard(json);
+        productCard(json);
         updateClickBtn();
         deleteClickBtn();
     } catch(error) {
@@ -10,11 +10,9 @@ const getUsers = async function(){
     }
 }();
 
-const usercard = function(json){
+const productCard = function(json){
     json.forEach(production => {
         let sectionTag = document.querySelector('#cardsProducations');
-        // let cardDiv = document.createElement('div');
-        // cardDiv.classList.add('');
         let classn="btn-primary";
         let classb="fa-check";
         if(production.available == "non available"){
@@ -25,35 +23,16 @@ const usercard = function(json){
 
         sectionTag.innerHTML += `
         <div class="myorder_card card mt-3 me-2 py-3 shadow-sm">
-        <a href="#" title="cancel" class="cancel_order btn btn-danger"><i class="fa-solid fa-xmark"></i></a>
-        <a href="#" title="edit" class="edit_order btn btn-warning edit-btn" data-id="${production.id}" data-bs-toggle="modal"
+        <a href="#" title="edit" class="edit_order btn btn-warning edit-btn" category="${production.category_id}" data-id="${production.id}" data-bs-toggle="modal"
           data-bs-target="#updateModal"><i class="fa-solid fa-pen-to-square"></i></a>
         <a href="#" title="availability" class="available_order btn ${classn}" onclick="changeStatus(${production.id},'${production.available}')" data-id="${production.id}" ><i class="fa-solid ${classb}"></i></a>
         <div class="status badge bg-secondary">${production.price} EGP</div>
-        <img src="../images/coffee-cup.gif" class="card-img-top w-75 h-75 me-5" alt="...">
+        <img src="${production.img}" class="card-img-top w-75 h-75 me-5" alt="...">
         <div class="card-body w-100 p-0">
           <div class="badge text-dark mb-2 w-100">${production.name}</div>
         </div>
       </div>
         `;
-
-
-        var myvarrr = `
-            <div class="user-img">
-                <img src="../images/${production.img}" class="card-img-top">
-            </div>
-            <div class="card-body">
-                <h6 class="card-title m-0">${production.fname} ${production.lname}</h6>
-                <p class="m-0"><span class="badge text-success">Room:${production.room}</span> - <span
-                    class="badge text-success">EXT.:${production.extNumber}</span>
-                </p>
-                <div class="d-flex gap-2 justify-content-center">
-                    <a href="#" title="cancel" class="btn btn-primary edit-btn" data-id="${production.id}" data-bs-toggle="modal" data-bs-target="#editModal"><i class="fa-solid fa-pen"></i></a>
-                    <a href="#" title="cancel" class="btn btn-danger delete-btn" data-id="${production.id}"data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fa-solid fa-xmark"></i></a>
-                </div>
-            </div>
-        `;
-        // sectionTag.appendChild(cardDiv);
 
 
     });
@@ -62,6 +41,7 @@ const usercard = function(json){
 let updateClickBtn = function(){
     document.querySelectorAll('.edit-btn').forEach(btn => {
         btn.addEventListener('click', function(event) {
+            changeSelect(event.currentTarget.getAttribute('category'));
             event.preventDefault();
             const userId = event.currentTarget.getAttribute('data-id');
             const dataUpdate = async function(){
@@ -81,13 +61,8 @@ function dataForUpdate(userData){
     userData.forEach(key => {
         
         document.getElementById('productName').value = key.name
-        document.getElementById('productPrice').value = key.price
-        // document.getElementById('updatelname').value = key.lname
-        // document.getElementById('updateuseremail').value = key.email
-        // document.getElementById('updateroom').value = parseInt(key.room) 
-        // document.getElementById('updatepass').value =parseInt( key.password)
-       
-        // document.getElementById('userimg').value = userData.img
+        document.getElementById('productPrice').value = parseInt(key.price);
+        document.getElementById('productid').value = parseInt(key.id);
     })
 }
     const deleteClickBtn = function(){
@@ -108,24 +83,100 @@ function dataForUpdate(userData){
         element.classList.toggle("btn-primary");
         element.classList.toggle("btn-danger");
 
+    }
 
-        
-
+    function changeSelect(id_category){
+        Array.from(document.querySelectorAll(".categorySelector")[1].children).forEach(option => {
+            option.removeAttribute("selected");
+        });
+        document.querySelectorAll(".categorySelector")[1].children[id_category].setAttribute("selected", "selected")
 
     }
 
-    // document.getElementById('editForm').addEventListener('submit',
-//   async function(event) {
-//     event.preventDefault();
-//     const formData = new FormData(this);
-//     try{
-//       const responce = await fetch('../api/editCustomer.php',{
-//       method:'POST',
-//       body: formData
-//     });
-//     const responseResault = await responce.json();
-//     console.log(responseResault)
-//     }catch(error){
-//       console.log("error");
-//     }
-//   });
+
+
+    let selectors = document.querySelectorAll(".categorySelector");
+    
+    const getCategories =async function(){
+    try {
+        const response = await fetch(`../api/categoryAPI.php`);
+        const category = await response.json();
+
+
+        selectors.forEach(selector => {
+            for(let i=0 ; category.length>i ;++i){
+                selector.innerHTML +=`
+                <option value="${category[i].id}">${category[i].name}</option>`}
+        });
+
+    } catch(error) {
+        console.log("error");
+    }
+    }();
+
+
+
+   
+
+        async function senddata(){
+
+            const fileInput = document.getElementById('product_imgAdd');
+            const file = fileInput.files[0];
+    
+            const formData = new FormData();
+            
+    
+            formData.append('name', document.getElementById("productNameAdd").value);
+            formData.append('category_id', parseInt(document.getElementById("selectorCategoryAdd").value));
+            formData.append('price', parseInt(document.getElementById("productPriceAdd").value));
+            formData.append('available', "available");
+            formData.append('img', file);
+    
+    
+            fetch('../api/insertProduct.php', {
+            method: 'POST',
+            body: formData
+            }).then(response => response.json())
+            .then(data => {
+            console.log('Response from server:', data);
+            })
+
+            setTimeout(() => {
+                location.reload();
+            }, 100);
+            }
+
+
+
+            async function updateProduct(){
+
+                const fileInput = document.getElementById('product_img');
+                const file = fileInput.files[0];
+        
+                const formData = new FormData();
+                
+                formData.append('id', parseInt(document.getElementById("productid").value));
+                formData.append('name', document.getElementById("productName").value);
+                formData.append('category_id', parseInt(document.getElementById("productCategory").value));
+                formData.append('price', parseInt(document.getElementById("productPrice").value));
+                formData.append('available', "available");
+                formData.append('img', file);
+        
+        
+                fetch('../api/updateProduct.php', {
+                method: 'POST',
+                body: formData
+                }).then(response => response.json())
+                .then(data => {
+                console.log('Response from server:', data);
+                })
+                setTimeout(() => {
+                    location.reload();
+                }, 100);
+                }
+
+
+     
+
+
+
