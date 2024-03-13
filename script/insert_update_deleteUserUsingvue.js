@@ -94,9 +94,11 @@ const app= Vue.createApp({
         if (xhr.readyState === 4 && xhr.status === 200)
         {
           let res= JSON.parse(xhr.response);
+          
           if(res.status==='success')
           {
             this.resMass(res.message,1);
+            location.href="";
           }
           else if(res.status==='failed3')
          {
@@ -111,11 +113,11 @@ const app= Vue.createApp({
          {
             if(res.message.includes('room'))
             {
-              this.resMass('insert failed (wrong Room Number)');
+              this.resMass(`${model} failed (wrong Room Number)`);
             }
             else if(res.message.includes('email'))
             {
-              this.resMass('insert failed (Duplicate entry for Email)');
+              this.resMass(`${model} failed (Duplicate entry for Email)`);
             }
           }
           else if(res.status==='failed2')
