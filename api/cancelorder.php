@@ -4,12 +4,12 @@ include("db.php");
 $mydb = new DB();
 $orderId = $_GET['id'];
 try{
-  $mydb-> delete_data("orders","'id=$orderId'");
+  $affectedRows = $mydb-> delete_data("orders","id='$orderId'");
   $response = [
     'status' => 'success',
-    'message' => 'Delete done successfully.'
+    'message' => $affectedRows,
   ];
-}catch(Exception $e){
+}catch(Exception $e) {
   $response = [ 'status' => 'failed',
   'message' => $e->getMessage() ];
 }

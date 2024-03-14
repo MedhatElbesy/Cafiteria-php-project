@@ -27,25 +27,26 @@ const getOrderDetails = async function(orderId) {
 
 dateFrom.addEventListener("input", function() {
   getOrders()
-  .then((myOrders)=>showOrders(myOrders, dateFrom.value, dateTo.value))
+  .then((myOrders)=>showOrders(myOrders))
 });
 
 dateTo.addEventListener("input", function() {
   getOrders()
-  .then((myOrders) => showOrders(myOrders, dateFrom.value, dateTo.value));
+  .then((myOrders) => showOrders(myOrders));
 });
 
-let showOrders = function(myOrders, dateFrom, dateTo) {
+let showOrders = function(myOrders) {
   // Check Orders Existance 
   if (myOrders.length == 0) {
     ordersTable.children[1].innerHTML = `<tr><td colspan="4" class="text-danger text-center fw-bold">No Orders In Selected Date</td></tr>`;
     return;
   }
+
   // Check Orders Exist 
   ordersTable.children[1].innerHTML = "";
   myOrders.forEach((order, i) => {
-    console.log(dateFrom, dateTo, orderDateFormat(order.order_date));
     let currentOrder = document.createElement("tr");
+    currentOrder.dataset.orderId = order.id;
     currentOrder.innerHTML +=
     `<td class="d-flex align-items-center">
       <span class="fw-bold reset ml-2">${order.order_date}</span> 
@@ -60,7 +61,7 @@ let showOrders = function(myOrders, dateFrom, dateTo) {
     
     <!-- Check Status -->
     ${order.status == "processing" ?
-    '<td class="text-center"><a href="#" title="cancel" class="cancel-order btn btn-danger">Cancel</a></td>'
+    '<td class="text-center"><button type="button" class="cancel-order btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Cancel</button></td>'
     :'<td class="text-center">-</td>'}`
     ordersTable.children[1].appendChild(currentOrder);
 
@@ -77,13 +78,13 @@ let showOrders = function(myOrders, dateFrom, dateTo) {
     // Add Event Click To Show Order Details
     if(currentOrder.querySelector(".show-order")) {
       currentOrder.querySelector(".show-order").addEventListener("click", (e)=> {
-        showOrderButton(e, order.id, i)
+        showOrderButton(e, order.id);
       });
     }
   });
 };
 
-let showOrderButton = function(e, orderId, orderIndex) {
+let showOrderButton = function(e, orderId) {
   if(e.target.innerText == "+") {
     getOrderDetails(orderId)
     .then((orderDetails) => {
@@ -93,11 +94,12 @@ let showOrderButton = function(e, orderId, orderIndex) {
       orderDetailsContainer.classList.remove("d-none");
       e.target.innerText = "-";
       orderDetailsContainer.innerHTML = "";
-      orderDetails.forEach((order, orderIndex) => {
-        if(order.id == orderId) {
-          showOrderDetails(orderIndex, orderDetails);
-        }
+      orderDetails.forEach((order) => {
+        showOrderDetails(order);
       });
+      
+      // Add Total Price
+      orderDetailsContainer.innerHTML += `<p class="total-price text-center fw-bold">Total ${orderDetails[0].total_price}</p>`
     });
   } else {
     orderDetailsContainer.classList.add("d-none");
@@ -105,7 +107,7 @@ let showOrderButton = function(e, orderId, orderIndex) {
   }
 }
 
-let showOrderDetails = function(orderIndex, orderDetails) {
+let showOrderDetails = function(order) {
   let product = document.createElement("div");
   let image = document.createElement("img");
   let data = document.createElement("div");
@@ -120,13 +122,12 @@ let showOrderDetails = function(orderIndex, orderDetails) {
   price.classList.add("price", "m-0", "p-2", "fw-bold");
   quantity.classList.add("quantity", "m-0", "p-2", "fw-bold");
 
-  image.setAttribute("src", "../images/landing-img.jpg");
-  // image.setAttribute("src", orderDetails[i].img);
-  image.setAttribute("alt", orderDetails[orderIndex].name);
+  image.setAttribute("src", order.img);
+  image.setAttribute("alt", order.name);
 
-  name.innerText = orderDetails[orderIndex].name;
-  price.innerText = orderDetails[orderIndex].price_unit + " LE";
-  quantity.innerText = orderDetails[orderIndex].quantity;
+  name.innerText = order.name;
+  price.innerText = order.price_unit + " LE";
+  quantity.innerText = order.quantity;
 
   product.appendChild(image);
   data.appendChild(name);
@@ -134,16 +135,37 @@ let showOrderDetails = function(orderIndex, orderDetails) {
   data.appendChild(quantity);
   product.appendChild(data);
   orderDetailsContainer.appendChild(product);
-  // Add Total Price
-  orderDetailsContainer.innerHTML += `<p class="total-price text-center fw-bold">Total ${orderDetails[orderIndex].total_price}</p>`
 };
 
+// Cancel Order
 ordersTable.addEventListener("click", function(e){
   let order = e.target.closest("tr");
   if(e.target.classList.contains("cancel-order")) {
-    order.remove();
+    cancelOrder(order);
   }
 });
+
+let cancelOrder = async function (order) {
+  try {
+    const response = await fetch(`../api/cancelorder.php?id=${order.dataset.orderId}`);
+    const responseData = await response.json();
+    if(responseData.message != 0) {
+      // Check If Order Details are Opened
+      if(order.querySelector(".show-order").innerText == "-") {
+        orderDetailsContainer.innerHTML = '';
+        orderDetailsContainer.classList.add("d-none");
+      }
+      order.remove();
+      // Check If It Is Last Order In Selected Date
+      if(ordersTable.children[1].children.length == 0) {
+        ordersTable.children[1].innerHTML = `<tr><td colspan="4" class="text-danger text-center fw-bold">No Orders In Selected Date</td></tr>`;
+      }
+    }
+  } catch (error) {
+    console.error('Error Canceling Order:', error);
+    window.location.href = 'error.html';
+  }
+};
 
 function orderDateFormat(orderDate) {
   let date = orderDate.split(' ');
@@ -151,8 +173,8 @@ function orderDateFormat(orderDate) {
 }
 
 let showTodayOrders = function() {
-  dateFrom.value = dateTo.value = new Date().toISOString().slice(0, 10);
-
+  dateFrom.value = new Date().toISOString().slice(0, 10);
+  dateTo.value = new Date().toISOString().slice(0, 10);
   getOrders()
-  .then((myOrders)=>showOrders(myOrders, dateFrom.value, dateTo.value))
+  .then((myOrders)=>showOrders(myOrders))
 } ();

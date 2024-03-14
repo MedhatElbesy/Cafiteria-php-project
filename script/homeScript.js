@@ -6,98 +6,142 @@ let allOrders = cart.querySelector(".orders").children;
 let allCategories = [];
 let allProducts = [];
 
-// Fetch Products From DB
+
+// Show Products In Page
+const getUserData = async function() {
+  try {
+    const response = await fetch(`../api/userLoginData.php`);
+    const data = await response.json();
+    sessionStorage.setItem('userData', JSON.stringify(data));
+    const userData = JSON.parse(sessionStorage.getItem('userData'));
+    return userData;
+  } catch (error) {
+    console.error('Error Fetching User Data:', error);
+    // window.location.href = 'error.html'; // redirect here .....
+  }
+};
+
+let setUserInfo = function() {
+  getUserData()
+  .then(data => {
+    console.log(data);
+    document.querySelector(".user-name").innerText = data[0].user_name;
+    document.querySelector(".user-image").src = data[0].img;
+  })
+} ();
+
+
+// Show Products In Page
 const getProducts = async function() {
   try {
     const response = await fetch(`../api/productsAPI.php`);
     allProducts = await response.json();
-  } catch(error) {
+    allProducts.forEach(product => {
+      if(product.available == "available"){
+        setProduct(product);
+      }
+    });
+  } catch (error) {
     console.error('Error Fetching Products:', error);
-    window.location.href = 'error.html';
-    throw error;
+    // window.location.href = 'error.html'; // redirect here .....
   }
-};
-
-// Show Products In Page
-let showProducts = function() {
-  getProducts()
-  .then(() => {
-    for (let i = 0; i < allProducts.length; i++) {
-      setProduct(i);
-    }
-  })
 } ();
 
-// Fetch Categories From DB
+// Show Categories In Page
 const getCategories = async function() {
   try {
     const response = await fetch(`../api/categoryAPI.php`);
     allCategories = await response.json();
+
+    allCategories.push({ "id": 0, "img": "../images/landing-img.jpg", "name": "All Products"})
+    // setCategory(allCategories.length - 1);
+    allCategories.forEach(category => {
+      setCategory(category);
+    });
+    for (let i = 0; i < allCategories.length - 1; i++) {
+    }
   } catch(error) {
     console.error('Error Fetching Categories:', error);
-    window.location.href = 'error.html';
-    throw error;
+    // window.location.href = 'error.html';
   }
-};
-
-// Show Categories In Page
-let ShowCategories = function() {
-  getCategories()
-  .then(() => {
-    allCategories.push({ "id": 0, "img": "../images/landing-img.jpg", "name": "All Products"})
-    setCategory(allCategories.length - 1);
-    for (let i = 0; i < allCategories.length - 1; i++) {
-      setCategory(i);
-    }
-  })
 } ();
 
 // Create Category Element In Page
-let setCategory = function(i) {
-  let category = document.createElement("div");
+let setCategory = function(category) {
+  let categoryItem = document.createElement("li");
   let icon = document.createElement("i");
   let p1 = document.createElement("p");
   let items = document.createElement("p");
 
-  category.classList.add("category", "py-3", "mx-1", "mb-4", "px-4", "text-center");
+  categoryItem.classList.add("category", "py-3", "mx-1", "mb-4", "px-4", "text-center", "list-unstyled");
   icon.classList.add("mb-2", "fa-solid", "fa-mug-hot");
   p1.classList.add("m-0", "fw-bold");
   items.classList.add("m-0");
-  p1.innerText= allCategories[i].name;
+  p1.innerText= category.name;
 
   let itemsCount = 0;
-  for (let j = 0; j < allProducts.length; j++) {
-    if(allCategories[i].id == 0) {
+  allProducts.forEach(product => {
+    if(product.available == "available" && category.id == 0) {
       itemsCount++;
     }
-    else if (allProducts[j].category_id == allCategories[i].id) {
+    else if(product.available == "available" && product.category_id == category.id) {
       itemsCount++;
     }
-  }
-  items.innerHTML=`<span>${itemsCount}</span> Items`;
+  })
+  items.innerHTML = `<span>${itemsCount}</span> Items`;
 
-  category.appendChild(icon);
-  category.appendChild(p1);
-  category.appendChild(items);
-  categoryContainer.appendChild(category);
+  categoryItem.appendChild(icon);
+  categoryItem.appendChild(p1);
+  categoryItem.appendChild(items);
+  categoryContainer.appendChild(categoryItem);
   
-  category.addEventListener("click", ()=> showCategoryProducts(allCategories[i]));
+  categoryItem.addEventListener("click", ()=> showCategoryProducts(category));
+};
+
+// Create Product Element In Page
+let setProduct = function(product) {
+  let productItem = document.createElement("li");
+  let image = document.createElement("img");
+  let data = document.createElement("div");
+  let name = document.createElement("p");
+  let price = document.createElement("p");
+  
+  productItem.classList.add("product", "mb-3", "text-center", "list-unstyled");
+  data.classList.add("data");
+  name.classList.add("product-name", "m-0", "p-2");
+  price.classList.add("price", "m-0", "p-2", "fw-bold");
+  
+  image.setAttribute("src", product.img);
+  image.setAttribute("alt", product.name);
+  
+  name.innerText = product.name;
+  price.innerText = product.price + " LE";
+  
+  productItem.appendChild(image);
+  data.appendChild(name);
+  data.appendChild(price);
+  productItem.appendChild(data);
+  productsContainer.appendChild(productItem);
+  // Add Order When Clicking On Product
+  productItem.addEventListener("click", () => setOrder(product));
 };
 
 // Create Order Element In Cart
-let setOrder = function (productIdx) {
+let setOrder = function (product) {
   for(let i = 0; i < allOrders.length; i++) {
     let order = cart.querySelector(".orders").children[i];
-    if(order.dataset.orderId == productIdx) {
+    if(order.dataset.orderId == product.id) {
       addOrder(order);
       return;
     }
   }
-
-  let newOrder = document.createElement("div");
-  newOrder.classList.add("order", "center", "justify-content-between", "p-2", "m-1", "mb-2");
+  
+  let newOrder = document.createElement("li");
+  newOrder.classList.add("order", "center", "justify-content-between", "p-2", "m-1", "mb-2", "list-unstyled");
   newOrder.dataset.quantity = 0;
-  newOrder.dataset.orderId = productIdx;
+  newOrder.dataset.orderId = product.id;
+  newOrder.dataset.orderPrice = product.price;
+  
   let quantity = Number(newOrder.dataset.quantity);
   
   for(let i = 0; i < 4; i++) {
@@ -105,12 +149,12 @@ let setOrder = function (productIdx) {
   }
 
   let image = document.createElement("img");
-  image.setAttribute("src", allProducts[productIdx].img);
-  image.setAttribute("alt", allProducts[productIdx].name);
+  image.setAttribute("src", product.img);
+  image.setAttribute("alt", product.name);
   newOrder.children[0].appendChild(image);
   
   newOrder.children[1].innerHTML =
-    `<p class="m-0 fw-bold">${allProducts[productIdx].name}</p>
+    `<p class="m-0 fw-bold">${product.name}</p>
     <div class="counter d-flex">
       <span class="quantity">${quantity}</span>
       <button class="add fw-bold reset center mx-1">+</button>
@@ -121,43 +165,13 @@ let setOrder = function (productIdx) {
   addOrder(newOrder);
 };
 
-// Create Product Element In Page
-let setProduct = function(i) {
-  let product = document.createElement("div");
-  let image = document.createElement("img");
-  let data = document.createElement("div");
-  let p1 = document.createElement("p");
-  let p2 = document.createElement("p");
-  
-  product.classList.add("product", "mb-3", "text-center");
-  product.setAttribute("id", "product");
-  data.classList.add("data");
-  p1.classList.add("product-name", "m-0", "p-2");
-  p2.classList.add("price", "m-0", "p-2", "fw-bold");
-  
-  image.setAttribute("src", allProducts[i].img);
-  image.setAttribute("alt", allProducts[i].name);
-  
-  p1.innerText = allProducts[i].name;
-  p2.innerText = allProducts[i].price + " LE";
-
-  product.appendChild(image);
-  data.appendChild(p1);
-  data.appendChild(p2);
-  product.appendChild(data);
-  productsContainer.appendChild(product);
-  
-  // Add Order When Clicking On Product
-  product.addEventListener("click", () => setOrder(i, allProducts[i].id));
-};
-
 // Make Actions On Orders In Cart (Add, Remove, Cancel)
 cart.addEventListener("click", function(e) {
   let order = e.target.closest(".order");
   if(e.target.parentNode.classList.contains("cancel")) {
     order.remove();
     totalcart();
-    checkOrderExistance();
+    ordersExistance();
   }
   if(e.target.classList.contains("add")) {
     addOrder(order);
@@ -173,12 +187,12 @@ let addOrder = function(order) {
   order.dataset.quantity = ++quantity;
   order.querySelector(".quantity").innerText = quantity;
   orderPrice(order);
-  checkOrderExistance();
+  ordersExistance();
 }
 
 // Calculate Order Price
 let orderPrice = function (order) {
-  order.children[2].innerText = Number(order.dataset.quantity) * Number(allProducts[order.dataset.orderId].price);
+  order.children[2].innerText = Number(order.dataset.quantity) * Number(order.dataset.orderPrice);
   totalcart();
 }
 
@@ -198,7 +212,7 @@ let removeOrder = function(order) {
   if(quantity == 0) {
     order.remove();
     orderPrice(order);
-    checkOrderExistance();
+    ordersExistance();
     return;
   }
   order.querySelector(".quantity").innerText = quantity;
@@ -213,7 +227,7 @@ showcart.addEventListener("click", function(e) {
 });
 
 // Check If Cart Has Orders Or Not To Make Actions
-let checkOrderExistance = function () {
+let ordersExistance = function () {
   let container = document.getElementsByTagName("main")[0]
   if(allOrders.length == 0) {
     cart.classList.add("d-lg-none");
@@ -236,19 +250,15 @@ let checkOrderExistance = function () {
 // Show Products Based On Its Category
 let showCategoryProducts = function(category) {
   let productsElement = document.getElementById("products");
-  while (productsElement.firstChild) {
-    productsElement.removeChild(productsElement.firstChild);
-  }
-
+  productsElement.innerHTML = "";
   productsElement.previousElementSibling.innerText = category.name;
-  for (let i = 0; i < allProducts.length; i++) {
-    if(category.id == 0) {
-      setProduct(i);
+  allProducts.forEach(product => {
+    if(product.available == "available" && category.id == 0) {
+      setProduct(product);
+    } else if(product.available == "available" && product.category_id == category.id) {
+      setProduct(product);
     }
-    else if(allProducts[i].category_id == category.id) {
-      setProduct(i);
-    }
-  }
+  })
 }
 
 // Send Order
@@ -257,9 +267,8 @@ document.querySelector(".confirm").addEventListener("click", function() {
   for(let i = 0; i < allOrders.length; i++) {
     let order = allOrders[i];
     let quantity = Number(order.querySelector(".quantity").innerText);
-    orderDetails.push({ product_id: allProducts[order.dataset.orderId].id, quantity: quantity });
+    orderDetails.push({product_id: order.dataset.orderId, quantity: quantity});
   }
-  
   let orderObject = {customers_id: 1, room: 2,  products: orderDetails};
   sendOrder(orderObject);
 });
@@ -271,11 +280,16 @@ let sendOrder = async function (orderObject) {
       body: JSON.stringify(orderObject)
     });
     const responseData = await response.json();
-    if(responseData.status == "Success") {
-        window.location.href = 'adminorders.html';
+    if(responseData.status == "success") {
+      orderSentSuccessfully();
+      window.location.reload();
     }
   } catch (error) {
     console.error('Error Sending Order:', error);
     window.location.href = 'error.html';
   }
 };
+
+let orderSentSuccessfully = function() {
+
+}

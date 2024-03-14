@@ -13,6 +13,32 @@
   <script src="../frameworks/bootstrap/bootstrap.min.js"></script>
 </head>
 <body>
+  <div class="ramadan">
+    <figure>
+      <img src="../images/zena2.png" alt="test">
+    </figure>
+    <figure>
+      <img src="../images/zena2.png" alt="test">
+    </figure>
+    <figure>
+      <img src="../images/zena2.png" alt="test">
+    </figure>
+    <figure>
+      <img src="../images/zena2.png" alt="test">
+    </figure>
+    <figure>
+      <img src="../images/zena2.png" alt="test">
+    </figure>
+    <figure>
+      <img class="fanos" src="../images/fanos.png" alt="test">
+    </figure>
+    <figure>
+      <img class="fanos" src="../images/fanos.png" alt="test">
+    </figure>
+    <figure>
+      <img class="fanos" src="../images/fanos.png" alt="test">
+    </figure>
+  </div>
   <div class="container-fluid user-home">
     <div class="row">
       <!-- Main Order Page -->
@@ -27,8 +53,8 @@
             </ul>
           </div>
           <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
-            <img src="../images/logo.png" alt="Logo" width="50" height="50" class="d-inline-block align-text-top">
-            <span>Islam Askar</span>
+            <img alt="User" width="50" height="50" class="d-inline-block align-text-top user-image">
+            <span class="user-name">Islam Askar</span>
           </a>
         </nav>
         <!-- All Menu Section -->
@@ -36,12 +62,12 @@
           <!-- Categories Section -->
           <article class="categories-sec row p-3">
             <h3 class="my-4">Categories</h3>
-            <div id="categories" class="categories row"></div>
+            <ul id="categories" class="categories row p-0"></ul>
           </article>
           <!-- Products Section -->
           <article class="products-sec text-center row flex-wrap p-3">
             <h3 class="my-4">All Products</h3>
-            <div id="products" class="products row align-items-center justify-content-evenly m-auto w-75"></div>
+            <ul id="products" class="products row align-items-center justify-content-evenly m-auto w-75  p-0"></ul>
           </article>
         </section>
       </main>
@@ -49,7 +75,7 @@
       <aside id="cart" class="cart col-3 p-2 text cart-responsive d-none">
         <h3 class="my-3 text-center">Cart</h3>
         <!-- Orders -->
-        <div class="orders mb-4"></div>
+        <ul class="orders mb-4 p-0"></ul>
         <!-- Extra Details And Submission -->
         <div class="details text-center m-1">
           <textarea class="reset p-2 mb-2" name="notes" id="notes" rows="3" placeholder="Extra Notes"></textarea>
