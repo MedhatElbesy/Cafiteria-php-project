@@ -16,10 +16,9 @@ $products = $data['products'];
 try{
 
     $mydb->beginTransaction();
-$result=$mydb->insert_data("orders","customers_id, status, room" , "'$customers_id','$status',{$data['room']}");
-$lastId= $mydb->query("SELECT MAX(ID) as max_id FROM orders")->fetch(PDO::FETCH_ASSOC);
-$id = $lastId['max_id'];
-if($result!=0  ){
+    $result=$mydb->insert_data("orders","customers_id, status, room" , "'$customers_id','$status',{$data['room']}");
+    $id = $mydb->lastInsertId();
+if($result !=0 ){
  foreach ($data["products"] as $production) {   
      $price_unit=$mydb->query("SELECT price from product where id = '{$production['product_id']}'")->fetch(PDO::FETCH_ASSOC)["price"];
 

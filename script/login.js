@@ -42,10 +42,13 @@ const app= Vue.createApp({
      let res= JSON.parse(xhr.response);
        
    if(res.status===1){
-      if(this.postion==='admin')
-     {   location.href=`./adminhome.html?id=${res.id}`;}
-     else if(this.postion==='user')
-     { location.href=`./userhome.html?id=${res.id}`;}
+    
+    console.log(res);
+      if(this.postion==='admin' ||this.postion==='user' )
+     {   
+      sessionStorage.setItem('userData', JSON.stringify(res));
+      if(this.postion==='admin'){location.href=`./adminhome.html`}else{location.href=`./userhome.html`;}
+     }
    }
    else if(res.status===0){
      document.getElementById('warning').style.display='block';
@@ -55,7 +58,7 @@ const app= Vue.createApp({
     xhr.setRequestHeader("Content-type", "application/json")  
     xhr.send(JSON.stringify(myObject)); 
 
-    }    
+    }  
     
 },
 

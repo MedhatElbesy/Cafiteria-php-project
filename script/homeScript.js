@@ -6,6 +6,7 @@ let allOrders = cart.querySelector(".orders").children;
 let allCategories = [];
 let allProducts = [];
 
+<<<<<<< HEAD
 // Show Products In Page
 const getUserData = async function() {
   try {
@@ -19,14 +20,16 @@ const getUserData = async function() {
     // window.location.href = 'error.html'; // redirect here .....
   }
 };
+=======
+
+>>>>>>> 5498e36cf0b1c7ba7a126d623478f1b2b0ca3547
 
 let setUserInfo = function() {
-  getUserData()
-  .then(data => {
-    document.querySelector(".user-name").innerText = data[0].user_name;
-    document.querySelector(".user-image").src = data[0].img;
-  })
-} ();
+  const userData = JSON.parse(sessionStorage.getItem('userData'));
+    document.querySelector(".user-name").innerText = userData["user_name"];
+    document.querySelector(".user-image").src = userData["img"];
+  
+}();
 
 // Show Products In Page
 const getProducts = async function() {
