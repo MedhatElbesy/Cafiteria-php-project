@@ -42,10 +42,12 @@ const app= Vue.createApp({
      let res= JSON.parse(xhr.response);
        
    if(res.status===1){
-      if(this.postion==='admin')
-     {   location.href=`./adminhome.html?id=${res.id}`;}
-     else if(this.postion==='user')
-     { location.href=`./userhome.html?id=${res.id}`;}
+
+    console.log(res);
+      if(this.postion==='admin' ||this.postion==='user' )
+     {   
+     this.getUserData();
+     }
    }
    else if(res.status===0){
      document.getElementById('warning').style.display='block';
@@ -55,6 +57,20 @@ const app= Vue.createApp({
     xhr.setRequestHeader("Content-type", "application/json")  
     xhr.send(JSON.stringify(myObject)); 
 
+    },
+    async getUserData(){
+      try {
+        const response = await fetch(`../api/userLoginData.php`);
+        const data = await response.json();
+        sessionStorage.setItem('userData', JSON.stringify(data));
+        const userData = JSON.parse(sessionStorage.getItem('userData'));
+
+
+        if(this.postion==='admin'){location.href=`./adminhome.html`}else if (this.postion==='user'){location.href=`./userhome.html`;}
+        
+      } catch (error) {
+        console.error('Error Fetching User Data:', error);
+      }
     }    
     
 },
