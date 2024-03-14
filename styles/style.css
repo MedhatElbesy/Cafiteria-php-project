@@ -98,6 +98,74 @@ body::before  {
   }
 }
 
+.reset-password{
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto;
+  #contact {
+    text-align: center;
+    background: #F9F9F9;
+    padding: 25px;
+    border-radius: 15px;
+    border: 2px solid #9e9fa14d;
+    background-color: #f5f0eca1;
+    color: var(--mainColor);
+
+    h1 {
+      margin-bottom: 30px;
+      font-size: 30px;
+    }
+    
+    fieldset {
+      border: medium none !important;
+      margin: 0 0 10px;
+      min-width: 100%;
+      padding: 0;
+      width: 100%;
+
+      input {
+        background-color: #f5f0eccc;
+        border: 2px solid #fe6d4980;
+        width: 100%;
+        margin: 10 5px;
+        padding: 10px;
+        caret-color: var(--mainColor);
+      }
+      input:focus {
+        background-color: #f5f0eccc;
+        border-color: var(--mainColor);
+        box-shadow: 0 0 0 0.25rem rgba(254, 109, 73, 0.25);
+        color: #bb2804;
+      }
+      button {
+        margin: 0 0 5px;
+        padding: 10px;
+        font-size: 20px;
+        cursor: pointer;
+        width: 100%;
+        color: #FFF;
+        width: fit-content;
+        border-radius: 5px;
+        font-size: 14px;
+        font-weight: bold;
+        background-color: var(--mainColor);
+        border: 2px solid #ee4318;
+      }
+      button:hover,
+      button:focus,
+      button:active{
+        background-color:  #ee4318;
+        border-color: var(--mainColor);
+      }
+      button:focus {
+        box-shadow: 0 0 0 0.25rem  var(--mainColor) !important;
+      }
+    }
+    
+
+  }
+}
+
 nav {
   background-color: #f5f0eca1;
   border-bottom: 1px solid #d8d8d8;
@@ -456,6 +524,7 @@ nav {
 
 .ramadan {
   figure {
+    top: 0px;
     position: fixed;
     z-index: -100;
     top: 0px;
