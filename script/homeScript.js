@@ -24,12 +24,10 @@ const getUserData = async function() {
 let setUserInfo = function() {
   getUserData()
   .then(data => {
-    console.log(data);
     document.querySelector(".user-name").innerText = data[0].user_name;
     document.querySelector(".user-image").src = data[0].img;
   })
 } ();
-
 
 // Show Products In Page
 const getProducts = async function() {
