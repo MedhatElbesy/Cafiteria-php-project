@@ -11,21 +11,17 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
-  
   <style>
-        *{
-          font-family: 'Playfair Display', serif;
-          
-        }
-        #warning{
-          font-size: large; color: red; display: none;
-        }
-        #sing{
-          font-weight: bold; font-size: large; color:#d21e1e;margin: 10px;
-        }
-
-        </style>
-         
+      *{
+        font-family: 'Playfair Display', serif;
+      }
+      #warning{
+        font-size: large; color: red; display: none;
+      }
+      #sing{
+        font-weight: bold; font-size: large; color:#d21e1e;margin: 10px;
+      }
+  </style>
 </head>
 <body>
   <div class="ramadan">
@@ -64,7 +60,7 @@
       </div>
     </nav>
     <p id="warning"   class="text-center m-3">You have entered incorrect information. Please verify your email and password and check your position correctly</p>
-    <main class="row align-items-center">
+    <main class="row align-items-center justify-content-center mt-5">
       <form class="px-2 col-4 needs-validation text-center" @submit.prevent="handleFormSubmission" id="loginForm" novalidate  >
         <div class="col-md-12">
           <label for="useremail" class="form-label">Email</label>
@@ -95,9 +91,9 @@
         </div></div>
         <button type="submit" class="btn btn-primary">Log In</button>
       </form>
-      <figure class="offset-2 col-6">
+      <!-- <figure class="offset-2 col-6">
         <img src="../images/landing-bg.png" alt="Coffee Cup">
-      </figure>
+      </figure> -->
     </main>
   </div>
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>

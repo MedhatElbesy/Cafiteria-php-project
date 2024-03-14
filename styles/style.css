@@ -267,8 +267,8 @@ nav {
         background-color: #f5f0eca1;
         box-shadow: 0px 0px 3px 1px var(--secColor);
       }
-      .room, 
-      .user {
+      .rooms, 
+      .users {
         color: var(--mainColor);
         background-color: #FFDFD7;
         border: 2px solid var(--mainColor);
@@ -299,26 +299,32 @@ nav {
     position: fixed;
     bottom: 15px;
     right: 15px;
-    border: 1px solid ;
     color: var(--mainColor);
     background-color: #FFDFD7;
     border: 2px solid var(--mainColor);
     border-radius: 15px;
     width: fit-content;
+    height: 30px;
   }
   .empty {
-    border: 1px solid #d8d8d8;
-    color:#d8d8d8;
-    background-color:  #d8d8d841;
+    border: 1px solid #83838380;
+    color:#83838380;
+    background-color:  #d8d8d8b4;
+    cursor: auto;
   }
 
   @media screen and (max-width: 991px) {
     .products {
       width: 100% !important;
     }
+    .cart {
+      border: 1px solid #d8d8d8;
+      background-color: #f5f0ecf8;
+      border-radius: 25px;
+    }
     .cart-responsive {
       position: fixed;
-      bottom: 40px;
+      bottom: 45px;
       right: 15px;
       width: 30vw;
       box-shadow: 0px 0px 3px 1px #ffdcd4;
@@ -333,7 +339,7 @@ nav {
   }
   @media screen and (max-width: 575px) {
     .cart-responsive {
-      width: 60vw;
+      width: 80vw;
     }
   }
 }
