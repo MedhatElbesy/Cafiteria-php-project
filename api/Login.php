@@ -6,7 +6,6 @@ function loginApi()
     $logindata= json_decode(file_get_contents("php://input"),true);
     include("db.php");
     include("validation.php");
-   
     $validationObject = new Validation();
 
     $email= $validationObject->safeInput($logindata['email']);
@@ -16,7 +15,7 @@ function loginApi()
      // postion(admin :user) check  
     if ($logindata['postion']=='admin')
     {
-        try{
+        try {
         $data =$dataConectionObject ->get_data("admin","email= '$email' and password='$password'");
         $dataarr=$data->fetch(MYSQLI_ASSOC);
     }

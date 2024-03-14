@@ -6,30 +6,25 @@ let allOrders = cart.querySelector(".orders").children;
 let allCategories = [];
 let allProducts = [];
 
-<<<<<<< HEAD
 // Show Products In Page
-const getUserData = async function() {
-  try {
-    const response = await fetch(`../api/userLoginData.php`);
-    const data = await response.json();
-    sessionStorage.setItem('userData', JSON.stringify(data));
-    const userData = JSON.parse(sessionStorage.getItem('userData'));
-    return userData;
-  } catch (error) {
-    console.error('Error Fetching User Data:', error);
-    // window.location.href = 'error.html'; // redirect here .....
-  }
-};
-=======
+// const getUserData = async function() {
+//   try {
+//     const response = await fetch(`../api/userLoginData.php`);
+//     const data = await response.json();
+//     sessionStorage.setItem('userData', JSON.stringify(data));
+//     const userData = JSON.parse(sessionStorage.getItem('userData'));
+//     return userData;
+//   } catch (error) {
+//     console.error('Error Fetching User Data:', error);
+//     // window.location.href = 'error.html'; // redirect here .....
+//   }
+// };
 
->>>>>>> 5498e36cf0b1c7ba7a126d623478f1b2b0ca3547
-
-let setUserInfo = function() {
-  const userData = JSON.parse(sessionStorage.getItem('userData'));
-    document.querySelector(".user-name").innerText = userData["user_name"];
-    document.querySelector(".user-image").src = userData["img"];
-  
-}();
+// let setUserInfo = function() {
+//   const userData = JSON.parse(sessionStorage.getItem('userData'));
+//     document.querySelector(".user-name").innerText = userData[0].user_name;
+//     document.querySelector(".user-image").src = userData[0].img;
+// }();
 
 // Show Products In Page
 const getProducts = async function() {
