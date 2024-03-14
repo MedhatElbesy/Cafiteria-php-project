@@ -6,25 +6,14 @@ let allOrders = cart.querySelector(".orders").children;
 let allCategories = [];
 let allProducts = [];
 
-// Show Products In Page
-// const getUserData = async function() {
-//   try {
-//     const response = await fetch(`../api/userLoginData.php`);
-//     const data = await response.json();
-//     sessionStorage.setItem('userData', JSON.stringify(data));
-//     const userData = JSON.parse(sessionStorage.getItem('userData'));
-//     return userData;
-//   } catch (error) {
-//     console.error('Error Fetching User Data:', error);
-//     // window.location.href = 'error.html'; // redirect here .....
-//   }
-// };
 
-// let setUserInfo = function() {
-//   const userData = JSON.parse(sessionStorage.getItem('userData'));
-//     document.querySelector(".user-name").innerText = userData[0].user_name;
-//     document.querySelector(".user-image").src = userData[0].img;
-// }();
+
+let setUserInfo = function() {
+  const userData = JSON.parse(sessionStorage.getItem('userData'));
+    document.querySelector(".user-name").innerText = userData["user_name"];
+    document.querySelector(".user-image").src = userData["img"];
+  
+}();
 
 // Show Products In Page
 const getProducts = async function() {
@@ -38,17 +27,6 @@ const getProducts = async function() {
     });
   } catch (error) {
     console.error('Error Fetching Products:', error);
-    // window.location.href = 'error.html'; // redirect here .....
-  }
-} ();
-
-const getRooms = async function() {
-  try {
-    const response = await fetch(`../api/room_id.php`);
-    const allRooms = await response.json();
-    allRooms.forEach(room => setRoom(room));
-  } catch (error) {
-    console.error('Error Fetching Rooms:', error);
     // window.location.href = 'error.html'; // redirect here .....
   }
 } ();
@@ -171,12 +149,6 @@ let setOrder = function (product) {
   addOrder(newOrder);
 };
 
-// Add Rooms Cart
-let setRoom = function(room) {
-  // console.log(cart.querySelector(".rooms").innerHTML);
-  cart.querySelector(".rooms").innerHTML += `<option class="reset" value="${room.id}">Room ${room.id}</option>`
-  
-}
 // Make Actions On Orders In Cart (Add, Remove, Cancel)
 cart.addEventListener("click", function(e) {
   let order = e.target.closest(".order");
@@ -271,7 +243,7 @@ let showCategoryProducts = function(category) {
       setProduct(product);
     }
   })
-};
+}
 
 // Send Order
 document.querySelector(".confirm").addEventListener("click", function() {
