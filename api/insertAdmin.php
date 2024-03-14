@@ -15,7 +15,7 @@ if(isset($_SESSION["postion"]) && $_SESSION["postion"]=="admin" && $_SERVER['REQ
     $fname =$validationObject->fnames($validationObject->safeInput($_POST['fname']));
     $lname =$validationObject->lnames($validationObject->safeInput($_POST['lname']));
     $email =$validationObject->email($validationObject->safeInput($_POST['email']));
-    $password =$validationObject->password($validationObject->safeInput($_POST['password']));
+    $password =md5($validationObject->password($validationObject->safeInput($_POST['password'])));
  
     $src =$validationObject->imeg($_FILES["img"]['name']);
    // checking of validation result before update

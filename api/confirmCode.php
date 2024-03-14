@@ -11,9 +11,9 @@
   $mydb = new DB();
 
   $email=$_SESSION['email'];
-  
+  $password=md5($_POST['password']);
 
-  $mydb->update_data('customers',"password = '{$_POST['password']}'","email='{$email}'");
+  $mydb->update_data('customers',"password = '$password'","email='{$email}'");
 
 
   session_destroy();

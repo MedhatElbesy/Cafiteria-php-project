@@ -10,7 +10,7 @@ function loginApi()
     $validationObject = new Validation();
 
     $email= $validationObject->safeInput($logindata['email']);
-    $password=$validationObject->safeInput($logindata['password']);
+    $password=md5($validationObject->safeInput($logindata['password']));
  // create database conection object  
     $dataConectionObject = new DB();
      // postion(admin :user) check  
