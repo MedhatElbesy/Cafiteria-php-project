@@ -1,4 +1,4 @@
-const getUsers = async function(){
+const startpage = async function(){
     try {
         const response = await fetch('../api/productsAPI.php');
         const json = await response.json();
@@ -8,11 +8,14 @@ const getUsers = async function(){
     } catch(error) {
         console.log(error);
     }
-}();
+    };
 
-const productCard = function(json){
+    startpage();
+
+    let sectionTag = document.querySelector('#cardsProducations');
+    const productCard = function(json){
     json.forEach(production => {
-        let sectionTag = document.querySelector('#cardsProducations');
+        
         let classn="btn-primary";
         let classb="fa-check";
         if(production.available == "non available"){
@@ -89,7 +92,14 @@ function dataForUpdate(userData){
         Array.from(document.querySelectorAll(".categorySelector")[1].children).forEach(option => {
             option.removeAttribute("selected");
         });
-        document.querySelectorAll(".categorySelector")[1].children[id_category].setAttribute("selected", "selected")
+        let i=0
+        while(true){
+            if(document.querySelectorAll(".categorySelector")[1].children[i].value==id_category){
+                document.querySelectorAll(".categorySelector")[1].children[i].setAttribute("selected", "selected");
+                break;
+            }
+            ++i;
+        }
 
     }
 
@@ -112,14 +122,42 @@ function dataForUpdate(userData){
     } catch(error) {
         console.log("error");
     }
-    }();
+    };
+    
+    getCategories();
+
+    async function insertcategory(){
+        let formAddCategory = document.getElementById('addCategoryForm');
+        if(formAddCategory.checkValidity()){
+        const fileInput = document.getElementById('addcategory');
+        const file = fileInput.files[0];
+        const formData = new FormData();
+        formData.append('name', document.getElementById("category").value);
+        formData.append('img', file);
 
 
+        fetch('../api/insertcategory.php', {
+        method: 'POST',
+        body: formData
+        }).then(response => response.json())
+        .then(data => {
+        console.log('Response from server:', data);
+        })
+
+        setTimeout(() => {
+            selectors[0].innerHTML ="";
+            selectors[1].innerHTML ="";
+            getCategories();
+        }, 100);
+        bootstrap.Modal.getOrCreateInstance(document.getElementById("categoryModal")).hide();
+        }
+        }
 
    
 
         async function senddata(){
-
+            let formAddProduct = document.getElementById('formInsert');
+            if(formAddProduct.checkValidity()){
             const fileInput = document.getElementById('product_imgAdd');
             const file = fileInput.files[0];
     
@@ -142,14 +180,21 @@ function dataForUpdate(userData){
             })
 
             setTimeout(() => {
-                location.reload();
+                sectionTag.innerHTML="";
+                startpage();    
             }, 100);
+            bootstrap.Modal.getOrCreateInstance(document.getElementById("addModal")).hide();
+
+            }
+
             }
 
 
 
             async function updateProduct(){
+                let formUpdateProduct = document.getElementById('updateform');
 
+                if(formUpdateProduct.checkValidity()){
                 const fileInput = document.getElementById('product_img');
                 const file = fileInput.files[0];
         
@@ -171,8 +216,12 @@ function dataForUpdate(userData){
                 console.log('Response from server:', data);
                 })
                 setTimeout(() => {
-                    location.reload();
+                    sectionTag.innerHTML="";
+                    startpage();    
                 }, 100);
+                bootstrap.Modal.getOrCreateInstance(document.getElementById("updateModal")).hide();
+                }
+                
                 }
 
 

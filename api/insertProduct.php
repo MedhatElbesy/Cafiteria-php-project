@@ -4,17 +4,20 @@ session_start();
 // if(isset($_SESSION["postion"]) && $_SESSION["postion"]=="admin" && $_SERVER['REQUEST_METHOD'] == 'POST'){
 
 include("db.php");
+include("validationAPI.php");
 
+$validationObject = new Validation();
 $mydb = new DB();
 
 
-$category_id = $_POST['category_id'];
-$name = $_POST['name'];
-$price = $_POST['price'];
-$available = $_POST['available'];
 
+$category_id = $validationObject->number($_POST['category_id']);
+$name = $validationObject->name($_POST['name']);
+$price = $validationObject->number($_POST['price']);
+$available = $validationObject->name($_POST['available']);
+$validationObject->imeg($_FILES["img"]['name']);
 
-
+if(count($validationObject->erros)==0){
 
 try{
 
@@ -40,7 +43,12 @@ $response = [
 }
 
 
-
+}else{
+    $response = [
+        'status' => 'failed',
+        'message' => $validationObject->erros,
+    ];
+}
 
 // header('Content-Type: application/json');
 echo json_encode($response);

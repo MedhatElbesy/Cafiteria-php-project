@@ -1,6 +1,6 @@
 <?php
     session_start();
-        // if(isset($_SESSION["admin"])){
+    if(isset($_SESSION["postion"]) && $_SESSION["postion"]=="admin"){
 
 
             
@@ -23,7 +23,7 @@
 
 
 
-    // }
+    }
 
 
 ?>

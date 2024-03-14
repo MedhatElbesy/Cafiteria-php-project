@@ -30,12 +30,13 @@ function loginApi()
             $_SESSION["email"]=$email;
             $_SESSION["id"]=$dataarr['id'];
             $_SESSION["password"]=$password;
-            return 1;
+            return $response = [ 'status' => 1,
+            'id' => $dataarr['id'] ];
 
         }
         else{
              
-            return 0;
+            return  $response = [ 'status' => 0];
         }
     }
     elseif ($logindata['postion']=='user')
@@ -53,11 +54,12 @@ function loginApi()
             $_SESSION["email"]=$email;
             $_SESSION["id"]=$dataarr['id'];
             $_SESSION["password"]=$password;
-            return 1;
+            return $response = [ 'status' => 1,
+            'id' => $dataarr['id'] ];
 
         }
         else{
-            return 0;
+            return $response = [ 'status' => 0] ;
         }
     }
 
@@ -66,7 +68,7 @@ function loginApi()
  
   
 $result=loginApi();
- echo  $result ; 
+ echo json_encode($result);
  
  
 

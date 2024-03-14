@@ -1,59 +1,69 @@
 <?php
 
-class DB {
+class DB
+{
 
     private $host = "localhost";
-    private $dbname="cafeteria";
-    private $user="root";
-    private $connection="";
-    private $pass="";
-    
-   
- 
-    function __construct(){
+    private $dbname = "cafeteria";
+    private $user = "root";
+    private $connection = "";
+    private $pass = "";
+
+
+
+    function __construct()
+    {
 
         $this->connection = new PDO("mysql:host={$this->host};port=3306;dbname={$this->dbname}", $this->user, $this->pass);
     }
 
-    function get_connection(){
+    function get_connection()
+    {
         return $this->connection;
     }
 
-    function query($sql){
+    function query($sql)
+    {
         return $this->connection->query($sql);
     }
 
-    function get_data($table_name,$condition=1){
+    function get_data($table_name, $condition = 1)
+    {
         return $this->connection->query("select * from $table_name where $condition");
     }
-    function delete_data($table_name,$condition=1){
-        $result=$this->connection->query("delete from $table_name where $condition");
+    function delete_data($table_name, $condition = 1)
+    {
+        $result = $this->connection->query("delete from $table_name where $condition");
         return $result->rowCount();
     }
 
-    function insert_data($table_name,$columns_names,$values){
-        $result =$this->connection->query("INSERT INTO $table_name ($columns_names) VALUES ($values)");
+    function insert_data($table_name, $columns_names, $values)
+    {
+        $result = $this->connection->query("INSERT INTO $table_name ($columns_names) VALUES ($values)");
         return $result->rowCount();
     }
-    function update_data($table_name,$columns_values,$condition=1){
-        $result= $this->connection->query("UPDATE $table_name SET $columns_values WHERE $condition");
+    function update_data($table_name, $columns_values, $condition = 1)
+    {
+        $result = $this->connection->query("UPDATE $table_name SET $columns_values WHERE $condition");
         return $result->rowCount();
     }
-    
-    function beginTransaction(){
+
+    function beginTransaction()
+    {
         $this->connection->beginTransaction();
     }
-    function commit(){
+    function commit()
+    {
         $this->connection->commit();
     }
-    function lastInsertId(){
+    function lastInsertId()
+    {
         return $this->connection->lastInsertId();
     }
-
-
+    function prepare($sql)
+    {
+        return $this->connection->prepare($sql);
+    }
 }
 
 header('Content-Type: application/json; charset=utf-8');
-
-
-?>

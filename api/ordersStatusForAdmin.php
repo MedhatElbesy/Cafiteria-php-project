@@ -1,8 +1,8 @@
 <?php
 
 include("db.php");
-$mydb= new DB();
-$data =$mydb->query("SELECT 
+$mydb = new DB();
+$data = $mydb->query("SELECT
 o.id AS order_id,
 o.order_date,
 o.status,
