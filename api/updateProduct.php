@@ -4,21 +4,24 @@ session_start();
 // if(isset($_SESSION["postion"]) && $_SESSION["postion"]=="admin" && $_SERVER['REQUEST_METHOD'] == 'POST'){
 
 include("db.php");
+include("validationAPI.php");
 
+$validationObject = new Validation();
 $mydb = new DB();
 
-$id = $_POST['id'];
-$category_id = $_POST['category_id'];
-$name = $_POST['name'];
-$price = $_POST['price'];
 
-
-try{
-
+$id = $validationObject->number($_POST['id']);
+$category_id = $validationObject->number($_POST['category_id']);
+$name = $validationObject->name($_POST['name']);
+$price = $validationObject->number($_POST['price']);
 
 if(isset($_FILES["img"]["tmp_name"])){
+    $validationObject->imeg($_FILES["img"]['name']);
 move_uploaded_file($_FILES["img"]["tmp_name"],"../images/products/$id.jpg");}
 
+if(count($validationObject->erros)==0){
+
+try{
 
 $mydb->update_data("product","name= '$name', price='$price', category_id=$category_id", "id = $id");
 
@@ -36,6 +39,12 @@ $response = [
     
 }
 
+}else{
+    $response = [
+        'status' => 'failed',
+        'message' => $validationObject->erros,
+    ];
+}
 
 
 

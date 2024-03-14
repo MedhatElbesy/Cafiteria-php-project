@@ -31,7 +31,7 @@ try{
    
     $response = [
       'status' => 'success',
-      'message' => 'Change Password Done.'];
+      'message' => 'Send Code to email Done.'];
 
 }catch(Exception $e){
   $response = [
