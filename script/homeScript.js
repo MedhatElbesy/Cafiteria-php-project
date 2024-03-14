@@ -6,14 +6,11 @@ let allOrders = cart.querySelector(".orders").children;
 let allCategories = [];
 let allProducts = [];
 
-
-
 let setUserInfo = function() {
   const userData = JSON.parse(sessionStorage.getItem('userData'));
     document.querySelector(".user-name").innerText = userData["user_name"];
     document.querySelector(".user-image").src = userData["img"];
-  
-}();
+} ();
 
 // Show Products In Page
 const getProducts = async function() {

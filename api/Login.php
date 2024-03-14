@@ -32,7 +32,7 @@ function loginApi()
             $_SESSION["password"]=$password;
             return $response = [ 'status' => 1,
             'id' => $dataarr['id'],
-            'user_name' => "{$dataarr['fname']} {$dataarr['lname']}",
+            'admin_name' => "{$dataarr['fname']} {$dataarr['lname']}",
             'email' => $_SESSION["email"],
             'postion' => $_SESSION["postion"],
             'img' => $_SESSION["img"]
@@ -40,7 +40,7 @@ function loginApi()
 
         }
         else{
-             
+        
             return  $response = [ 'status' => 0];
         }
     }
@@ -58,6 +58,7 @@ function loginApi()
             $_SESSION["postion"]= 'user' ;
             $_SESSION["email"]=$email;
             $_SESSION["id"]=$dataarr['id'];
+            $_SESSION["img"]=$dataarr['img'];
             $_SESSION["password"]=$password;
             return $response = [ 'status' => 1,
             'id' => $dataarr['id'],
@@ -69,7 +70,7 @@ function loginApi()
             ];
 
         }
-        else{
+        else {
             return $response = [ 'status' => 0] ;
         }
     }

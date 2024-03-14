@@ -38,7 +38,9 @@
 body {
   background: url("../images/bg.png") center/cover;
   height: 100vh;
+  position: relative;
 }
+
 body::before  {
   content: "";
   position: absolute;
@@ -456,6 +458,7 @@ nav {
   figure {
     position: fixed;
     z-index: -100;
+    top: 0px;
     img{
       width: 500px;
       height: 200px;
@@ -485,16 +488,13 @@ nav {
     z-index: -200;
   }
   figure:nth-of-type(6) {
-    top: 0px;
     left: 10%;
   }
   figure:nth-of-type(7) {
-    top: 20px;
     left: 50%;
     transform: translateX(-50%);
   }
   figure:nth-of-type(8) {
-    top: 0px;
     right: 10%;
   }
 }
