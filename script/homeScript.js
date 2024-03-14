@@ -10,8 +10,8 @@ let allProducts = [];
 
 let setUserInfo = function() {
   const userData = JSON.parse(sessionStorage.getItem('userData'));
-    document.querySelector(".user-name").innerText = userData[0].user_name;
-    document.querySelector(".user-image").src = userData[0].img;
+    document.querySelector(".user-name").innerText = userData["user_name"];
+    document.querySelector(".user-image").src = userData["img"];
   
 }();
 
