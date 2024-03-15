@@ -12,8 +12,8 @@ function loginApi()
     $password=md5($validationObject->safeInput($logindata['password']));
  // create database conection object  
     $dataConectionObject = new DB();
-     // postion(admin :user) check  
-    if ($logindata['postion']=='admin')
+     // position(admin :user) check  
+    if ($logindata['position']=='admin')
     {
         try {
         $data =$dataConectionObject ->get_data("admin","email= '$email' and password='$password'");
@@ -34,7 +34,7 @@ function loginApi()
             'id' => $dataarr['id'],
             'admin_name' => "{$dataarr['fname']} {$dataarr['lname']}",
             'email' => $_SESSION["email"],
-            'position' => $_SESSION["postion"],
+            'position' => $_SESSION["position"],
             'img' => $_SESSION["img"]
             ];
 
@@ -43,7 +43,7 @@ function loginApi()
             return  $response = [ 'status' => 0];
         }
     }
-    elseif ($logindata['postion']=='user')
+    elseif ($logindata['position']=='user')
     {
         try{
             $data =$dataConectionObject ->get_data("customers","email= '$email' and password='$password' ");
@@ -63,7 +63,7 @@ function loginApi()
             'id' => $dataarr['id'],
             'user_name' => "{$dataarr['fname']} {$dataarr['lname']}",
             'email' => $_SESSION["email"],
-            'position' => $_SESSION["postion"],
+            'position' => $_SESSION["position"],
             'img' => $_SESSION["img"],
             'room' => $dataarr["room"]
             ];

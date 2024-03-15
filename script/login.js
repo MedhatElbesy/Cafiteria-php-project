@@ -2,7 +2,7 @@ const app= Vue.createApp({
     data:()=>({
      email:'',
      password:'',
-     postion:  '', 
+     position:  '', 
     }),
     methods:{
      handleFormSubmission(e) 
@@ -31,7 +31,7 @@ const app= Vue.createApp({
     myObject={
     email:this.email,
     password:this.password, 
-    postion:this.postion, 
+    position:this.position, 
     };
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "../api/Login.php");
@@ -44,10 +44,10 @@ const app= Vue.createApp({
    if(res.status===1){
     
     console.log(res);
-      if(this.postion==='admin' ||this.postion==='user' )
+      if(this.position==='admin' ||this.position==='user' )
      {   
       sessionStorage.setItem('userData', JSON.stringify(res));
-      if(this.postion==='admin'){location.href=`./adminhome.html`}else{location.href=`./userhome.html`;}
+      if(this.position==='admin'){location.href=`./adminhome.html`}else{location.href=`./userhome.html`;}
      }
    }
    else if(res.status===0){

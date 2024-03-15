@@ -2,7 +2,7 @@
 ////////////////////////////// ALL FORM INPUTS MUST FILL BEFOUR REQUEST  //////////////////
 
     session_start();
-    if(isset($_SESSION["postion"]) && $_SESSION["postion"]=="admin" && $_SERVER['REQUEST_METHOD'] == 'POST'){
+    if(isset($_SESSION["position"]) && $_SESSION["position"]=="admin" && $_SERVER['REQUEST_METHOD'] == 'POST'){
         $response;
         updateUserData();
         header('Content-Type: application/json');

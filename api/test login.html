@@ -10,9 +10,9 @@
      <input type="text" id="email" > <br>
      <label>password</label>
      <input type="text" id="password"><br>
-     <label>postion</label><br>
-     <input type="radio" name="postion" value="admin"> <label>admin</label><br>
-     <input type="radio" name="postion" value="user"> <label>user</label><br>
+     <label>position</label><br>
+     <input type="radio" name="position" value="admin"> <label>admin</label><br>
+     <input type="radio" name="position" value="user"> <label>user</label><br>
      <input type="button" id="password" @click="testfun()" value="submit">
      <div style="font-size: large;  font-weight:bold;color:red;" id="response"></div>
    
@@ -27,11 +27,11 @@
                     methods:{
                     testfun(){
                     let inputText=document.querySelectorAll('input');
-                    let inputradio=document.querySelector('input[name="postion"]:checked');
+                    let inputradio=document.querySelector('input[name="position"]:checked');
                     myObject={
                     email:  inputText[0].value, 
                     password:  inputText[1].value, 
-                    postion:  inputradio.value, 
+                    position:  inputradio.value, 
                     };
                     var xhr = new XMLHttpRequest();
                     xhr.open("POST", "Login.php");

@@ -2,7 +2,7 @@ export let userData = null;
 
 export let setUserInfo = function() {
   userData = JSON.parse(sessionStorage.getItem('userData'));
-  if(userData["postion"] == "user") {
+  if(userData["position"] == "user") {
     document.querySelector(".user-name").innerText = userData["user_name"];
     document.querySelector(".user-image").src = userData["img"];
   } else if(userData["position"] == "admin") {

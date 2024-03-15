@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-// if(isset($_SESSION["postion"]) && $_SERVER['REQUEST_METHOD'] == 'POST'){
+// if(isset($_SESSION["position"]) && $_SERVER['REQUEST_METHOD'] == 'POST'){
 
 include("db.php");
 

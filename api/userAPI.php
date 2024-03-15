@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if(isset($_SESSION["postion"]) && $_SESSION["postion"]=="admin"){
+    if(isset($_SESSION["position"]) && $_SESSION["position"]=="admin"){
 
 
             
