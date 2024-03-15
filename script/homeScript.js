@@ -1,4 +1,4 @@
-import {userData} from './LoggedUser.js';
+import * as data from './LoggedUser.js';
 import * as utility from './utilities.js';
 
 let categoryContainer = document.getElementById("categories");
@@ -6,7 +6,7 @@ let productsContainer = document.getElementById("products");
 let cart = document.getElementById("cart");
 let showcart = document.querySelector(".show-cart");
 let allOrders = cart.querySelector(".orders").children;
-let currentRoom = userData["room"];
+let currentRoom = data.userData["room"];
 let currentUser = null;
 let allCategories = null;
 let allProducts = null;
@@ -52,7 +52,7 @@ const getRooms = async function() {
     const response = await fetch(`../api/room_id.php`);
     const allRooms = await response.json();
     await Promise.all(allRooms.map(room => setRoom(room)));
-    if(userData["position"] == "admin"){
+    if(data.userData["position"] == "admin"){
       getCustomers();
     }
     utility.loading();
@@ -63,7 +63,7 @@ const getRooms = async function() {
 };
 
 // Show Users In Cart For Admin
-if(userData["position"] == "admin") {
+if(data.userData["position"] == "admin") {
   var getCustomers = async function() {
     try {
       const response = await fetch(`../api/usersdata.php`);
@@ -89,7 +89,7 @@ if(userData["position"] == "admin") {
     }
   });
 } else {
-  currentUser = userData["id"];
+  currentUser = data.userData["id"];
 }
 
 // Create Category Element In Page
@@ -302,7 +302,7 @@ let showCategoryProducts = function(category) {
 // Send Order
 document.querySelector(".confirm").addEventListener("click", function(e) {
   // Select Customer For Admin
-  if((userData["position"] == "admin")) {
+  if((data.userData["position"] == "admin")) {
     const selectCustomer = cart.querySelector(".customers");
     const selectedOption = selectCustomer.options[selectCustomer.selectedIndex];
     if(!selectedOption.value) {
@@ -325,7 +325,7 @@ document.querySelector(".confirm").addEventListener("click", function(e) {
     let quantity = Number(order.querySelector(".quantity").innerText);
     orderDetails.push({product_id: order.dataset.orderId, quantity: quantity});
   }
-  let orderObject = {customer_id: currentUser, room: currentRoom, products: orderDetails};
+  let orderObject = {customers_id: currentUser, room: currentRoom, products: orderDetails};
   sendOrder(orderObject);
 });
 

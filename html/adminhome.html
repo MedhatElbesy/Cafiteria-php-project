@@ -50,7 +50,7 @@
       <main class="p-0 col-md-12 col-lg-12">
         <!-- Navigation Bar -->
         <nav class="d-flex align-items-center justify-content-between">
-          <div class="links d-flex align-items-center justify-content-between">
+          <div class="links d-flex align-items-center justify-content-between py-1">
             <img src="../images/logo.png" alt="Logo" width="50" height="50" class="d-inline-block align-text-top">
             <ul class="text-center d-flex align-items-center justify-content-between m-0">
               <li class="mx-1 active"><a href="#" class="px-2 py-1"><i class="fa-solid fa-house"></i> Home</a></li>
@@ -60,10 +60,13 @@
               <li class="mx-1"><a href="checks.html" class="px-2 py-1"><i class="fa-solid fa-receipt"></i> Checks</a>
             </ul>
           </div>
-          <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
-            <img alt="Admin" width="50" height="50" class="d-inline-block align-text-top admin-image">
-            <p class="admin-name"></p>
-          </a>
+          <div class="user-info fw-bold d-flex align-items-center py-1">
+            <img src="../images/logo.png" alt="Logo" width="50" height="50" class="d-inline-block align-text-top admin-image">
+            <p class="admin-name reset"></p>
+            <div class="log-out p-2 text-center">
+              <button class="btn btn-danger" id="log-out">Log Out</button>
+            </div>
+          </div>
         </nav>
         <!-- All Menu Section -->
         <section class="menu">

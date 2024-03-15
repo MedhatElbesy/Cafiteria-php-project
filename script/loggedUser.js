@@ -1,3 +1,5 @@
+import * as utility from './utilities.js';
+
 export let userData = null;
 
 export let setUserInfo = function() {
@@ -10,3 +12,21 @@ export let setUserInfo = function() {
     document.querySelector(".admin-image").src = userData["img"];
   }
 } ();
+
+document.getElementById("log-out").addEventListener("click", () => {
+  goToLoginPage();
+});
+
+let goToLoginPage = async function () {
+  try {
+    utility.loading();
+      await fetch('../api/logout.php', {
+      method: 'POST'
+    });
+    utility.loading();
+    sessionStorage.removeItem('userData');
+    window.location.href = "../html/indexx.html";
+  } catch (error) {
+    console.error('Error Logging Out:', error);
+  }
+};

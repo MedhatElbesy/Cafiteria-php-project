@@ -6,7 +6,7 @@ export const loading = function() {
 export let orderSent = function() {
   let sent = document.querySelector(".order-sent");
   sent.classList.toggle("d-none");
-  sent.querySelector(".ok").addEventListener("click", function(e) {
+  sent.querySelector(".ok").addEventListener("click", function() {
     window.location.reload();
   });
 };
