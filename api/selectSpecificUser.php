@@ -3,8 +3,7 @@
 include("db.php");
 
 $mydb = new DB();
-// $customers_id=$_GET['id'];
-$customers_id = 1;
+$customers_id=$_GET['id'];
 $data = $mydb->query("SELECT * 
     FROM customers
     WHERE id='$customers_id'");
