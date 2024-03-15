@@ -5,7 +5,7 @@
     if(isset($_SESSION["position"]) && $_SESSION["position"]=="admin" && $_SERVER['REQUEST_METHOD'] == 'POST'){
         $response;
         deleteUser();
-        header('Content-Type: application/json');
+        // header('Content-Type: application/json');
         echo json_encode($response);
          
     }
