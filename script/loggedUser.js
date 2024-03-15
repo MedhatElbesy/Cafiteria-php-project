@@ -2,6 +2,15 @@ export let userData = null;
 
 export let setUserInfo = function() {
   userData = JSON.parse(sessionStorage.getItem('userData'));
+
+  try{
+    if(userData["id"] && userData["position"] );
+  
+  }catch(e){
+    window.location.href =
+    "../html/indexx.html";
+  }
+
   if(userData["position"] == "user") {
     document.querySelector(".user-name").innerText = userData["user_name"];
     document.querySelector(".user-image").src = userData["img"];
@@ -9,4 +18,6 @@ export let setUserInfo = function() {
     document.querySelector(".admin-name").innerText = userData["admin_name"];
     document.querySelector(".admin-image").src = userData["img"];
   }
+
+
 } ();

@@ -325,7 +325,7 @@ document.querySelector(".confirm").addEventListener("click", function(e) {
     let quantity = Number(order.querySelector(".quantity").innerText);
     orderDetails.push({product_id: order.dataset.orderId, quantity: quantity});
   }
-  let orderObject = {customer_id: currentUser, room: currentRoom, products: orderDetails};
+  let orderObject = {customers_id: currentUser, room: currentRoom, products: orderDetails};
   sendOrder(orderObject);
 });
 
