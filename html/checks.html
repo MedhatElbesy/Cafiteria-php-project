@@ -13,6 +13,7 @@
 
   <script src="../script/vueversion3.js"></script>
 
+
 </head>
 
 <body>
@@ -63,30 +64,6 @@
   <div class="container mt-5">
     <div id="wrapper" class="user-orders">
       <h3 class="my-4">Checks</h3>
-      <!-- <div class="row gap-1 my-4">
-        <div class="col-12 col-md col-lg-4">
-          <div class="input-group">
-            <label for="date_from" class="input-group-text">Date from</label>
-            <input type="date" id="date_from" class="form-control " title="date from" aria-label="date from"
-              aria-describedby="date_from" @change="filterOrders">
-          </div>
-        </div>
-        <div class="col-12 col-md col-lg-4">
-          <div class="input-group ">
-            <label for="date_to" class="input-group-text">Date to</label>
-            <input type="date" id="date_to" class="form-control" title="date to" aria-label="date to"
-              aria-describedby="date_to" @change="filterOrders">
-          </div>
-        </div>
-        <div class="col-6 col-lg">
-          <select class="form-select form-select" title="users" aria-label="users" @change="filterOrders">
-            <option value="">Show All Users</option>
-            <option v-for="(user, userId) in groupedOrders" :key="userId" :value="userId">{{ user.user_name }}
-            </option>
-          </select>
-        </div>
-      </div> -->
-
       <header class="date row p-3">
         <div class="row gap-1 my-4">
           <div class="col-12 col-md col-lg-4">
@@ -171,8 +148,13 @@
         <!-- End of users  -->
       </div>
     </div>
+    <script type="module">
+      import {userData} from '../script/loggedUser.js';
+      import * as utility from '../script/utilities.js';
+    </script>
+
     <script src="../frameworks/bootstrap/bootstrap.bundle.min.js"></script>
-    <script>
+    <script >
       const app = Vue.createApp({
         data() {
           return {
@@ -254,6 +236,7 @@
         }
       }).mount("#wrapper");
     </script>
+   
 </body>
 
 </html>

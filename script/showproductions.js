@@ -1,3 +1,6 @@
+import {userData} from './LoggedUser.js';
+import * as utility from './utilities.js';
+
 const startpage = async function () {
   try {
     const response = await fetch("../api/productsAPI.php");
