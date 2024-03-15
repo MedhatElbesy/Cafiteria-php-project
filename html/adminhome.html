@@ -15,6 +15,11 @@
 </head>
 
 <body>
+  <!-- Page Loading Animation -->
+  <div id="loading" class="loading d-none">
+    <img src="../images/helal.png" class="spinner" width="50" height="50" alt="loading">
+    <div class="loading-spinner"></div>
+  </div>
   <div class="ramadan">
     <figure>
       <img src="../images/zena2.png" alt="test">
@@ -61,7 +66,7 @@
           </div>
           <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
             <img alt="Admin" width="50" height="50" class="d-inline-block align-text-top admin-image">
-            <span class="admin-name"></span>
+            <p class="admin-name"></p>
           </a>
         </nav>
         <!-- All Menu Section -->
@@ -84,13 +89,15 @@
         <!-- Orders -->
         <div class="orders mb-4"></div>
         <!-- Extra Details And Submission -->
-        <form id="orderForm">
+        <!-- <form id="orderForm"> -->
           <div class="details text-center m-1">
             <textarea class="reset p-2 mb-2" name="notes" id="notes" rows="3" placeholder="Extra Notes"></textarea>
             <!-- Select User -->
-            <select class="customers d-block reset p-1 fw-bold mb-4 w-75 m-auto" name="user" id="user" required>
-              <option class="fw-bold text-center" value="" selected disabled>Customer</option>
-            </select>
+            <div class="customers-name">
+              <select class="customers d-block reset p-1 fw-bold mb-4 w-75 m-auto" name="user" id="user" required>
+                <option class="fw-bold text-center" value="" selected disabled>Customer</option>
+              </select>
+            </div>
             <!-- Select Order Room -->
             <select class="rooms d-block reset p-1 fw-bold mb-4 w-75 m-auto" name="room" id="room">
               <option class="fw-bold text-center" selected disabled>Room</option>
@@ -101,10 +108,19 @@
               <button class="confirm reset py-1 px-3 fw-bold">Send Order</button>
             </div>
           </div>
-        </form>
+        <!-- </form> -->
       </aside>
       <!-- Show Cart In Small Screens -->
       <button class="show-cart reset fw-bold d-lg-none empty px-5">Cart <span>0</span></button>
+
+      <!-- Order Sent Successfully -->
+      <div class="order-sent d-none">
+        <div class="success center flex-wrap text-center p-3">
+          <img src="../images/success.png" alt="success">
+          <p class="m-0 fw-bold w-100 my-3">Order Sent Successfully</p>
+          <button class="ok px-4 py-1">Ok</button>
+        </div>
+      </div>
     </div>
   </div>
   <script type="module" src="../script/homeScript.js"></script>

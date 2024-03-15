@@ -3,9 +3,10 @@
 :root {
   --mainColor: #fe6c49;
   --secColor: rgba(254, 109, 73, 0.6);
+  --bgColor: #f5f0eca1;
 
-  /* --mainColor: #901B20; */
-  /* --secColor: rgb(144, 27, 33, .6) */
+  /* --mainColor: #901B20;
+  --secColor: rgb(144, 27, 33, .6); */
 
   ::-webkit-scrollbar {
     width: 7px;
@@ -35,22 +36,13 @@
 }
 
 body {
-  background: url("../images/bg.png") center/cover;
-  min-height: 100vh;
+  background: url("../images/bg.png") center center/cover;
   position: relative;
-}
-
-body::before {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: #f5f0ec5b;
-  z-index: -100;
 }
 
 .container-fluid {
   padding: 0 !important;
+  height: 100vh;
   .row {
     --bs-gutter-x: 0;
   }
@@ -107,7 +99,7 @@ body::before {
     padding: 25px;
     border-radius: 15px;
     border: 2px solid #9e9fa14d;
-    background-color: #f5f0eca1;
+    background-color: var(--bgColor);
     color: var(--mainColor);
 
     h1 {
@@ -164,7 +156,7 @@ body::before {
 }
 
 nav {
-  background-color: #f5f0eca1;
+  background-color: var(--bgColor);
   border-bottom: 1px solid #d8d8d8;
   height: 60px;
   ul {
@@ -198,6 +190,10 @@ nav {
   a {
     color: var(--mainColor);
     font-size: 16px;
+    p {
+      margin: 0;
+      padding-left: 15px;
+    }
   }
 }
 
@@ -214,13 +210,14 @@ nav {
         flex-wrap: nowrap;
         .category {
           color: #9e9fa1;
-          background-color: #f5f0eca1;
+          background-color: var(--bgColor);
           border-radius: 15px;
           border: 2px solid #9e9fa14d;
           cursor: pointer;
           flex-basis: 200px;
-          i {
-            font-size: 24px;
+          img {
+            width: 60px;
+            height: 60px;
           }
           p:nth-of-type(1) {
             color: var(--mainColor);
@@ -237,18 +234,20 @@ nav {
       .products {
         .product {
           color: #808181;
-          background-color: #f5f0eca1;
+          background-color: var(--bgColor);
           border-radius: 15px;
-          border: 1px solid #9e9fa14d;
+          border: 1px solid #9e9fa19d;
           cursor: pointer;
           flex-basis: 150px;
           position: relative;
           img {
+            padding: 10px;
             width: 100%;
             cursor: pointer;
             z-index: 10;
             max-height: 100px;
             border-radius: 15px 15px 0 0;
+            background-color: rgb(82, 79, 79);
           }
           p:nth-of-type(1) {
             font-weight: bold;
@@ -279,9 +278,11 @@ nav {
     }
   }
   .cart {
-    background-color: #f5f0eca1;
+    background-color: var(--bgColor);
     border-left: 1px solid #d8d8d8;
     height: 100vh;
+    position: fixed;
+    right: 0;
     h3 {
       color: var(--mainColor);
     }
@@ -290,10 +291,11 @@ nav {
       overflow-y: auto;
       .order {
         border-radius: 15px;
-        background-color: #f5f0eca1;
+        background-color: var(--bgColor);
         box-shadow: 0px 0px 3px 1px var(--secColor);
         text-align: left;
         div:nth-child(1) {
+          padding-right: 15px;
           img {
             width: 50px;
             height: 50px;
@@ -301,6 +303,7 @@ nav {
           }
         }
         div:nth-child(2) {
+          flex-basis: 50%;
           .counter {
             button {
               width: 20px;
@@ -318,6 +321,10 @@ nav {
             }
           }
         }
+        div:nth-child(3) {
+          text-align: center;
+          flex-basis: 20%;
+        }
         div:nth-child(4) {
           .cancel {
             background-color: transparent;
@@ -330,7 +337,7 @@ nav {
         width: 100%;
         border-radius: 15px;
         color: var(--mainColor);
-        background-color: #f5f0eca1;
+        background-color: var(--bgColor);
         box-shadow: 0px 0px 3px 1px var(--secColor);
       }
       .rooms,
@@ -339,6 +346,35 @@ nav {
         background-color: #ffdfd7;
         border: 2px solid var(--mainColor);
         border-radius: 15px;
+      }
+      .not-selected {
+        position: relative;
+      }
+      .not-selected::after {
+        content: "";
+        position: absolute;
+        top: -5px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 5px solid #bbb9a7;
+        z-index: 100;
+      }
+      .not-selected::before {
+        content: "You Must Select A Customer";
+        position: absolute;
+        bottom: calc(100% + 5px);
+        left: 50%;
+        transform: translateX(-50%);
+        width: fit-content;
+        background-color: #fff;
+        border: 1px solid #bbb9a7;
+        z-index: 100;
+        font-size: 10px;
+        padding: 5px;
       }
       .cart-price {
         color: var(--mainColor);
@@ -387,9 +423,6 @@ nav {
       border: 1px solid #d8d8d8;
       background-color: #f5f0ecf8;
       border-radius: 25px;
-    }
-    .cart-responsive {
-      position: fixed;
       bottom: 45px;
       right: 15px;
       width: 30vw;
@@ -507,16 +540,46 @@ nav {
   }
 }
 
-.center {
-  display: flex !important;
-  justify-content: center;
-  align-items: center;
-}
-
-.reset {
-  border: none;
-  outline: none;
-  margin: 0;
+.order-sent {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background-color: #9e9fa18c;
+  .success {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30%;
+    background-color: #eee;
+    border-radius: 25px;
+    img {
+      width: 60px;
+      height: 60%;
+    }
+    p {
+      color: var(--mainColor);
+      font-size: 22px;
+    }
+    button {
+      background-color: var(--mainColor);
+      border-radius: 10px;
+      color: #fff;
+      cursor: pointer;
+      border: 2px solid #ff886d;
+    }
+    button:hover {
+      border: 2px solid #f8532e;
+      background-color: #ff5832;
+    }
+    button:active {
+      border: 2px solid #ff886d;
+      box-shadow: 0px 0px 5px 5px #ffdcd4;
+    }
+  }
 }
 
 .ramadan {
@@ -574,9 +637,41 @@ nav {
     transform: rotate(-20deg);
   }
 }
-.dropmenu {
-  color: var(--mainColor);
-  background-color: #ffdfd7;
-  border: 2px solid var(--mainColor);
-  border-radius: 15px;
+
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  .spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    animation: spin 3s linear infinite;
+  }
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.center {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+}
+
+.reset {
+  border: none;
+  outline: none;
+  margin: 0;
 }

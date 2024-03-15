@@ -1,7 +1,4 @@
 <?php
-
-
-
     include("db.php");
     $mydb = new DB();
     if(isset($_SESSION["position"]) && $_SESSION["position"]=="user" && $_SERVER['REQUEST_METHOD'] == 'POST'){
