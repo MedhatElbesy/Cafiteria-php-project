@@ -104,21 +104,21 @@
                 <input type="text" class="form-control"  id="userID" readonly  >
               </div>
               <div class="col-md-6">
-                <label for="updatefname" id="lfname" class="form-label">Old First name: {{ufname}}</label>
+                <label for="updatefname" id="lfname" class="form-label"></label>
                 <input type="text" class="form-control"  id="updatefname" pattern="^[a-zA-Z ,.'\-]+$" placeholder=" New First name" v-model="fname" required>
                 <div class="invalid-feedback">
                   Please enter a valid First name (letters, spaces, commas, periods, single quotes, and hyphens)!.
                 </div>
               </div>
               <div class="col-md-6">
-                <label for="updatelname" id="llname" class="form-label">Old last name: {{ulname}} </label>
+                <label for="updatelname" id="llname" class="form-label"></label>
                 <input type="text" class="form-control"  id="updatelname" pattern="^[a-zA-Z ,.'\-]+$" placeholder="New last name" v-model="lname" required>
                 <div class="invalid-feedback">
                   Please enter a valid Last name (letters, spaces, commas, periods, single quotes, and hyphens)!.
                 </div>
               </div>
               <div class="col-md-12">
-                <label for="updateuseremail" id="lemail" class="form-label">Old email : {{uemail}}</label>
+                <label for="updateuseremail" id="lemail" class="form-label"></label>
                 <input type="email" class="form-control" id="updateuseremail" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" placeholder="New email" v-model="email"
                   required>
                 <div class="invalid-feedback">
@@ -134,7 +134,7 @@
                 </div>
               </div>
               <div class="col-md-6">
-                <label for="updateroom" id="lroom" class="form-label">old Room : {{uroom}} </label>
+                <label for="updateroom" id="lroom" class="form-label"></label>
                 <input type="number" min="1" class="form-control" id="updateroom" pattern="^[1-9]\d*$" placeholder="New room number" v-model="room" required>
                 <div class="invalid-feedback">
                   Please enter user room no.!.
