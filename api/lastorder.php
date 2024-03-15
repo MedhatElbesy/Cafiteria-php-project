@@ -1,7 +1,4 @@
 <?php
-
-
-
     include("db.php");
     $mydb = new DB();
     // when user login we must take it`s id

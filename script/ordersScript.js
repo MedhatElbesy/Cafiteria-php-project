@@ -1,4 +1,5 @@
 import {setUserInfo} from './LoggedUser.js';
+import {loading} from './utilities.js';
 
 let ordersTable = document.getElementById("orders");
 let orderDetailsContainer = document.querySelector(".order-details");
@@ -7,8 +8,10 @@ let dateTo = document.getElementById("date-to");
 
 const getOrders = async function() {
   try {
+    loading();
     const response = await fetch(`../api/myorders.php?date_from=${dateFrom.value}&date_to=${dateTo.value}`);
     const myOrders = await response.json();
+    loading();
     return myOrders;
   } catch(error) {
     console.error('Error Fetching Orders:', error);
@@ -18,8 +21,10 @@ const getOrders = async function() {
 
 const getOrderDetails = async function(orderId) {
   try {
+    utility.loading();
     const response = await fetch(`../api/orderdetails.php?id=${orderId}`);
     const orderDetails = await response.json();
+    utility.loading();
     return orderDetails;
   } catch(error) {
     console.error('Error Fetching Order Details:', error);
@@ -154,8 +159,10 @@ ordersTable.addEventListener("click", function(e){
 // Cancel Order
 let cancelOrder = async function (order) {
   try {
+    loading();
     const response = await fetch(`../api/cancelorder.php?id=${order.dataset.orderId}`);
     const responseData = await response.json();
+    loading();
     if(responseData.message != 0) {
       // Check If Order Details are Opened
       if(order.querySelector(".show-order").innerText == "-") {

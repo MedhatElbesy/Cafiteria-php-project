@@ -1,4 +1,5 @@
 import {userData} from './LoggedUser.js';
+import * as utility from './utilities.js';
 
 let categoryContainer = document.getElementById("categories");
 let productsContainer = document.getElementById("products");
@@ -13,13 +14,15 @@ let allProducts = null;
 // Show Products In Page
 const getProducts = async function() {
   try {
+    utility.loading();
     const response = await fetch(`../api/productsAPI.php`);
     allProducts = await response.json();
-    allProducts.forEach(product => {
-      if(product.available == "available"){
+    await Promise.all(allProducts.map(product => {
+      if(product.available == "available") {
         setProduct(product);
       }
-    });
+    }));
+    await getCategories();
   } catch (error) {
     console.error('Error Fetching Products:', error);
     // window.location.href = 'error.html'; // redirect here .....
@@ -32,49 +35,51 @@ const getCategories = async function() {
     const response = await fetch(`../api/categoryAPI.php`);
     allCategories = await response.json();
 
-    allCategories.push({ "id": 0, "img": "../images/landing-img.jpg", "name": "All Products"})
-    // setCategory(allCategories.length - 1);
-    allCategories.forEach(category => {
-      setCategory(category);
-    });
-    for (let i = 0; i < allCategories.length - 1; i++) {
-    }
+    // Addin All Products Category
+    allCategories.push({ "id": 0, "img": "../images/categories/food.png", "name": "All Products"})
+    setCategory(allCategories[allCategories.length - 1])
+    await Promise.all(allCategories.slice(0, -1).map(category => setCategory(category)));
+    getRooms();
   } catch(error) {
     console.error('Error Fetching Categories:', error);
     // window.location.href = 'error.html';
   }
-} ();
+};
 
 // Show Rooms In Cart
 const getRooms = async function() {
   try {
     const response = await fetch(`../api/room_id.php`);
     const allRooms = await response.json();
-    allRooms.forEach(room => setRoom(room));
+    await Promise.all(allRooms.map(room => setRoom(room)));
+    if(userData["position"] == "admin"){
+      getCustomers();
+    }
+    utility.loading();
   } catch (error) {
     console.error('Error Fetching Rooms:', error);
     // window.location.href = 'error.html'; // redirect here .....
   }
-} ();
+};
 
 // Show Users In Cart For Admin
 if(userData["position"] == "admin") {
-  const getCustomers = async function() {
+  var getCustomers = async function() {
     try {
       const response = await fetch(`../api/usersdata.php`);
       const allCustomers = await response.json();
-      allCustomers.forEach(customer => {
+      await Promise.all(allCustomers.map(customer => {
         cart.querySelector(".customers").innerHTML += `<option class="reset" data-room="${customer.room}" value="${customer.id}">${customer.name}</option>`;
-      });
+      }));
     } catch (error) {
       console.error('Error Fetching Users:', error);
       // window.location.href = 'error.html'; // redirect here .....
     }
-  } ();
+  };
 
-  // Assign RoomTo Selected Customer
+  // Assign Room To Selected Customer
   cart.querySelector(".customers").addEventListener('change', function(e) {
-    const selectedCustomer = e.target.value;
+    document.querySelector(".customers-name").classList.remove("not-selected");
     const customerRoom = e.target.options[e.target.selectedIndex].dataset.room;
     const rooms = cart.querySelector(".rooms").options;
     for (let i = 0; i < rooms.length; i++) {
@@ -90,12 +95,15 @@ if(userData["position"] == "admin") {
 // Create Category Element In Page
 let setCategory = function(category) {
   let categoryItem = document.createElement("li");
-  let icon = document.createElement("i");
+  let image = document.createElement("img");
   let p1 = document.createElement("p");
   let items = document.createElement("p");
 
-  categoryItem.classList.add("category", "py-3", "mx-1", "mb-4", "px-4", "text-center", "list-unstyled");
-  icon.classList.add("mb-2", "fa-solid", "fa-mug-hot");
+  categoryItem.classList.add("category", "p-2", "mx-1", "mb-4", "text-center", "list-unstyled");
+  
+  image.setAttribute("src", category.img);
+  image.setAttribute("alt", category.name);
+
   p1.classList.add("m-0", "fw-bold");
   items.classList.add("m-0");
   p1.innerText= category.name;
@@ -111,7 +119,7 @@ let setCategory = function(category) {
   })
   items.innerHTML = `<span>${itemsCount}</span> Items`;
 
-  categoryItem.appendChild(icon);
+  categoryItem.appendChild(image);
   categoryItem.appendChild(p1);
   categoryItem.appendChild(items);
   categoryContainer.appendChild(categoryItem);
@@ -292,12 +300,13 @@ let showCategoryProducts = function(category) {
 }
 
 // Send Order
-document.querySelector(".confirm").addEventListener("click", function() {
+document.querySelector(".confirm").addEventListener("click", function(e) {
   // Select Customer For Admin
   if((userData["position"] == "admin")) {
     const selectCustomer = cart.querySelector(".customers");
     const selectedOption = selectCustomer.options[selectCustomer.selectedIndex];
     if(!selectedOption.value) {
+      document.querySelector(".customers-name").classList.add("not-selected");
       return;
     } else {
       currentUser = selectedOption.value;
@@ -316,27 +325,24 @@ document.querySelector(".confirm").addEventListener("click", function() {
     let quantity = Number(order.querySelector(".quantity").innerText);
     orderDetails.push({product_id: order.dataset.orderId, quantity: quantity});
   }
-  let orderObject = {customers_id: currentUser, room: currentRoom, products: orderDetails};
+  let orderObject = {customer_id: currentUser, room: currentRoom, products: orderDetails};
   sendOrder(orderObject);
 });
 
 let sendOrder = async function (orderObject) {
   try {
+    utility.loading();
     const response = await fetch('../api/insertOrder.php', {
       method: 'POST',
       body: JSON.stringify(orderObject)
     });
     const responseData = await response.json();
+    utility.loading();
     if(responseData.message != 0) {
-      orderSentSuccessfully();
-      window.location.reload();
+      utility.orderSent();
     }
   } catch (error) {
     console.error('Error Sending Order:', error);
-    window.location.href = 'error.html';
+    // window.location.href = 'error.html';
   }
 };
-
-let orderSentSuccessfully = function() {
-
-}
