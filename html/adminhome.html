@@ -56,8 +56,8 @@
             </ul>
           </div>
           <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
-            <img src="../images/logo.png" alt="Logo" width="50" height="50" class="d-inline-block align-text-top user-image">
-            <span class="user-name">Islam Askar</span>
+            <img alt="Admin" width="50" height="50" class="d-inline-block align-text-top admin-image">
+            <span class="admin-name"></span>
           </a>
         </nav>
         <!-- All Menu Section -->
@@ -80,33 +80,29 @@
         <!-- Orders -->
         <div class="orders mb-4"></div>
         <!-- Extra Details And Submission -->
-        <div class="details text-center m-1">
-          <textarea class="reset p-2 mb-2" name="notes" id="notes" rows="3" placeholder="Extra Notes"></textarea>
-          <!-- Select Order Room -->
-          <select class="rooms d-block reset p-1 fw-bold mb-4 w-75 m-auto" name="room" id="room">
-            <option class="fw-bold text-center" selected>Room</option>
-            <!-- <option class="reset" value="1001">Room 1001</option>
-            <option class="reset" value="1002">Room 1002</option>
-            <option class="reset" value="1003">Room 1003</option> -->
-          </select>
-          <!-- Select User -->
-          <select class="users d-block reset p-1 fw-bold mb-4 w-75 m-auto" name="user" id="user" required>
-            <option class="fw-bold text-center" selected>select User</option>
-            <option class="reset" value="1001">User 1</option>
-            <option class="reset" value="1002">User 2</option>
-            <option class="reset" value="1003">User 3</option>
-          </select>
-          <!-- Order Total Price -->
-          <div class="d-flex justify-content-between align-items-center fw-bold">
-            <p class="cart-price reset py-1">Total <span class="total-price">0</span></p>
-            <button class="confirm reset py-1 px-3 fw-bold">Send Order</button>
+        <form id="orderForm">
+          <div class="details text-center m-1">
+            <textarea class="reset p-2 mb-2" name="notes" id="notes" rows="3" placeholder="Extra Notes"></textarea>
+            <!-- Select User -->
+            <select class="customers d-block reset p-1 fw-bold mb-4 w-75 m-auto" name="user" id="user" required>
+              <option class="fw-bold text-center" value="" selected disabled>Customer</option>
+            </select>
+            <!-- Select Order Room -->
+            <select class="rooms d-block reset p-1 fw-bold mb-4 w-75 m-auto" name="room" id="room">
+              <option class="fw-bold text-center" selected disabled>Room</option>
+            </select>
+            <!-- Order Total Price -->
+            <div class="d-flex justify-content-between align-items-center fw-bold">
+              <p class="cart-price reset py-1">Total <span class="total-price">0</span></p>
+              <button class="confirm reset py-1 px-3 fw-bold">Send Order</button>
+            </div>
           </div>
-        </div>
+        </form>
       </aside>
       <!-- Show Cart In Small Screens -->
       <button class="show-cart reset fw-bold d-lg-none empty px-5">Cart <span>0</span></button>
     </div>
   </div>
-  <script src="../script/homeScript.js"></script>
+  <script type="module" src="../script/homeScript.js"></script>
 </body>
 </html>

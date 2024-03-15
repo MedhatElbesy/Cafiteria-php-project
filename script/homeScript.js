@@ -1,16 +1,14 @@
+import {userData} from './LoggedUser.js';
+
 let categoryContainer = document.getElementById("categories");
 let productsContainer = document.getElementById("products");
 let cart = document.getElementById("cart");
 let showcart = document.querySelector(".show-cart");
 let allOrders = cart.querySelector(".orders").children;
-let allCategories = [];
-let allProducts = [];
-
-let setUserInfo = function() {
-  const userData = JSON.parse(sessionStorage.getItem('userData'));
-    document.querySelector(".user-name").innerText = userData["user_name"];
-    document.querySelector(".user-image").src = userData["img"];
-} ();
+let currentRoom = userData["room"];
+let currentUser = null;
+let allCategories = null;
+let allProducts = null;
 
 // Show Products In Page
 const getProducts = async function() {
@@ -46,6 +44,48 @@ const getCategories = async function() {
     // window.location.href = 'error.html';
   }
 } ();
+
+// Show Rooms In Cart
+const getRooms = async function() {
+  try {
+    const response = await fetch(`../api/room_id.php`);
+    const allRooms = await response.json();
+    allRooms.forEach(room => setRoom(room));
+  } catch (error) {
+    console.error('Error Fetching Rooms:', error);
+    // window.location.href = 'error.html'; // redirect here .....
+  }
+} ();
+
+// Show Users In Cart For Admin
+if(userData["position"] == "admin") {
+  const getCustomers = async function() {
+    try {
+      const response = await fetch(`../api/usersdata.php`);
+      const allCustomers = await response.json();
+      allCustomers.forEach(customer => {
+        cart.querySelector(".customers").innerHTML += `<option class="reset" data-room="${customer.room}" value="${customer.id}">${customer.name}</option>`;
+      });
+    } catch (error) {
+      console.error('Error Fetching Users:', error);
+      // window.location.href = 'error.html'; // redirect here .....
+    }
+  } ();
+
+  // Assign RoomTo Selected Customer
+  cart.querySelector(".customers").addEventListener('change', function(e) {
+    const selectedCustomer = e.target.value;
+    const customerRoom = e.target.options[e.target.selectedIndex].dataset.room;
+    const rooms = cart.querySelector(".rooms").options;
+    for (let i = 0; i < rooms.length; i++) {
+      if (rooms[i].value == customerRoom) {
+        rooms[i].selected = true;
+      }
+    }
+  });
+} else {
+  currentUser = userData["id"];
+}
 
 // Create Category Element In Page
 let setCategory = function(category) {
@@ -146,6 +186,15 @@ let setOrder = function (product) {
   addOrder(newOrder);
 };
 
+// Add Rooms In Cart
+let setRoom = function(room) {
+  if(room.id == currentRoom) {
+    cart.querySelector(".rooms").innerHTML += `<option class="reset" value="${room.id}" selected>Room ${room.id}</option>`
+  } else {
+    cart.querySelector(".rooms").innerHTML += `<option class="reset" value="${room.id}">Room ${room.id}</option>`
+  }
+}
+
 // Make Actions On Orders In Cart (Add, Remove, Cancel)
 cart.addEventListener("click", function(e) {
   let order = e.target.closest(".order");
@@ -244,13 +293,30 @@ let showCategoryProducts = function(category) {
 
 // Send Order
 document.querySelector(".confirm").addEventListener("click", function() {
+  // Select Customer For Admin
+  if((userData["position"] == "admin")) {
+    const selectCustomer = cart.querySelector(".customers");
+    const selectedOption = selectCustomer.options[selectCustomer.selectedIndex];
+    if(!selectedOption.value) {
+      return;
+    } else {
+      currentUser = selectedOption.value;
+    }
+  }
+
+  // Select Customer Room
+  const selectRoom = cart.querySelector(".rooms");
+  const selectedOption = selectRoom.options[selectRoom.selectedIndex];
+  currentRoom = selectedOption.value;
+
+  // Making Order Object
   let orderDetails = [];
   for(let i = 0; i < allOrders.length; i++) {
     let order = allOrders[i];
     let quantity = Number(order.querySelector(".quantity").innerText);
     orderDetails.push({product_id: order.dataset.orderId, quantity: quantity});
   }
-  let orderObject = {customers_id: 1, room: 2,  products: orderDetails};
+  let orderObject = {customers_id: currentUser, room: currentRoom, products: orderDetails};
   sendOrder(orderObject);
 });
 
@@ -261,7 +327,7 @@ let sendOrder = async function (orderObject) {
       body: JSON.stringify(orderObject)
     });
     const responseData = await response.json();
-    if(responseData.status == "success") {
+    if(responseData.message != 0) {
       orderSentSuccessfully();
       window.location.reload();
     }

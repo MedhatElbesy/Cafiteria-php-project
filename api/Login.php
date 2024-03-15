@@ -25,7 +25,7 @@ function loginApi()
              // set SESSION  with admin data
             
 
-            $_SESSION["postion"]= 'admin' ;
+            $_SESSION["position"]= 'admin' ;
             $_SESSION["email"]=$email;
             $_SESSION["id"]=$dataarr['id'];
             $_SESSION["img"]=$dataarr['img'];
@@ -34,13 +34,12 @@ function loginApi()
             'id' => $dataarr['id'],
             'admin_name' => "{$dataarr['fname']} {$dataarr['lname']}",
             'email' => $_SESSION["email"],
-            'postion' => $_SESSION["postion"],
+            'position' => $_SESSION["postion"],
             'img' => $_SESSION["img"]
             ];
 
         }
         else{
-        
             return  $response = [ 'status' => 0];
         }
     }
@@ -55,7 +54,7 @@ function loginApi()
             // set SESSION  with user data
 
             // session_start();
-            $_SESSION["postion"]= 'user' ;
+            $_SESSION["position"]= 'user' ;
             $_SESSION["email"]=$email;
             $_SESSION["id"]=$dataarr['id'];
             $_SESSION["img"]=$dataarr['img'];
@@ -64,7 +63,7 @@ function loginApi()
             'id' => $dataarr['id'],
             'user_name' => "{$dataarr['fname']} {$dataarr['lname']}",
             'email' => $_SESSION["email"],
-            'postion' => $_SESSION["postion"],
+            'position' => $_SESSION["postion"],
             'img' => $_SESSION["img"],
             'room' => $dataarr["room"]
             ];
