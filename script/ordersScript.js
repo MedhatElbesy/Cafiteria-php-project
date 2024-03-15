@@ -3,6 +3,7 @@ import {loading} from './utilities.js';
 
 let ordersTable = document.getElementById("orders");
 let orderDetailsContainer = document.querySelector(".order-details");
+
 let dateFrom = document.getElementById("date-from");
 let dateTo = document.getElementById("date-to");
 
@@ -31,19 +32,16 @@ const getOrderDetails = async function(orderId) {
   }
 };
 
-// Select Date From
 dateFrom.addEventListener("input", function() {
   getOrders()
   .then((myOrders)=>showOrders(myOrders))
 });
 
-// Select Date To
 dateTo.addEventListener("input", function() {
   getOrders()
   .then((myOrders) => showOrders(myOrders));
 });
 
-// Create Orders Data
 let showOrders = function(myOrders) {
   // Check Orders Existance 
   if (myOrders.length == 0) {
@@ -93,7 +91,6 @@ let showOrders = function(myOrders) {
   });
 };
 
-// Show And Hide Order Details
 let showOrderButton = function(e, orderId) {
   if(e.target.innerText == "+") {
     getOrderDetails(orderId)
@@ -117,7 +114,6 @@ let showOrderButton = function(e, orderId) {
   }
 }
 
-// Show Order Details
 let showOrderDetails = function(order) {
   let product = document.createElement("div");
   let image = document.createElement("img");
@@ -156,7 +152,6 @@ ordersTable.addEventListener("click", function(e){
   }
 });
 
-// Cancel Order
 let cancelOrder = async function (order) {
   try {
     loading();

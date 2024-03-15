@@ -44,6 +44,7 @@ let updateClickBtn = function(){
                     const response = await fetch(`../api/selectSpecificUser.php?id=${userId}`);
                     const userData = await response.json();
                     dataForUpdate(userData);
+                    console.log(userData);
                 } catch(error) {
                     console.log("error");
                 }
