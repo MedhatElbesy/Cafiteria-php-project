@@ -46,7 +46,6 @@ let updateClickBtn = function () {
           );
           const userData = await response.json();
           dataForUpdate(userData);
-          console.log(userData);
         } catch (error) {
           console.log("error");
         }
@@ -58,11 +57,14 @@ let updateClickBtn = function () {
 function dataForUpdate(userData) {
   userData.forEach((key) => {
     document.getElementById("userID").value = key.id;
-    document.getElementById("updatefname").value = key.fname;
-    document.getElementById("updatelname").value = key.lname;
-    document.getElementById("updateuseremail").value = key.email;
-    document.getElementById("updateroom").value = parseInt(key.room);
-    document.getElementById("updatepass").value = parseInt(key.password);
+    document.getElementById(
+      "lfname"
+    ).innerText = `Old last name: ${key.fname} `;
+    document.getElementById(
+      "llname"
+    ).innerText = `Old last name: ${key.lname} `;
+    document.getElementById("lemail").innerText = `Old Email: ${key.email} `;
+    document.getElementById("lroom").innerText = `Old room: ${key.room} `;
 
     // document.getElementById('userimg').value = userData.img
   });
