@@ -4,21 +4,68 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="../images/logo.png" />
   <title>Cafeteria | Orders</title>
   <link rel="stylesheet" href="../frameworks/bootstrap/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <link rel="stylesheet" href="../styles/aStyle.css">
+  <link rel="stylesheet" href="../styles/style.css">
   <script src="../script/vueversion3.js"></script>
 
 </head>
 
 <body>
+  <div class="ramadan">
+    <figure>
+      <img src="../images/zena2.png" alt="test">
+    </figure>
+    <figure>
+      <img src="../images/zena2.png" alt="test">
+    </figure>
+    <figure>
+      <img src="../images/zena2.png" alt="test">
+    </figure>
+    <figure>
+      <img src="../images/zena2.png" alt="test">
+    </figure>
+    <figure>
+      <img src="../images/zena2.png" alt="test">
+    </figure>
+    <figure>
+      <img class="fanos" src="../images/fanos.png" alt="test">
+    </figure>
+    <figure>
+      <img class="fanos" src="../images/fanos.png" alt="test">
+    </figure>
+    <figure>
+      <img class="fanos" src="../images/fanos.png" alt="test">
+    </figure>
+  </div>
+  <!-- Navigation Bar -->
+  <nav class="d-flex align-items-center justify-content-between">
+    <div class="links d-flex align-items-center justify-content-between">
+      <img src="../images/logo.png" alt="Logo" width="50" height="50" class="d-inline-block align-text-top">
+      <ul class="text-center d-flex align-items-center justify-content-between m-0">
+        <li class="mx-1 "><a href="adminhome.html" class="px-2 py-1"><i class="fa-solid fa-house"></i> Home</a>
+        </li>
+        <li class="mx-1"><a href="products.html" class="px-2 py-1"><i class="fa-solid fa-receipt"></i> Products</a>
+        <li class="mx-1"><a href="users.html" class="px-2 py-1"><i class="fa-solid fa-receipt"></i> Users</a>
+        <li class="mx-1 active"><a href="orders.html" class="px-2 py-1"><i class="fa-solid fa-receipt"></i> Manual
+            Orders</a>
+        <li class="mx-1"><a href="checks.html" class="px-2 py-1"><i class="fa-solid fa-receipt"></i> Checks</a>
+      </ul>
+    </div>
+    <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
+      <img alt="Admin" width="50" height="50" class="d-inline-block align-text-top admin-image">
+      <span class="admin-name"></span>
+    </a>
+  </nav>
   <div class="container-fluid container-lg my-5">
     <h1 class="my-4">Orders</h1>
     <hr>
     <div id="ordersWrapper">
 
-      <div class="p-3 order_detailes my-2" v-for="order in orders">
+      <div class="p-3 order_detailes bg-white bg-opacity-50 my-2" v-for="order in orders">
         <div class="table-responsive">
           <table class="table align-middle">
             <thead>
@@ -37,8 +84,8 @@
                 <td>{{order.room}}</td>
                 <td>{{order.ext}}</td>
                 <td>
-                  <select class="form-select" aria-label="Default select example" v-model="order.status"
-                    @change="updateOrderStatus(order)">
+                  <select class="form-select bg-white bg-opacity-50" aria-label="Default select example"
+                    v-model="order.status" @change="updateOrderStatus(order)">
                     <option value="processing">Processing</option>
                     <option value="done">Done</option>
                     <option value="in delivery">In Delivery</option>
@@ -49,9 +96,10 @@
           </table>
 
         </div>
-        <div class="row flex-nowrap items_wrapper justify-content-center justify-content-lg-start">
-          <div class="orders_card card m-2 shadow-sm" v-for="(product, index) in order.products" :key="index">
-            <div class="badge  bg-secondary">{{ product.price }} EGP</div>
+        <div class="row flex-nowrap items_wrapper justify-content-center justify-content-lg-start ">
+          <div class="orders_card card bg-white bg-opacity-50 m-2 shadow-sm" v-for="(product, index) in order.products"
+            :key="index">
+            <div class="badge  bg-secondary ">{{ product.price }} EGP</div>
             <img :src="getImageSource(product.img)" class="card-img-top card-img-orderd " :alt="product.name">
             <div class="card-body p-0">
               <div class="badge text-light mb-2 pname bg-primary">{{ product.name }}</div>
@@ -77,6 +125,10 @@
       </div>
     </div>
     <!-- end of toast -->
+    <script type="module">
+      import {userData} from '../script/loggedUser.js';
+      import * as utility from '../script/utilities.js';
+    </script>
 
     <script>
       const app = Vue.createApp({

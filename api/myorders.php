@@ -1,5 +1,4 @@
 <?php
-        // header('Location: http://www.Cafiteria-php-project/html/indexx.html');
 
     session_start();
     if(isset($_SESSION["position"]) && $_SESSION["position"]=="user"){

@@ -4,11 +4,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="../images/logo.png" />
   <title>Cafeteria | products</title>
   <link rel="stylesheet" href="../frameworks/bootstrap/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <link rel="stylesheet" href="../styles/aStyle.css">
   <link rel="stylesheet" href="../styles/style.css">
+
 </head>
 
 <body>
@@ -38,6 +40,25 @@
       <img class="fanos" src="../images/fanos.png" alt="test">
     </figure>
   </div>
+  <!-- Navigation Bar -->
+  <nav class="d-flex align-items-center justify-content-between">
+    <div class="links d-flex align-items-center justify-content-between">
+      <img src="../images/logo.png" alt="Logo" width="50" height="50" class="d-inline-block align-text-top">
+      <ul class="text-center d-flex align-items-center justify-content-between m-0">
+        <li class="mx-1 "><a href="adminhome.html" class="px-2 py-1"><i class="fa-solid fa-house"></i> Home</a>
+        </li>
+        <li class="mx-1 active"><a href="products.html" class="px-2 py-1"><i class="fa-solid fa-receipt"></i>
+            Products</a>
+        <li class="mx-1"><a href="users.html" class="px-2 py-1"><i class="fa-solid fa-receipt"></i> Users</a>
+        <li class="mx-1"><a href="orders.html" class="px-2 py-1"><i class="fa-solid fa-receipt"></i> Manual Orders</a>
+        <li class="mx-1"><a href="checks.html" class="px-2 py-1"><i class="fa-solid fa-receipt"></i> Checks</a>
+      </ul>
+    </div>
+    <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
+      <img alt="Admin" width="50" height="50" class="d-inline-block align-text-top admin-image">
+      <span class="admin-name"></span>
+    </a>
+  </nav>
   <div class="container mt-5">
     <div class="d-flex gap-2 align-items-center">
       <p class="m-0 fs-4">All Products</p>
@@ -66,7 +87,8 @@
             <form id="formInsert" class="row g-3 needs-validation" novalidate>
               <div class="col-md-6">
                 <label for="productNameAdd" class="form-label">name</label>
-                <input type="text" class="form-control" id="productNameAdd" placeholder="product name" minlength="3" required>
+                <input type="text" class="form-control" id="productNameAdd" placeholder="product name" minlength="3"
+                  required>
                 <div class="invalid-feedback">
                   Please enter product name!.
                 </div>
@@ -82,7 +104,8 @@
 
               <div class="col-md-6">
                 <label for="productCategory" class="form-label">Category</label>
-                <select class="form-select categorySelector" id="selectorCategoryAdd" aria-describedby="productCategoryFeedback" required>
+                <select class="form-select categorySelector" id="selectorCategoryAdd"
+                  aria-describedby="productCategoryFeedback" required>
                   <option selected disabled value="">Choose...</option>
                   <!-- js will injection -->
                 </select>
@@ -100,7 +123,8 @@
 
               <div class="mb-3">
                 <label for="product_imgAdd" class="form-label">Product Image</label>
-                <input type="file" class="form-control" aria-label="product picture" id="product_imgAdd" accept="image/png, image/jpeg" required>
+                <input type="file" class="form-control" aria-label="product picture" id="product_imgAdd"
+                  accept="image/png, image/jpeg" required>
                 <div class="invalid-feedback">Please select a vaild image!</div>
               </div>
               <div class="col-12 text-center">
@@ -131,20 +155,22 @@
             <form id="addCategoryForm" class="row g-3 needs-validation" novalidate>
               <div class="col-md-6">
                 <label for="category" class="form-label">name</label>
-                <input type="text" class="form-control" id="category" placeholder="category name" minlength="3" required>
+                <input type="text" class="form-control" id="category" placeholder="category name" minlength="3"
+                  required>
                 <div class="invalid-feedback">
                   Please enter category name must be more than 2 letters!.
                 </div>
               </div>
 
               <div class="mb-3">
-                <input type="file" class="form-control" id="addcategory" aria-label="category picture" accept="image/png, image/jpeg" required>
+                <input type="file" class="form-control" id="addcategory" aria-label="category picture"
+                  accept="image/png, image/jpeg" required>
                 <div class="invalid-feedback">Please select a vaild image!</div>
               </div>
 
               <div class="col-12 text-center">
-                <button class="btn btn-primary" type="submit" data-bs-target="#addModal" onclick="insertcategory()"
-                  >Add</button>
+                <button class="btn btn-primary" type="submit" data-bs-target="#addModal"
+                  onclick="insertcategory()">Add</button>
                 <button type="reset" class="btn btn-danger offset-1" data-bs-dismiss="modal" data-bs-target="#addModal"
                   data-bs-toggle="modal">cancel</button>
               </div>
@@ -167,7 +193,8 @@
             <form id="updateform" class="row g-3 needs-validation" novalidate>
               <div class="col-md-6">
                 <label for="productName" class="form-label">name</label>
-                <input type="text" class="form-control" id="productName" placeholder="product name" minlength="3" required>
+                <input type="text" class="form-control" id="productName" placeholder="product name" minlength="3"
+                  required>
                 <div class="invalid-feedback">
                   Please enter product name must be more 2 letters!.
                 </div>
@@ -183,9 +210,10 @@
               </div>
               <div class="col-md-6">
                 <label for="productCategory" class="form-label">Category</label>
-                <select class="form-select categorySelector" id="productCategory" aria-describedby="productCategoryFeedback" required>
+                <select class="form-select categorySelector" id="productCategory"
+                  aria-describedby="productCategoryFeedback" required>
                   <option selected disabled value="">Choose...</option>
-                    <!-- js will injection -->
+                  <!-- js will injection -->
                 </select>
                 <div id="productCategoryFeedback" class="invalid-feedback">
                   Please select a valid category!.
@@ -193,7 +221,8 @@
               </div>
               <div class="mb-3">
                 <label for="product_img" class="form-label">Product Image</label>
-                <input type="file" class="form-control" aria-label="product picture" id="product_img" accept="image/png, image/jpeg">
+                <input type="file" class="form-control" aria-label="product picture" id="product_img"
+                  accept="image/png, image/jpeg">
                 <div class="invalid-feedback">Please select a vaild image!</div>
               </div>
               <div class="col-12 text-center">
@@ -206,12 +235,15 @@
       </div>
     </div>
     <!-- end of add  modals -->
+    <script type="module">
+      import {userData} from '../script/loggedUser.js';
+      import * as utility from '../script/utilities.js';
+    </script>
     <script src="../script/aScript.js"></script>
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="../frameworks/bootstrap/bootstrap.bundle.min.js"></script>
-    <script src="../script/showproductions.js" ></script>
-   
+    <script  src="../script/showproductions.js"></script>
 
 </body>
 

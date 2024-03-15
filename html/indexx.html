@@ -12,9 +12,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
   <style>
-      *{
+    @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+      /* *{
         font-family: 'Playfair Display', serif;
-      }
+      } */
       #warning{
         font-size: large; color: red; display: none;
       }
@@ -62,7 +63,7 @@
         <p class="reset">Cafeteria</p>
       </div>
     </nav>
-    <p id="warning"   class="text-center m-3">You have entered incorrect information. Please verify your email and password and check your position correctly</p>
+    <!-- <p id="warning"   class="text-center m-3">You have entered incorrect information. Please verify your email and password and check your position correctly</p> -->
     <main class="row align-items-center justify-content-center mt-5">
       <form class="px-2 col-4 needs-validation text-center" @submit.prevent="handleFormSubmission" id="loginForm" novalidate  >
         <div class="col-md-12">
@@ -94,6 +95,8 @@
         </div></div>
         <button type="submit" class="btn btn-primary">Log In</button>
       </form>
+      <p id="warning"   class="text-center m-3">You have entered incorrect information. Please verify your email and password and check your position correctly</p>
+
       <!-- <figure class="offset-2 col-6">
         <img src="../images/landing-bg.png" alt="Coffee Cup">
       </figure> -->
