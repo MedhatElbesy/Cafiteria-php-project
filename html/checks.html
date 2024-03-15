@@ -5,22 +5,69 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cafeteria | Checks</title>
+  <link rel="icon" type="image/png" href="../images/logo.png" />
   <link rel="stylesheet" href="../frameworks/bootstrap/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="../styles/style.css">
   <link rel="stylesheet" href="../styles/aStyle.css">
+
   <script src="../script/vueversion3.js"></script>
 
 </head>
 
 <body>
+  <div class="ramadan">
+    <figure>
+      <img src="../images/zena2.png" alt="test">
+    </figure>
+    <figure>
+      <img src="../images/zena2.png" alt="test">
+    </figure>
+    <figure>
+      <img src="../images/zena2.png" alt="test">
+    </figure>
+    <figure>
+      <img src="../images/zena2.png" alt="test">
+    </figure>
+    <figure>
+      <img src="../images/zena2.png" alt="test">
+    </figure>
+    <figure>
+      <img class="fanos" src="../images/fanos.png" alt="test">
+    </figure>
+    <figure>
+      <img class="fanos" src="../images/fanos.png" alt="test">
+    </figure>
+    <figure>
+      <img class="fanos" src="../images/fanos.png" alt="test">
+    </figure>
+  </div>
+  <!-- Navigation Bar -->
+  <nav class="d-flex align-items-center justify-content-between">
+    <div class="links d-flex align-items-center justify-content-between">
+      <img src="../images/logo.png" alt="Logo" width="50" height="50" class="d-inline-block align-text-top">
+      <ul class="text-center d-flex align-items-center justify-content-between m-0">
+        <li class="mx-1 "><a href="adminhome.html" class="px-2 py-1"><i class="fa-solid fa-house"></i> Home</a>
+        </li>
+        <li class="mx-1"><a href="products.html" class="px-2 py-1"><i class="fa-solid fa-receipt"></i> Products</a>
+        <li class="mx-1"><a href="users.html" class="px-2 py-1"><i class="fa-solid fa-receipt"></i> Users</a>
+        <li class="mx-1"><a href="orders.html" class="px-2 py-1"><i class="fa-solid fa-receipt"></i> Manual Orders</a>
+        <li class="mx-1 active"><a href="checks.html" class="px-2 py-1"><i class="fa-solid fa-receipt"></i> Checks</a>
+      </ul>
+    </div>
+    <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
+      <img alt="Admin" width="50" height="50" class="d-inline-block align-text-top admin-image">
+      <span class="admin-name"></span>
+    </a>
+  </nav>
   <div class="container mt-5">
-    <div id="wrapper">
+    <div id="wrapper" class="user-orders">
       <h3 class="my-4">Checks</h3>
-      <div class="row gap-1 my-4">
+      <!-- <div class="row gap-1 my-4">
         <div class="col-12 col-md col-lg-4">
-          <div class="input-group ">
+          <div class="input-group">
             <label for="date_from" class="input-group-text">Date from</label>
-            <input type="date" id="date_from" class="form-control" title="date from" aria-label="date from"
+            <input type="date" id="date_from" class="form-control " title="date from" aria-label="date from"
               aria-describedby="date_from" @change="filterOrders">
           </div>
         </div>
@@ -31,16 +78,41 @@
               aria-describedby="date_to" @change="filterOrders">
           </div>
         </div>
-        <div class="col-6 col-lg ">
+        <div class="col-6 col-lg">
           <select class="form-select form-select" title="users" aria-label="users" @change="filterOrders">
             <option value="">Show All Users</option>
             <option v-for="(user, userId) in groupedOrders" :key="userId" :value="userId">{{ user.user_name }}
             </option>
           </select>
         </div>
-      </div>
+      </div> -->
 
-      <div class="usersChecks card border-0 shadow-sm">
+      <header class="date row p-3">
+        <div class="row gap-1 my-4">
+          <div class="col-12 col-md col-lg-4">
+            <div class="input-group">
+              <label for="date_from" class="input-group-text">Date from</label>
+              <input type="date" id="date_from" class="form-control " title="date from" aria-label="date from"
+                aria-describedby="date_from" @change="filterOrders">
+            </div>
+          </div>
+          <div class="col-12 col-md col-lg-4">
+            <div class="input-group ">
+              <label for="date_to" class="input-group-text">Date to</label>
+              <input type="date" id="date_to" class="form-control" title="date to" aria-label="date to"
+                aria-describedby="date_to" @change="filterOrders">
+            </div>
+          </div>
+          <div class="col-6 col-lg">
+            <select class="form-select bg-white bg-opacity-50" title="users" aria-label="users" @change="filterOrders">
+              <option value="">Show All Users</option>
+              <option v-for="(user, userId) in groupedOrders" :key="userId" :value="userId">{{ user.user_name }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </header>
+      <div class="usersChecks card bg-white bg-opacity-50 border-0 shadow-sm">
         <!-- Start of users  -->
         <div class="d-flex px-4 fw-bold">
           <p>Name</p>
@@ -48,9 +120,9 @@
         </div>
         <!-- start of users accordion -->
         <div class="accordion mb-1" v-for="(user, userId) in filteredOrders" :key="userId">
-          <div class="accordion-item">
+          <div class="accordion-item border-warning bg-transparent">
             <h2 class="accordion-header">
-              <button class="accordion-button text-black bg-white" type="button" data-bs-toggle="collapse"
+              <button class="accordion-button text-black  bg-transparent" type="button" data-bs-toggle="collapse"
                 :data-bs-target="'#userCollapse_'+userId" aria-expanded="false" aria-controls="userCollapse">
                 <p class="m-0">{{ user.user_name }}</p>
                 <p class="my-0 ms-50">{{ user.total_amount }} EGP</p>
@@ -58,12 +130,12 @@
             </h2>
             <div :id="'userCollapse_'+userId" class="accordion-collapse collapse"
               :data-bs-parent="'#userAccordion_'+userId">
-              <div class="accordion-body">
+              <div class="accordion-body  bg-transparent">
                 <!-- start of user orders accordion -->
                 <div class="accordion mb-2" v-for="(order,orderId) in user.orders" :key="orderId">
-                  <div class="accordion-item">
+                  <div class="accordion-item bg-transparent">
                     <h2 class="accordion-header">
-                      <button class="accordion-button text-black bg-light" type="button" data-bs-toggle="collapse"
+                      <button class="accordion-button text-black bg-transparent" type="button" data-bs-toggle="collapse"
                         :data-bs-target="'#userOrdersCollapse_'+orderId" aria-expanded="false"
                         aria-controls="userOrdersCollapse">
                         <p class="m-0"> {{ formatDate(order.order_date) }}</p>
@@ -71,9 +143,9 @@
                       </button>
                     </h2>
                     <div :id="'userOrdersCollapse_'+orderId" class="accordion-collapse collapse">
-                      <div class="accordion-body">
-                        <div class="accordion-body  row m-0  gap-2 flex-nowrap items_wrapper">
-                          <div class="myorder_card-item shadow-sm row g-0"
+                      <div class="accordion-body bg-transparent">
+                        <div class="accordion-body bg-transparent  row m-0  gap-2 flex-nowrap items_wrapper">
+                          <div class="myorder_card-item bg-transparent border shadow-sm row g-0"
                             v-for="(product, productId) in order.products" :key="productId">
                             <div>
                               <img :src="getImageSource(product.img)" class="card-img-top" alt="...">
