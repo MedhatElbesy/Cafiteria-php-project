@@ -7,7 +7,8 @@ const app= Vue.createApp({
     room:'', 
     file:null, 
   }),
-       
+    
+
   methods:
   {
     handleFormSubmission(e,model) 
@@ -73,6 +74,7 @@ const app= Vue.createApp({
       ele.style.display="block";
         ele.innerText=Mass; 
     },
+   
     sendrequest(model)
     {
       this.id=document.getElementById('userID').value
@@ -167,5 +169,5 @@ const app= Vue.createApp({
 
 
 }); 
-
+ 
 app.mount("body");
