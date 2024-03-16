@@ -10,10 +10,15 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <link rel="stylesheet" href="../styles/style.css">
   <link rel="stylesheet" href="../styles/aStyle.css">
-
+  <!-- Check Opened Session Before Loading -->
+  <script>
+    try {
+      if(!sessionStorage.getItem('userData') && !sessionStorage.getItem('userData')['position']);
+    } catch(e){
+      window.location.href = "../html/indexx.html";
+    }
+  </script>
   <script src="../script/vueversion3.js"></script>
-
-
 </head>
 
 <body>
@@ -61,7 +66,7 @@
       </ul>
     </div>
     <div class="user-info fw-bold d-flex align-items-center py-1">
-      <img src="../images/logo.png" alt="Logo" width="50" height="50" class="d-inline-block align-text-top admin-image">
+      <img alt="admin-image" width="50" height="50" class="d-inline-block align-text-top admin-image">
       <p class="admin-name reset"></p>
       <div class="log-out p-2 text-center">
         <button class="btn btn-danger" id="log-out">Log Out</button>
@@ -156,94 +161,92 @@
       </div>
     </div>
   </div>
-    <script type="module">
-      import * as user from '../script/loggedUser.js';
-      import * as utility from '../script/utilities.js';
-    </script>
-
-    <script src="../frameworks/bootstrap/bootstrap.bundle.min.js"></script>
-    <script >
-      const app = Vue.createApp({
-        data() {
-          return {
-            groupedOrders: [],
-            filteredOrders: [], // Newly added property for filtered orders
-          };
+  <script src="../frameworks/bootstrap/bootstrap.bundle.min.js"></script>
+  <script type="module">
+    import * as data from '../script/LoggedUser.js';
+  </script>
+  <script >
+    const app = Vue.createApp({
+      data() {
+        return {
+          groupedOrders: [],
+          filteredOrders: [], // Newly added property for filtered orders
+        };
+      },
+      methods: {
+        async getGroupedOrders() {
+          try {
+            const response = await fetch('../api/checks.php');
+            const data = await response.json();
+            this.groupedOrders = data;
+            this.filteredOrders = data;
+            console.log(this.groupedOrders);
+          } catch (error) {
+            console.error("Error fetching grouped orders:", error);
+          }
         },
-        methods: {
-          async getGroupedOrders() {
-            try {
-              const response = await fetch('../api/checks.php');
-              const data = await response.json();
-              this.groupedOrders = data;
-              this.filteredOrders = data;
-              console.log(this.groupedOrders);
-            } catch (error) {
-              console.error("Error fetching grouped orders:", error);
-            }
-          },
-          getImageSource(imgSrc) {
-            const defaultImageSrc = '../images/cup.png';
-            const img = new Image();
-            img.src = '../images/' + imgSrc;
-            if (img.complete) {
-              return '../images/' + imgSrc;
-            } else {
-              return defaultImageSrc;
-            }
-          },
-          formatDate(dateString) {
-            const date = new Date(dateString);
-            const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' };
-            return new Intl.DateTimeFormat('en-US', options).format(date);
-          },
-          filterOrders() {
-            let dateFrom = new Date(document.getElementById('date_from').value);
-            let dateTo = new Date(document.getElementById('date_to').value);
+        getImageSource(imgSrc) {
+          const defaultImageSrc = '../images/cup.png';
+          const img = new Image();
+          img.src = '../images/' + imgSrc;
+          if (img.complete) {
+            return '../images/' + imgSrc;
+          } else {
+            return defaultImageSrc;
+          }
+        },
+        formatDate(dateString) {
+          const date = new Date(dateString);
+          const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' };
+          return new Intl.DateTimeFormat('en-US', options).format(date);
+        },
+        filterOrders() {
+          let dateFrom = new Date(document.getElementById('date_from').value);
+          let dateTo = new Date(document.getElementById('date_to').value);
 
-            if (isNaN(dateTo)) {
-              dateTo = new Date();
-              document.getElementById('date_to').valueAsDate = dateTo;
-            }
-
-            const userId = document.querySelector('.form-select').value;
-            console.log('Selected userId:', userId); // Log userId to check if it's captured correctly
-
-            if (userId && userId !== '') {
-              // Reset date filters
-              document.getElementById('date_from').value = '';
-              document.getElementById('date_to').value = '';
-            } else {
-              // Reset user filter
-              document.querySelector('.form-select').value = '';
-            }
-
-            this.filteredOrders = Object.values(this.groupedOrders).filter(user => {
-              // Filter by date range
-              if ((dateFrom && dateTo) && (dateFrom != 'Invalid Date')) {
-                console.log(userId);
-                console.log(dateFrom);
-                console.log(dateTo);
-                const orderDate = new Date(user.orders[0].order_date);
-                console.log('date fillter');
-                return orderDate >= dateFrom && orderDate <= new Date(dateTo.getTime() + (24 * 60 * 60 * 1000));
-              }
-
-              // Filter by user
-              if (userId && userId !== '') {
-                return user.user_id === parseInt(userId);
-              }
-
-              return true; // If no filter applied, return all orders
-            });
+          if (isNaN(dateTo)) {
+            dateTo = new Date();
+            document.getElementById('date_to').valueAsDate = dateTo;
           }
 
-        },
-        mounted() {
-          this.getGroupedOrders();
+          const userId = document.querySelector('.form-select').value;
+          console.log('Selected userId:', userId); // Log userId to check if it's captured correctly
+
+          if (userId && userId !== '') {
+            // Reset date filters
+            document.getElementById('date_from').value = '';
+            document.getElementById('date_to').value = '';
+          } else {
+            // Reset user filter
+            document.querySelector('.form-select').value = '';
+          }
+
+          this.filteredOrders = Object.values(this.groupedOrders).filter(user => {
+            // Filter by date range
+            if ((dateFrom && dateTo) && (dateFrom != 'Invalid Date')) {
+              console.log(userId);
+              console.log(dateFrom);
+              console.log(dateTo);
+              const orderDate = new Date(user.orders[0].order_date);
+              console.log('date fillter');
+              return orderDate >= dateFrom && orderDate <= new Date(dateTo.getTime() + (24 * 60 * 60 * 1000));
+            }
+
+            // Filter by user
+            if (userId && userId !== '') {
+              return user.user_id === parseInt(userId);
+            }
+
+            return true; // If no filter applied, return all orders
+          });
         }
-      }).mount("#wrapper");
-    </script>
+
+      },
+      mounted() {
+        this.getGroupedOrders();
+      }
+    }).mount("#wrapper");
+  </script>
    
 </body>
 

@@ -10,6 +10,14 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <link rel="stylesheet" href="../styles/aStyle.css">
   <link rel="stylesheet" href="../styles/style.css">
+  <!-- Check Opened Session Before Loading -->
+  <script>
+    try {
+      if(!sessionStorage.getItem('userData') && !sessionStorage.getItem('userData')['position']);
+    } catch(e){
+      window.location.href = "../html/indexx.html";
+    }
+  </script>
 </head>
 
 <body id="body-info">
@@ -57,7 +65,7 @@
       </ul>
     </div>
     <div class="user-info fw-bold d-flex align-items-center py-1">
-      <img src="../images/logo.png" alt="Logo" width="50" height="50" class="d-inline-block align-text-top admin-image">
+      <img alt="admin-image" width="50" height="50" class="d-inline-block align-text-top admin-image">
       <p class="admin-name reset"></p>
       <div class="log-out p-2 text-center">
         <button class="btn btn-danger" id="log-out">Log Out</button>
@@ -245,14 +253,9 @@
     </section>
   </main>
       <!-- end of add  modals -->
-
-      <script type="module">
-        import {userData} from '../script/loggedUser.js';
-        import * as utility from '../script/utilities.js';
-      </script>
       <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
       <script src="../frameworks/bootstrap/bootstrap.bundle.min.js"></script>
-      <script src="../script/showUsers.js"></script>
+      <script type="module" src="../script/showUsers.js"></script>
       <script src="../script/insert_update_deleteUserUsingvue.js"></script>
 
 </body>

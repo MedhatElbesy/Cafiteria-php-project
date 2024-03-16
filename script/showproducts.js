@@ -1,4 +1,4 @@
-// import * as data from './LoggedUser.js';
+import * as data from './LoggedUser.js';
 
 const startpage = async function () {
   try {

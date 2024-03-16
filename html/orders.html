@@ -11,7 +11,14 @@
   <link rel="stylesheet" href="../styles/aStyle.css">
   <link rel="stylesheet" href="../styles/style.css">
   <script src="../script/vueversion3.js"></script>
-
+  <!-- Check Opened Session Before Loading -->
+  <script>
+    try {
+      if(!sessionStorage.getItem('userData') && !sessionStorage.getItem('userData')['position']);
+    } catch(e){
+      window.location.href = "../html/indexx.html";
+    }
+  </script>
 </head>
 
 <body>
@@ -60,7 +67,7 @@
       </ul>
     </div>
     <div class="user-info fw-bold d-flex align-items-center py-1">
-      <img src="../images/logo.png" alt="Logo" width="50" height="50" class="d-inline-block align-text-top admin-image">
+      <img alt="admin-image" width="50" height="50" class="d-inline-block align-text-top admin-image">
       <p class="admin-name reset"></p>
       <div class="log-out p-2 text-center">
         <button class="btn btn-danger" id="log-out">Log Out</button>
@@ -132,90 +139,86 @@
       </div>
     </div>
   </div>
-    <!-- end of toast -->
-    <script type="module">
-      import {userData} from '../script/loggedUser.js';
-      import * as utility from '../script/utilities.js';
-    </script>
-
-    <script>
-      const app = Vue.createApp({
-        data() {
-          return {
-            orders: [],
-            selectedStatus: '1',
-            updated: false,
-            toastInstance: null
-          };
+  <script type="module">
+    import * as data from '../script/LoggedUser.js';
+  </script>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          orders: [],
+          selectedStatus: '1',
+          updated: false,
+          toastInstance: null
+        };
+      },
+      methods: {
+        async getOrders() {
+          try {
+            const response = await fetch('../api/ordersStatusForAdmin.php');
+            const data = await response.json();
+            this.orders = data.map(order => {
+              order.products = JSON.parse("[" + order.products + "]");
+              return order;
+            });
+            console.log(this.orders);
+          } catch (error) {
+            console.error("Error fetching orders:", error);
+          }
         },
-        methods: {
-          async getOrders() {
+
+        async updateOrderStatus(order) {
+          if (confirm('Are you sure you want to update the status?')) {
             try {
-              const response = await fetch('../api/ordersStatusForAdmin.php');
-              const data = await response.json();
-              this.orders = data.map(order => {
-                order.products = JSON.parse("[" + order.products + "]");
-                return order;
+              const response = await fetch('../api/updateOrderStatus.php', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  orderId: order.order_id,
+                  status: order.status
+                }),
               });
-              console.log(this.orders);
-            } catch (error) {
-              console.error("Error fetching orders:", error);
-            }
-          },
+              if (response.ok) {
+                console.log(await response.text());
+                this.updated = true;
+                const toastElement = document.getElementById('liveToast');
+                const toastInstance = new bootstrap.Toast(toastElement);
+                toastInstance.show();
 
-          async updateOrderStatus(order) {
-            if (confirm('Are you sure you want to update the status?')) {
-              try {
-                const response = await fetch('../api/updateOrderStatus.php', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({
-                    orderId: order.order_id,
-                    status: order.status
-                  }),
-                });
-                if (response.ok) {
-                  console.log(await response.text());
-                  this.updated = true;
-                  const toastElement = document.getElementById('liveToast');
-                  const toastInstance = new bootstrap.Toast(toastElement);
-                  toastInstance.show();
-
-                  setTimeout(() => {
-                    this.updated = false;
-                  }, 3000);
-                } else {
-                  throw new Error('Failed to update order status');
-                }
-              } catch (error) {
-                console.error(error);
+                setTimeout(() => {
+                  this.updated = false;
+                }, 3000);
+              } else {
+                throw new Error('Failed to update order status');
               }
+            } catch (error) {
+              console.error(error);
             }
-          },
-          formatDate(dateString) {
-            const date = new Date(dateString);
-            const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' };
-            return new Intl.DateTimeFormat('en-US', options).format(date);
-          },
-          getImageSource(imgSrc) {
-            const defaultImageSrc = '../images/cup.png';
-            const img = new Image();
-            img.src = '../images/' + imgSrc;
-            if (img.complete) {
-              return '../images/' + imgSrc;
-            } else {
-              return defaultImageSrc;
-            }
-          },
+          }
         },
-        mounted() {
-          this.getOrders();
-        }
-      }).mount("#ordersWrapper");
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        formatDate(dateString) {
+          const date = new Date(dateString);
+          const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' };
+          return new Intl.DateTimeFormat('en-US', options).format(date);
+        },
+        getImageSource(imgSrc) {
+          const defaultImageSrc = '../images/cup.png';
+          const img = new Image();
+          img.src = '../images/' + imgSrc;
+          if (img.complete) {
+            return '../images/' + imgSrc;
+          } else {
+            return defaultImageSrc;
+          }
+        },
+      },
+      mounted() {
+        this.getOrders();
+      }
+    }).mount("#ordersWrapper");
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

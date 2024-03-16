@@ -1,3 +1,5 @@
+import * as data from './LoggedUser.js';
+
 const getUsers = (async function () {
   try {
     const response = await fetch("../api/userAPI.php");

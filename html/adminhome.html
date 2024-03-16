@@ -12,8 +12,15 @@
   <link rel="stylesheet" href="../frameworks/bootstrap/bootstrap.min.css">
   <link rel="stylesheet" href="../frameworks/font awesome/css/all.min.css">
   <script src="../frameworks/bootstrap/bootstrap.min.js"></script>
+  <!-- Check Opened Session Before Loading -->
+  <script>
+    try {
+      if(!sessionStorage.getItem('userData') && !sessionStorage.getItem('userData')['position']);
+    } catch(e){
+      window.location.href = "../html/indexx.html";
+    }
+  </script>
 </head>
-
 <body>
   <!-- Page Loading Animation -->
   <div id="loading" class="loading d-none">
@@ -65,7 +72,7 @@
             </ul>
           </div>
           <div class="user-info fw-bold d-flex align-items-center py-1">
-            <img src="../images/logo.png" alt="Logo" width="50" height="50" class="d-inline-block align-text-top admin-image">
+            <img alt="admin-image" width="50" height="50" class="d-inline-block align-text-top admin-image">
             <p class="admin-name reset"></p>
             <div class="log-out p-2 text-center">
               <button class="btn btn-danger" id="log-out">Log Out</button>

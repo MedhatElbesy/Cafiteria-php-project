@@ -1,4 +1,4 @@
-import {setUserInfo} from './LoggedUser.js';
+import * as data from './LoggedUser.js';
 import * as utility from './utilities.js';
 
 let ordersTable = document.getElementById("orders");
