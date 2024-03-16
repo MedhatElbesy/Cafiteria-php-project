@@ -54,9 +54,6 @@ This project is supervised by [Hend Samir] Teaching Assistant of the Open Source
 
 To use Cafetria, simply clone the repository and deploy the PHP files on a server that supports PHP. Make sure to set up the necessary database configurations and dependencies as specified in the project files.
 
-## License
-
-This project is licensed under the [License Name] License. See the LICENSE file for details.
 
 ## Acknowledgments
 
