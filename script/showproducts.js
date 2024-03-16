@@ -5,6 +5,11 @@ const startpage = async function () {
     const response = await fetch("../api/productsAPI.php");
     const json = await response.json();
     productCard(json);
+    document.querySelectorAll(".available_order").forEach(function(element) {
+      element.addEventListener("click", function() {
+        changeStatus(element);
+      });
+    });
     updateClickBtn();
     deleteClickBtn();
   } catch (error) {
@@ -24,17 +29,16 @@ const productCard = function (json) {
     }
 
     sectionTag.innerHTML += `
-        <div class="myorder_card card bg-white bg-opacity-50 mt-3 me-2 py-3 shadow-sm">
-        <a href="#" title="edit" class="edit_order btn btn-warning edit-btn" category="${production.category_id}" data-id="${production.id}" data-bs-toggle="modal"
-          data-bs-target="#updateModal"><i class="fa-solid fa-pen-to-square"></i></a>
-        <a href="#" title="availability" class="available_order btn ${classn}" onclick="changeStatus(${production.id},'${production.available}')" data-id="${production.id}" ><i class="fa-solid ${classb}"></i></a>
-        <div class="status badge bg-secondary">${production.price} EGP</div>
-        <img src="${production.img}" class="card-img-top w-75 h-75 me-5" alt="...">
-        <div class="card-body w-100 p-0">
-          <div class="badge text-dark mb-2 w-100">${production.name}</div>
-        </div>
+      <div class="myorder_card card bg-white bg-opacity-50 mt-3 me-2 py-3 shadow-sm">
+      <a href="#" title="edit" class="edit_order btn btn-warning edit-btn" category="${production.category_id}" data-id="${production.id}" data-bs-toggle="modal"
+        data-bs-target="#updateModal"><i class="fa-solid fa-pen-to-square"></i></a>
+      <a href="#" title="availability" class="available_order btn ${classn}" data-available="${production.available}" data-id="${production.id}" ><i class="fa-solid ${classb}"></i></a>
+      <div class="status badge bg-secondary">${production.price} EGP</div>
+      <img src="${production.img}" class="card-img-top w-75 h-75 me-5" alt="...">
+      <div class="card-body w-100 p-0">
+        <div class="badge text-dark mb-2 w-100">${production.name}</div>
       </div>
-        `;
+      </div>`;
   });
 };
 
@@ -66,6 +70,7 @@ function dataForUpdate(userData) {
     document.getElementById("productid").value = parseInt(key.id);
   });
 }
+
 const deleteClickBtn = function () {
   document.querySelectorAll(".delete-btn").forEach((btn) => {
     btn.addEventListener("click", function (event) {
@@ -75,16 +80,16 @@ const deleteClickBtn = function () {
   });
 };
 
-async function changeStatus(id, Status) {
-  if (Status == "available") {
-    Status = "non available";
+async function changeStatus(element) {
+  let availability = element.dataset.available;
+  if (availability == "available") {
+    availability = "non available";
   } else {
-    Status = "available";
+    availability = "available";
   }
   const response = await fetch(
-    `../api/selectSpecificProduct.php?id=${id}&status=${Status}`
+    `../api/selectSpecificProduct.php?id=${element.dataset.id}&status=${availability}`
   );
-  element = document.querySelectorAll(`a[data-id="${id}"]`)[1];
   element.firstChild.classList.toggle("fa-ban");
   element.firstChild.classList.toggle("fa-check");
   element.classList.toggle("btn-primary");
@@ -122,7 +127,7 @@ const getCategories = async function () {
     selectors.forEach((selector) => {
       for (let i = 0; category.length > i; ++i) {
         selector.innerHTML += `
-                <option value="${category[i].id}">${category[i].name}</option>`;
+        <option value="${category[i].id}">${category[i].name}</option>`;
       }
     });
   } catch (error) {
@@ -132,6 +137,10 @@ const getCategories = async function () {
 
 getCategories();
 
+document.getElementById("insert").addEventListener("click", function() {
+  insertcategory();
+});
+
 async function insertcategory() {
   let formAddCategory = document.getElementById("addCategoryForm");
   if (formAddCategory.checkValidity()) {
@@ -140,7 +149,6 @@ async function insertcategory() {
     const formData = new FormData();
     formData.append("name", document.getElementById("category").value);
     formData.append("img", file);
-
     fetch("../api/insertcategory.php", {
       method: "POST",
       body: formData,
@@ -161,6 +169,9 @@ async function insertcategory() {
   }
 }
 
+document.getElementById("send").addEventListener("click", function() {
+  senddata();
+});
 async function senddata() {
   let formAddProduct = document.getElementById("formInsert");
   if (formAddProduct.checkValidity()) {
@@ -199,6 +210,10 @@ async function senddata() {
     ).hide();
   }
 }
+
+document.getElementById("update").addEventListener("click", function() {
+  updateProduct();
+});
 
 async function updateProduct() {
   let formUpdateProduct = document.getElementById("updateform");

@@ -96,8 +96,6 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-
-
             <form id="formInsert" class="row g-3 needs-validation" novalidate>
               <div class="col-md-6">
                 <label for="productNameAdd" class="form-label">name</label>
@@ -115,7 +113,6 @@
                   Please enter product price!.
                 </div>
               </div>
-
               <div class="col-md-6">
                 <label for="productCategory" class="form-label">Category</label>
                 <select class="form-select categorySelector" id="selectorCategoryAdd"
@@ -127,14 +124,11 @@
                   Please select a valid category!.
                 </div>
               </div>
-
               <div class="col-md-6 align-self-end" data-bs-toggle="modal" data-bs-target="#categoryModal">
                 <a href="#">
                   <div class="btn btn-outline-primary">add new category</div>
                 </a>
               </div>
-
-
               <div class="mb-3">
                 <label for="product_imgAdd" class="form-label">Product Image</label>
                 <input type="file" class="form-control" aria-label="product picture" id="product_imgAdd"
@@ -142,15 +136,11 @@
                 <div class="invalid-feedback">Please select a vaild image!</div>
               </div>
               <div class="col-12 text-center">
-                <button class="btn btn-primary" onclick="senddata()" type="submit">Add</button>
+                <button class="btn btn-primary" id="send" type="submit">Add</button>
                 <button type="reset" class="btn btn-danger offset-1" data-bs-dismiss="modal">Reset</button>
               </div>
-
               <div id="outputt"></div>
-
             </form>
-
-
           </div>
         </div>
       </div>
@@ -175,16 +165,13 @@
                   Please enter category name must be more than 2 letters!.
                 </div>
               </div>
-
               <div class="mb-3">
                 <input type="file" class="form-control" id="addcategory" aria-label="category picture"
                   accept="image/png, image/jpeg" required>
                 <div class="invalid-feedback">Please select a vaild image!</div>
               </div>
-
               <div class="col-12 text-center">
-                <button class="btn btn-primary" type="submit" data-bs-target="#addModal"
-                  onclick="insertcategory()">Add</button>
+                <button class="btn btn-primary" type="submit" data-bs-target="#addModal" id="insert">Add</button>
                 <button type="reset" class="btn btn-danger offset-1" data-bs-dismiss="modal" data-bs-target="#addModal"
                   data-bs-toggle="modal">cancel</button>
               </div>
@@ -240,7 +227,7 @@
                 <div class="invalid-feedback">Please select a vaild image!</div>
               </div>
               <div class="col-12 text-center">
-                <button class="btn btn-primary" onclick="updateProduct()" type="submit">Update</button>
+                <button class="btn btn-primary" id="update" type="submit">Update</button>
                 <button type="reset" class="btn btn-danger offset-1" data-bs-dismiss="modal">Reset</button>
               </div>
             </form>

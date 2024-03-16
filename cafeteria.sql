@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 15, 2024 at 11:06 PM
+-- Generation Time: Mar 16, 2024 at 01:32 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -41,7 +41,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `fname`, `lname`, `password`, `email`, `img`) VALUES
-(1, 'Admin', 'User', 'e10adc3949ba59abbe56e057f20f883e', 'admin@example.com', '../images/user.png');
+(1, 'Admin', 'User', '42f749ade7f9e195bf475f37a44cafcb', 'admin@example.com', '../images/user.png');
 
 -- --------------------------------------------------------
 
@@ -86,10 +86,10 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`id`, `fname`, `lname`, `password`, `email`, `img`, `room`) VALUES
-(1, 'John', 'Doe', '42f749ade7f9e195bf475f37a44cafcb', 'john.doe@example.com', '../images/user.png', 1),
-(2, 'Jane', 'Smith', '42f749ade7f9e195bf475f37a44cafcb', 'jane.smith@example.com', '../images/user.png', 2),
-(3, 'Bob', 'Johnson', '42f749ade7f9e195bf475f37a44cafcb', '6c19dc5249@emailabox.pro', '../images/user.png', 3),
-(4, 'khaled', 'abdelbaset', '42f749ade7f9e195bf475f37a44cafcb', 'khaledabdelbaset98@gmail.com', 'user.png', 1);
+(1, 'John', 'Doe', '42f749ade7f9e195bf475f37a44cafcb', 'john.doe@example.com', '../images/user.png', 101),
+(2, 'Jane', 'Smith', '42f749ade7f9e195bf475f37a44cafcb', 'jane.smith@example.com', '../images/user.png', 201),
+(3, 'Bob', 'Johnson', '42f749ade7f9e195bf475f37a44cafcb', '6c19dc5249@emailabox.pro', '../images/user.png', 202),
+(4, 'khaled', 'abdelbaset', '42f749ade7f9e195bf475f37a44cafcb', 'khaledabdelbaset98@gmail.com', '../images/user.png', 303);
 
 -- --------------------------------------------------------
 
@@ -111,36 +111,9 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `order_date`, `status`, `total_price`, `customers_id`, `room`) VALUES
-(274, '2024-03-13 15:52:24', 'done', 1350, 1, 2),
-(276, '2024-03-13 15:55:09', 'processing', 200, 1, 2),
-(281, '2024-03-14 12:10:28', 'processing', 150, 1, 2),
-(282, '2024-03-14 13:51:19', 'processing', 1200, 1, 2),
-(283, '2024-03-14 13:57:13', 'processing', 870, 1, 2),
-(285, '2024-03-14 14:06:30', 'processing', 1400, 1, 2),
-(286, '2024-03-14 20:19:19', 'processing', 800, 1, 2),
-(287, '2024-03-14 21:14:26', 'processing', 1600, 1, 2),
-(288, '2024-03-14 21:15:13', 'processing', 800, 1, 2),
-(289, '2024-03-14 22:28:38', 'processing', 50, 1, 1),
-(290, '2024-03-14 22:28:56', 'processing', 150, 1, 1),
-(292, '2024-03-14 23:01:44', 'processing', 50, 1, 3),
-(294, '2024-03-14 23:24:35', 'processing', 1420, 1, 1),
-(296, '2024-03-15 00:09:47', 'processing', 550, 1, 2),
-(298, '2024-03-15 02:08:50', 'processing', 1550, 1, 1),
-(299, '2024-03-15 02:09:12', 'processing', 1770, 2, 3),
-(300, '2024-03-15 12:30:46', 'processing', 50, 1, 1),
-(301, '2024-03-15 13:28:16', 'processing', 1000, 1, 1),
-(302, '2024-03-15 13:28:39', 'processing', 1620, 1, 1),
-(322, '2024-03-15 19:49:09', 'processing', 8, 2, 2),
-(323, '2024-03-15 19:49:47', 'processing', 25, 1, 1),
-(324, '2024-03-15 19:50:15', 'processing', 25, 1, 1),
-(325, '2024-03-15 19:50:45', 'processing', 21, 1, 1),
-(326, '2024-03-15 19:51:48', 'processing', 35, 2, 2),
-(327, '2024-03-15 19:52:36', 'processing', 28, 1, 1),
-(328, '2024-03-15 19:52:46', 'processing', 28, 2, 2),
-(329, '2024-03-15 19:53:01', 'processing', 25, 1, 1),
-(330, '2024-03-15 20:03:36', 'processing', 35, 1, 1),
-(331, '2024-03-15 21:02:50', 'processing', 13, 2, 2),
-(333, '2024-03-15 21:31:17', 'processing', 32, 1, 1);
+(342, '2024-03-16 11:03:15', 'processing', 5, 4, 303),
+(343, '2024-03-16 12:02:42', 'done', 33, 3, 202),
+(344, '2024-03-16 12:19:23', 'processing', 40, 4, 102);
 
 -- --------------------------------------------------------
 
@@ -160,34 +133,14 @@ CREATE TABLE `order_product` (
 --
 
 INSERT INTO `order_product` (`order_id`, `product_id`, `quantity`, `price_unit`) VALUES
-(322, 23, 1, 8),
-(323, 22, 1, 5),
-(323, 23, 1, 8),
-(323, 24, 1, 12),
-(324, 22, 1, 5),
-(324, 23, 1, 8),
-(324, 24, 1, 12),
-(325, 22, 1, 5),
-(325, 23, 2, 8),
-(326, 21, 1, 15),
-(326, 23, 1, 8),
-(326, 24, 1, 12),
-(327, 21, 1, 15),
-(327, 22, 1, 5),
-(327, 23, 1, 8),
-(328, 21, 1, 15),
-(328, 22, 1, 5),
-(328, 23, 1, 8),
-(329, 22, 1, 5),
-(329, 23, 1, 8),
-(329, 24, 1, 12),
-(330, 21, 1, 15),
-(330, 23, 1, 8),
-(330, 24, 1, 12),
-(331, 22, 1, 5),
-(331, 23, 1, 8),
-(333, 23, 1, 8),
-(333, 24, 2, 12);
+(342, 22, 1, 5),
+(343, 22, 1, 5),
+(343, 23, 1, 8),
+(343, 25, 1, 20),
+(344, 21, 1, 15),
+(344, 22, 1, 5),
+(344, 23, 1, 8),
+(344, 24, 1, 12);
 
 --
 -- Triggers `order_product`
@@ -287,9 +240,16 @@ CREATE TABLE `rooms` (
 --
 
 INSERT INTO `rooms` (`id`, `extNumber`) VALUES
-(1, 1),
-(2, 102),
-(3, 103);
+(101, 1),
+(102, 1),
+(103, 1),
+(104, 1),
+(201, 2),
+(202, 2),
+(203, 2),
+(301, 3),
+(302, 3),
+(303, 3);
 
 --
 -- Indexes for dumped tables
@@ -370,7 +330,7 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=334;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=345;
 
 --
 -- AUTO_INCREMENT for table `product`

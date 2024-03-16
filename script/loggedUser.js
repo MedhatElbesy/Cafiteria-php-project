@@ -3,7 +3,6 @@ import * as utility from './utilities.js';
 export let userData = null;
 export let setUserInfo = function() {
   userData = JSON.parse(sessionStorage.getItem('userData'));
-
   if(userData["position"] == "user") {
     document.querySelector(".user-name").innerText = userData["user_name"];
     document.querySelector(".user-image").src = userData["img"];
