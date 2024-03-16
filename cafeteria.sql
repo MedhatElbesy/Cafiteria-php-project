@@ -86,10 +86,11 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`id`, `fname`, `lname`, `password`, `email`, `img`, `room`) VALUES
-(1, 'John', 'Doe', '42f749ade7f9e195bf475f37a44cafcb', 'john.doe@example.com', '../images/user.png', 101),
-(2, 'Jane', 'Smith', '42f749ade7f9e195bf475f37a44cafcb', 'jane.smith@example.com', '../images/user.png', 201),
-(3, 'Bob', 'Johnson', '42f749ade7f9e195bf475f37a44cafcb', '6c19dc5249@emailabox.pro', '../images/user.png', 202),
-(4, 'khaled', 'abdelbaset', '42f749ade7f9e195bf475f37a44cafcb', 'khaledabdelbaset98@gmail.com', '../images/user.png', 303);
+(1, 'Amr', 'Abdullah', '42f749ade7f9e195bf475f37a44cafcb', 'amro727@gmail.com', '../images/user.png', 101),
+(2, 'Medhat', 'Elbesy', '42f749ade7f9e195bf475f37a44cafcb', 'medhat57@gmail.com', '../images/user.png', 201),
+(3, 'Ahmed', 'Dabour', '42f749ade7f9e195bf475f37a44cafcb', 'ahmed57@gmail.com', '../images/user.png', 202),
+(4, 'Khaled', 'Abdelbaset', '42f749ade7f9e195bf475f37a44cafcb', 'khaledabdelbaset98@gmail.com', '../images/user.png', 303),
+(5, 'mohamed', 'AbdElAzem', '42f749ade7f9e195bf475f37a44cafcb', 'mohamed41@gmail.com', '../images/user.png', 302);
 
 -- --------------------------------------------------------
 
