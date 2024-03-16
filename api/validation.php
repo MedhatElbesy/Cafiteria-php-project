@@ -52,6 +52,20 @@ class Validation{
         return $src;
          
     }
+    function duplicateEmail($email){
+        $email= Validation::email($email);
+        $dbObject = new DB();
+       $mailcheck=$dbObject->get_data('admin ,customers','admin.email=$email or customers.email=$email');
+       $dataarr=$mailcheck->fetch(MYSQLI_ASSOC);
+        if($dataarr!=NULL){
+            $this->erros['email']='Duplicate entry for Email';
+        }
+        else{
+            return $email;
+        }
+          
+
+    }
     function safeInput($input){
         $input=trim($input);
         $input=addslashes($input);
