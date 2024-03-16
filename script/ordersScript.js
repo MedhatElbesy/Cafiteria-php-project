@@ -80,7 +80,7 @@ let showOrders = function(myOrders) {
     let status = currentOrder.querySelector(".status");
     if(order.status == "done") {
       status.style.backgroundColor = "green";
-    } else if(order.status == "out for delevery") {
+    } else if(order.status == "in delivery") {
       status.style.backgroundColor = "#a43e00";
     } else {
       status.style.backgroundColor = "#0093a4";

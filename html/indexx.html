@@ -78,58 +78,48 @@
       <img class="fanos" src="../images/fanos.png" alt="test">
     </figure>
   </div>
-  <div class="container-fluid landing-page">
+  <div class="container-fluid landing-page ">
     <nav class="d-flex align-items-center justify-content-between">
       <div class="user-info fw-bold d-flex align-items-center">
         <img src="../images/logo.png" alt="Logo" width="50" height="50" class="d-inline-block align-text-top">
         <p class="reset">Cafeteria</p>
       </div>
     </nav>
-    <main class="d-flex login-card justify-content-between align-items-center">
-      <form class="px-2 col-12 col-md-8 col-lg-7 needs-validation" @submit.prevent="handleFormSubmission" id="loginForm"
+    <main class="d-flex justify-content-between align-items-center p-3">
+      <form class="px-2 col-12 col-lg-7 needs-validation text-center" @submit.prevent="handleFormSubmission" id="loginForm"
         novalidate>
-        <div class="col-md-12 mb-2">
-          <label for="useremail" class="form-label ">Email</label>
-          <input type="email" class="form-control" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" placeholder="enter your email"
+        <div class="col-md-12 mb-3">
+          <label for="useremail" class="form-label mb-2">Email</label>
+          <input type="email" class="form-control" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" placeholder="Enter Your Email"
             v-model="email" required>
           <div class="invalid-feedback">Please enter a valid email!.</div>
         </div>
-
         <div class="col-md-12">
-          <label for="password" class="form-label">Password</label>
-          <input type="password" class="form-control" placeholder="enter your password" v-model="password" required>
+          <label for="password" class="form-label mb-2">Password</label>
+          <input type="password" class="form-control" placeholder="Enter Your Password" v-model="password" required>
           <div class="invalid-feedback">Please enter your password !.</div>
         </div><br>
         <div class="d-flex justify-content-start align-items-baseline flex-wrap">
-          <p class="m-0 me-2">sign in as</p>
-          <!-- <label id="sing" >Sign In As</label>   -->
           <div class="d-flex">
             <div class="form-check  me-2">
               <input type="radio" name="position" v-model="position" value="admin" class="form-check-input"
                 id="validationFormCheck2" required>
               <label class="form-check-label" for="validationFormCheck2">Admin</label>
             </div>
-
             <div class="form-check ">
               <input type="radio" name="position" v-model="position" class="form-check-input" id="validationFormCheck3"
                 value="user" required>
               <label class="form-check-label" for="validationFormCheck3">User</label><br>
-              <div class="invalid-feedback">please check your account position </div>
+              <div class="invalid-feedback">please check your account position</div>
             </div>
           </div>
         </div>
-
-        <button type="submit" class="btn btn-primary login my-3 border-0 w-100">Log In</button>
-        <p class="m-0 text-center"> <a class="text-decoration-none" href="resetPassword.html">Forget password</a></p>
+        <button type="submit" class="btn btn-primary login my-3 border-0 w-50">Log In</button>
+        <p class="m-0 text-center"> <a class="" href="resetPassword.html">Forget password</a></p>
 
       </form>
-      <div class="d-none d-lg-block col-lg"> <img src="../images/lock.gif" alt=""></div>
+      <figure class="d-none d-lg-block m-0"><img src="../images/lock.gif" alt="log-in"></figure>
       <p id="warning" class="text-center m-3 "> Incorrect information. Please verify your email and password </p>
-
-
-      <!-- <figure class="offset-2 col-4">
-        <img src="../images/landing-bg.png" alt="Coffee Cup">
-      </figure> -->
     </main>
   </div>
 
