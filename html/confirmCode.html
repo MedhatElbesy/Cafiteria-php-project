@@ -5,7 +5,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Reset Password</title>
+  <link rel="icon" type="image/png" href="../images/logo.png" />
 
   <style>
     @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
@@ -20,6 +21,20 @@
     position: relative;
 
   }
+
+  .alert {
+            padding: 15px;
+            border: 1px solid transparent;
+            border-radius: .25rem;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+  .alert-primary {
+            color: #004085;
+            background-color: #ec710c;
+            border-color: #b8daff;
+        }
   </style>
     <link rel="stylesheet" href="../styles/style.css">
 
@@ -54,35 +69,84 @@
   </div>
 
   <div class="container reset-password">
-    <form id="contact" action="../api/confirmCode.php" method="post">
+    <form id="contact">
       <h1>Reset Password</h1>
+      <div id="response" class="alert alert-primary" role="alert"></div>
       <fieldset>
-        <input class="reset" placeholder="New Password" name="password" type="text" tabindex="2">
+        <input class="reset" id="password" placeholder="New Password" name="password" type="password" tabindex="2">
       </fieldset>
 
       <fieldset>
-        <input class="reset" placeholder="Write agian New Password" type="text" tabindex="2">
-      </fieldset>
-
-      <fieldset>
-        <input type="hidden" class="reset" id="code" name="code" readonly>
+        <input class="reset" id="confirmPassword" placeholder="confirm password" type="password" tabindex="2">
       </fieldset>
   
       <fieldset>
-        <button type="submit" name="send" >Submit</button>
+        <button type="button" onclick="senddata()" >Submit</button>
       </fieldset>
     </form>
   </div>
 
 
   <script>
-    window.onload = function() {
-        // Get the value of the 'code' parameter from the URL
+
+
+
+  function senddata() {
+
+    let password = document.getElementById("password").value;
+    let confirmPassword = document.getElementById("confirmPassword").value;
+    let responseElement = document.getElementById("response");
+  if(password===confirmPassword){
+
+    if(validatePassword(password)){
         const urlParams = new URLSearchParams(window.location.search);
         const code = urlParams.get('code');
-        // Set the value of the input field with id 'code' to the value obtained from the URL
-        document.getElementById('code').value = code;
-    };
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            var response = JSON.parse(this.responseText);
+            responseElement.innerHTML = response.message;
+            responseElement.style.display = "block";
+          }
+        };
+        xhttp.open("POST", "../api/confirmCode.php", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send("code=" + code +"&password=" + document.getElementById("password").value);
+        }else{
+          responseElement.style.display = "block";
+          responseElement.innerHTML = "Password must contain both letters and numbers at least 8 characters";
+        }
+   
+  }else
+  {
+    responseElement.innerHTML = "Passwords do not match";
+    responseElement.style.display = "block";
+  }
+
+  }
+  
+  function validatePassword() {
+    var passwordInput = document.getElementById("password");
+    var password = passwordInput.value;
+
+    // Check if the password has at least 8 characters
+    if (password.length < 8) {
+        return false;
+    }
+
+    // Check if the password contains at least one letter and one number
+    var containsLetter = /[a-zA-Z]/.test(password);
+    var containsNumber = /\d/.test(password);
+
+    if (!containsLetter || !containsNumber) {
+        return false;
+    }
+
+    return true;
+}
+
+
 </script>
 </body>
  
