@@ -25,7 +25,7 @@ let goToLoginPage = async function () {
     });
     utility.loading();
     sessionStorage.removeItem('userData');
-    window.location.href = "../html/indexx.html";
+    window.location.href = "../html/index.html";
   } catch (error) {
     console.error('Error Logging Out:', error);
   }
