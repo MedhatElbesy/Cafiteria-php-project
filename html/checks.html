@@ -56,10 +56,13 @@
         <li class="mx-1 active"><a href="checks.html" class="px-2 py-1"><i class="fa-solid fa-receipt"></i> Checks</a>
       </ul>
     </div>
-    <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
-      <img alt="Admin" width="50" height="50" class="d-inline-block align-text-top admin-image">
-      <span class="admin-name"></span>
-    </a>
+    <div class="user-info fw-bold d-flex align-items-center py-1">
+      <img src="../images/logo.png" alt="Logo" width="50" height="50" class="d-inline-block align-text-top admin-image">
+      <p class="admin-name reset"></p>
+      <div class="log-out p-2 text-center">
+        <button class="btn btn-danger" id="log-out">Log Out</button>
+      </div>
+    </div>
   </nav>
   <div class="container mt-5">
     <div id="wrapper" class="user-orders">

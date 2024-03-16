@@ -1,5 +1,4 @@
-import {userData} from './LoggedUser.js';
-import * as utility from './utilities.js';
+import * as data from './LoggedUser.js';
 
 const startpage = async function () {
   try {
