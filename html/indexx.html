@@ -13,21 +13,33 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
   <style>
     @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
-      /* *{
+      *{
         font-family: 'Playfair Display', serif;
-      } */
-      #warning{
+      } 
+       #warning{
         font-size: large; color: red; display: none;
       }
       #sing{
-        font-weight: bold; font-size: large; color:#d21e1e;margin: 10px;
+        font-weight: bold;
+        font-size: large;
+        color:#d21e1e;
+        margin: 10px;
+        font-weight: bold;
+
       }
       .user-info {
         p {
           font-size: 22px;
         }
       }
+      form{
+        background-color: #f5f0eccc;
+        border-radius: 20px;
+        font-weight: bold;
+        padding: 10px;
+      } 
   </style>
+
 </head>
 <body>
   <div class="ramadan">
@@ -63,49 +75,45 @@
         <p class="reset">Cafeteria</p>
       </div>
     </nav>
-    <!-- <p id="warning"   class="text-center m-3">You have entered incorrect information. Please verify your email and password and check your position correctly</p> -->
     <main class="row align-items-center justify-content-center mt-5">
-      <form class="px-2 col-4 needs-validation text-center" @submit.prevent="handleFormSubmission" id="loginForm" novalidate  >
+        <form class="px-2 col-4 needs-validation text-center" @submit.prevent="handleFormSubmission" id="loginForm" novalidate  >
         <div class="col-md-12">
           <label for="useremail" class="form-label">Email</label>
-          <input type="email" class="form-control"   pattern="[^@\s]+@[^@\s]+\.[^@\s]+" placeholder="Enter Your Email" v-model="email"
-            required>
-          <div class="invalid-feedback">
-            Please enter a valid email!.
-          </div>
+          <input type="email" class="form-control"   pattern="[^@\s]+@[^@\s]+\.[^@\s]+" placeholder="Enter Your Email" v-model="email" required>
+          <div class="invalid-feedback">Please enter a valid email!.</div>
         </div>
+
         <div class="col-md-12">
           <label for="password" class="form-label">password</label>
-          <input type="password"  class="form-control"placeholder="enter password" v-model="password"
-            required>
-          <div class="invalid-feedback">
-            Please enter your password !.
-          </div>
+          <input type="password"  class="form-control"placeholder="Enter password" v-model="password" required>
+          <div class="invalid-feedback">Please enter your password !.</div>
         </div><br>
-        <div class="row justify-content-center align-items-center  m-2 ">     
-            <label id="sing" >Sign In As</label>  
-        <div class="form-check">
-          <input type="radio" name="position" v-model="position" value="admin" class="form-check-input" id="validationFormCheck2" required>
-          <label class="form-check-label" for="validationFormCheck2">Admin</label>
-        </div>
-        <div class="form-check ">
-          <input type="radio" name="position" v-model="position" class="form-check-input" id="validationFormCheck3" value="user" required>
-          <label class="form-check-label" for="validationFormCheck3">User</label><br>
-          <div class="invalid-feedback">please check your account position </div>
-        </div></div>
-        <button type="submit" class="btn btn-primary">Log In</button>
-      </form>
-      <p id="warning"   class="text-center m-3">You have entered incorrect information. Please verify your email and password and check your position correctly</p>
 
-      <!-- <figure class="offset-2 col-6">
+        <div class="row justify-content-center align-items-center  m-2 ">     
+            <!-- <label id="sing" >Sign In As</label>   -->
+          <div class="form-check">
+            <input type="radio" name="position" v-model="position" value="admin" class="form-check-input" id="validationFormCheck2" required>
+            <label class="form-check-label" for="validationFormCheck2">Admin</label>
+          </div>
+
+          <div class="form-check ">
+            <input type="radio" name="position" v-model="position" class="form-check-input" id="validationFormCheck3" value="user" required>
+            <label class="form-check-label" for="validationFormCheck3">User</label><br>
+            <div class="invalid-feedback">please check your account position </div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary login">Log In</button>
+      </form>
+      <p id="warning"   class="text-center m-3 "> Incorrect information. Please verify your email and password </p>
+      <!-- <figure class="offset-2 col-4">
         <img src="../images/landing-bg.png" alt="Coffee Cup">
       </figure> -->
     </main>
   </div>
-  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-   
 
-   <script src="../script/login.js"></script>  
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="../script/login.js"></script>  
 
 </body>
 </html>
