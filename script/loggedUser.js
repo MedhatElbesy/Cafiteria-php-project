@@ -22,7 +22,7 @@ export let setUserInfo = function() {
   }
 } ();
 
-document.getElementById("log-out").addEventListener("click", () => {
+document.getElementById("log-out").addEventListener("click", function() {
   goToLoginPage();
 });
 
