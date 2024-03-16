@@ -605,6 +605,36 @@ nav {
   }
 }
 
+.order-canceled {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background-color: #9e9fa18c;
+  .cancel-order {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40%;
+    background-color: #eee;
+    border-radius: 25px;
+    img {
+      width: 80px;
+      height: 80%;
+    }
+    p {
+      color: var(--mainColor);
+      font-size: 22px;
+    }
+    #no {
+      margin-right: 25px;
+    }
+  }
+}
+
 .ramadan {
   figure {
     top: 0px;

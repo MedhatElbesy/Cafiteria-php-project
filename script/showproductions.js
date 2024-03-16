@@ -24,7 +24,7 @@ const productCard = function (json) {
     }
 
     sectionTag.innerHTML += `
-        <div class="myorder_card card bg-white bg-opacity-10 mt-3 me-2 py-3 shadow-sm">
+        <div class="myorder_card card bg-white bg-opacity-50 mt-3 me-2 py-3 shadow-sm">
         <a href="#" title="edit" class="edit_order btn btn-warning edit-btn" category="${production.category_id}" data-id="${production.id}" data-bs-toggle="modal"
           data-bs-target="#updateModal"><i class="fa-solid fa-pen-to-square"></i></a>
         <a href="#" title="availability" class="available_order btn ${classn}" onclick="changeStatus(${production.id},'${production.available}')" data-id="${production.id}" ><i class="fa-solid ${classb}"></i></a>

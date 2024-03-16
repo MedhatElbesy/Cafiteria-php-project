@@ -97,21 +97,12 @@
           <!-- Order Details -->
           <div class="order-details row align-items-center justify-content-evenly m-auto w-75 mt-2 p-5 d-none"></div>
           <!-- Confirm Cancel Order -->
-          <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  ...
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Understood</button>
-                </div>
-              </div>
+          <div class="order-canceled d-none">
+            <div class="cancel-order center flex-wrap text-center p-3">
+              <img src="../images/cancel.png" alt="Cancel Order">
+              <p class="m-0 fw-bold w-100 my-3">Are You Really Want To Cancel Order?</p>
+              <button class="btn btn-secondary w-25" id="no">No</button>
+              <button class="btn btn-danger w-25" id="cancel">Cancel</button>
             </div>
           </div>
         </section>

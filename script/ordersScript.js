@@ -1,5 +1,5 @@
 import {setUserInfo} from './LoggedUser.js';
-import {loading} from './utilities.js';
+import * as utility from './utilities.js';
 
 let ordersTable = document.getElementById("orders");
 let orderDetailsContainer = document.querySelector(".order-details");
@@ -9,10 +9,10 @@ let dateTo = document.getElementById("date-to");
 
 const getOrders = async function() {
   try {
-    loading();
+    utility.loading();
     const response = await fetch(`../api/myorders.php?date_from=${dateFrom.value}&date_to=${dateTo.value}`);
     const myOrders = await response.json();
-    loading();
+    utility.loading();
     return myOrders;
   } catch(error) {
     console.error('Error Fetching Orders:', error);
@@ -24,11 +24,15 @@ const getOrderDetails = async function(orderId) {
   try {
     utility.loading();
     const response = await fetch(`../api/orderdetails.php?id=${orderId}`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch order details');
+    }
     const orderDetails = await response.json();
     utility.loading();
     return orderDetails;
   } catch(error) {
     console.error('Error Fetching Order Details:', error);
+    window.location.reload();
   }
 };
 
@@ -85,13 +89,13 @@ let showOrders = function(myOrders) {
     // Add Event Click To Show Order Details
     if(currentOrder.querySelector(".show-order")) {
       currentOrder.querySelector(".show-order").addEventListener("click", (e)=> {
-        showOrderButton(e, order.id);
+        orderDetailsButton(e, order.id);
       });
     }
   });
 };
 
-let showOrderButton = function(e, orderId) {
+let orderDetailsButton = function(e, orderId) {
   if(e.target.innerText == "+") {
     getOrderDetails(orderId)
     .then((orderDetails) => {
@@ -145,19 +149,27 @@ let showOrderDetails = function(order) {
 };
 
 // Cancel Order
-ordersTable.addEventListener("click", function(e){
+ordersTable.addEventListener("click", function(e) {
   let order = e.target.closest("tr");
   if(e.target.classList.contains("cancel-order")) {
-    cancelOrder(order);
+    let canceled = document.querySelector(".order-canceled");
+    canceled.classList.remove("d-none");
+    canceled.querySelector("#cancel").addEventListener("click", function() {
+      cancelOrder(order);
+      canceled.classList.add("d-none");
+    });
+    canceled.querySelector("#no").addEventListener("click", function() {
+      canceled.classList.add("d-none");
+    });
   }
 });
 
 let cancelOrder = async function (order) {
   try {
-    loading();
+    utility.loading();
     const response = await fetch(`../api/cancelorder.php?id=${order.dataset.orderId}`);
     const responseData = await response.json();
-    loading();
+    utility.loading();
     if(responseData.message != 0) {
       // Check If Order Details are Opened
       if(order.querySelector(".show-order").innerText == "-") {
@@ -172,7 +184,7 @@ let cancelOrder = async function (order) {
     }
   } catch (error) {
     console.error('Error Canceling Order:', error);
-    window.location.href = 'error.html';
+    // window.location.href = 'error.html';
   }
 };
 

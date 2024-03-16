@@ -1,6 +1,6 @@
 <?php
-    include("db.php");
-    if(isset($_SESSION["position"]) && $_SESSION["position"]=="user"){
+    // if(isset($_SESSION["position"]) && $_SESSION["position"]=="user"){
+        include("db.php");
 
         $order_id = $_GET['id'];
 
@@ -15,4 +15,4 @@
         ");
         $orderDetails = $data->fetchAll(PDO::FETCH_ASSOC);
         echo json_encode($orderDetails);
-    }
+    // }

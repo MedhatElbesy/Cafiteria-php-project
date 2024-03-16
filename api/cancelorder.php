@@ -1,4 +1,6 @@
 <?php
+session_start();
+// if(isset($_SESSION["position"]) && $_SESSION["position"]=="admin"){
 include("db.php");
 
 $mydb = new DB();
@@ -14,4 +16,5 @@ try{
   'message' => $e->getMessage() ];
 }
 echo json_encode($response);
+// }
 ?>

@@ -1,13 +1,10 @@
 import * as utility from './utilities.js';
 
 export let userData = null;
-
 export let setUserInfo = function() {
   userData = JSON.parse(sessionStorage.getItem('userData'));
-
   try {
     if(userData["id"] && userData["position"] );
-  
   } catch(e){
     window.location.href =
     "../html/indexx.html";
